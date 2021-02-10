@@ -1766,7 +1766,7 @@
 											"top": 860,
 											"width": 175.21435546875,
 											"height": 13,
-											"text": "+OraInizio (1): timestamp",
+											"text": "+OraInizio (1): time",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1783,7 +1783,7 @@
 											"top": 875,
 											"width": 175.21435546875,
 											"height": 13,
-											"text": "+OraFine (1): timestamp",
+											"text": "+OraFine (1): time",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5755,7 +5755,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VKkhlYi5Yw8="
 							},
-							"name": "OraInizio (1): timestamp",
+							"name": "OraInizio (1): time",
 							"type": ""
 						},
 						{
@@ -5764,7 +5764,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VKkhlYi5Yw8="
 							},
-							"name": "OraFine (1): timestamp",
+							"name": "OraFine (1): time",
 							"type": ""
 						},
 						{
