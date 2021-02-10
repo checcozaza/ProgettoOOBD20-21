@@ -222,7 +222,7 @@
 											"top": 571,
 											"width": 201.2333984375,
 											"height": 13,
-											"text": "+Budget (1): double",
+											"text": "+Budget (1): decimal",
 											"horizontalAlignment": 0
 										},
 										{
@@ -519,7 +519,7 @@
 											"top": 881,
 											"width": 288.20263671875,
 											"height": 13,
-											"text": "+SalarioMedio (1): double",
+											"text": "+SalarioMedio (1): decimal",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5314,7 +5314,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VGvEl4VFscE="
 							},
-							"name": "Budget (1): double",
+							"name": "Budget (1): decimal",
 							"type": ""
 						},
 						{
@@ -5483,7 +5483,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VHI1mIV9nCc="
 							},
-							"name": "SalarioMedio (1): double",
+							"name": "SalarioMedio (1): decimal",
 							"type": ""
 						},
 						{
