@@ -555,7 +555,7 @@
 											"top": 896,
 											"width": 288.20263671875,
 											"height": 13,
-											"text": "+ProgettiRealizzati(0, *): enum_tipologia",
+											"text": "+ProgettiRealizzati(1, *): enum_tipologia",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2863,6 +2863,7 @@
 											"model": {
 												"$ref": "AAAAAAF3XmTLp0CRPf4="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 581,
 											"top": 299,
@@ -2876,7 +2877,7 @@
 									"left": 576,
 									"top": 249,
 									"width": 262.509765625,
-									"height": 68
+									"height": 53
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -2889,7 +2890,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 576,
-									"top": 317,
+									"top": 302,
 									"width": 262.509765625,
 									"height": 10
 								},
@@ -5121,7 +5122,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VHI1mIV9nCc="
 							},
-							"name": "ProgettiRealizzati(0, *)",
+							"name": "ProgettiRealizzati(1, *)",
 							"type": {
 								"$ref": "AAAAAAF3VIRbKoXs8y8="
 							}
