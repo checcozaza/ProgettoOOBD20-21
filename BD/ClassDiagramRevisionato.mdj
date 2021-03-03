@@ -5908,7 +5908,7 @@
 											"top": 1367,
 											"width": 171.15185546875,
 											"height": 13,
-											"text": "Prog Realizzato"
+											"text": "ProgRealizzato"
 										},
 										{
 											"_type": "LabelView",
@@ -5968,6 +5968,23 @@
 									"subViews": [
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3+KmRxlr5oIw=",
+											"_parent": {
+												"$ref": "AAAAAAF3sQaGLcOdQ5I="
+											},
+											"model": {
+												"$ref": "AAAAAAF3+KmQlFrb7TY="
+											},
+											"font": "Arial;13;0",
+											"left": 1037,
+											"top": 1390,
+											"width": 171.15185546875,
+											"height": 13,
+											"text": "+CodProg(1): integer",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF3sQhJ/d6SbKc=",
 											"_parent": {
 												"$ref": "AAAAAAF3sQaGLcOdQ5I="
@@ -5977,7 +5994,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 1037,
-											"top": 1390,
+											"top": 1405,
 											"width": 171.15185546875,
 											"height": 13,
 											"text": "+Tipologia(1): enum_tipologia",
@@ -5988,7 +6005,7 @@
 									"left": 1032,
 									"top": 1385,
 									"width": 181.15185546875,
-									"height": 23
+									"height": 38
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -6001,7 +6018,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1032,
-									"top": 1408,
+									"top": 1423,
 									"width": 181.15185546875,
 									"height": 10
 								},
@@ -8484,8 +8501,17 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Prog Realizzato",
+					"name": "ProgRealizzato",
 					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3+KmQlFrb7TY=",
+							"_parent": {
+								"$ref": "AAAAAAF3sQaGK8OVwtk="
+							},
+							"name": "CodProg(1)",
+							"type": "integer"
+						},
 						{
 							"_type": "UMLAttribute",
 							"_id": "AAAAAAF3sQhJ3950XWc=",
