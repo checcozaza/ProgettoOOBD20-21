@@ -1649,7 +1649,7 @@
 											"font": "Arial;13;1",
 											"left": 77,
 											"top": 815,
-											"width": 175.21435546875,
+											"width": 178.09619140625,
 											"height": 13,
 											"text": "Meeting"
 										},
@@ -1684,7 +1684,7 @@
 									"font": "Arial;13;0",
 									"left": 72,
 									"top": 808,
-									"width": 185.21435546875,
+									"width": 188.09619140625,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF3VKkhl4i9uk8="
@@ -1739,7 +1739,7 @@
 											"font": "Arial;13;0",
 											"left": 77,
 											"top": 840,
-											"width": 175.21435546875,
+											"width": 178.09619140625,
 											"height": 13,
 											"text": "+DataRiunione (1): date",
 											"horizontalAlignment": 0
@@ -1756,7 +1756,7 @@
 											"font": "Arial;13;0",
 											"left": 77,
 											"top": 855,
-											"width": 175.21435546875,
+											"width": 178.09619140625,
 											"height": 13,
 											"text": "+OraInizio (1): time",
 											"horizontalAlignment": 0
@@ -1773,7 +1773,7 @@
 											"font": "Arial;13;0",
 											"left": 77,
 											"top": 870,
-											"width": 175.21435546875,
+											"width": 178.09619140625,
 											"height": 13,
 											"text": "+OraFine (1): time",
 											"horizontalAlignment": 0
@@ -1795,13 +1795,47 @@
 											"height": 13,
 											"text": "+NumeroPartecipanti (1): int",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF4Ag3EZ4d+Drg=",
+											"_parent": {
+												"$ref": "AAAAAAF3VKkhmIjBEvY="
+											},
+											"model": {
+												"$ref": "AAAAAAF4Ag3D64d4M4Y="
+											},
+											"font": "Arial;13;0",
+											"left": 77,
+											"top": 885,
+											"width": 178.09619140625,
+											"height": 13,
+											"text": "+Luogo(0..1): varchar(10)",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF4Ag6Geoh2WUA=",
+											"_parent": {
+												"$ref": "AAAAAAF3VKkhmIjBEvY="
+											},
+											"model": {
+												"$ref": "AAAAAAF4Ag6GRYhw+6k="
+											},
+											"font": "Arial;13;0",
+											"left": 77,
+											"top": 900,
+											"width": 178.09619140625,
+											"height": 13,
+											"text": "+Piattaforma(0..1): varchar(10)",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 72,
 									"top": 833,
-									"width": 185.21435546875,
-									"height": 55
+									"width": 188.09619140625,
+									"height": 85
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -1814,8 +1848,8 @@
 									},
 									"font": "Arial;13;0",
 									"left": 72,
-									"top": 888,
-									"width": 185.21435546875,
+									"top": 918,
+									"width": 188.09619140625,
 									"height": 10
 								},
 								{
@@ -1855,8 +1889,8 @@
 							"containerChangeable": true,
 							"left": 72,
 							"top": 808,
-							"width": 185.21435546875,
-							"height": 118,
+							"width": 188.09619140625,
+							"height": 120,
 							"nameCompartment": {
 								"$ref": "AAAAAAF3VKkhl4i8tc4="
 							},
@@ -1894,7 +1928,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 408,
+									"left": 409,
 									"top": 873,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -1915,7 +1949,7 @@
 									},
 									"visible": null,
 									"font": "Arial;13;0",
-									"left": 408,
+									"left": 409,
 									"top": 888,
 									"height": 13,
 									"alpha": 1.5707963267948966,
@@ -1936,7 +1970,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 407,
+									"left": 408,
 									"top": 844,
 									"height": 13,
 									"alpha": -1.5707963267948966,
@@ -2021,7 +2055,7 @@
 										"$ref": "AAAAAAF3VLEA+YtCin8="
 									},
 									"font": "Arial;13;0",
-									"left": 264,
+									"left": 267,
 									"top": 871,
 									"width": 73.353515625,
 									"height": 13,
@@ -2043,7 +2077,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 285,
+									"left": 288,
 									"top": 888,
 									"height": 13,
 									"alpha": -0.7853981633974483,
@@ -2062,7 +2096,7 @@
 										"$ref": "AAAAAAF3VLEA+YtCin8="
 									},
 									"font": "Arial;13;0",
-									"left": 269,
+									"left": 272,
 									"top": 847,
 									"width": 19.5126953125,
 									"height": 13,
@@ -2114,7 +2148,7 @@
 								"$ref": "AAAAAAF3VHI1mIV/QXY="
 							},
 							"lineStyle": 1,
-							"points": "559:865;257:866",
+							"points": "559:865;260:866",
 							"showVisibility": true,
 							"nameLabel": {
 								"$ref": "AAAAAAF3VLEA+otF+R0="
@@ -3880,7 +3914,7 @@
 											"top": 927,
 											"width": 181.7080078125,
 											"height": 13,
-											"text": "Conference Call"
+											"text": "CompMeeting"
 										},
 										{
 											"_type": "LabelView",
@@ -3947,6 +3981,7 @@
 											"model": {
 												"$ref": "AAAAAAF3sIS37ByvgK8="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 317,
 											"top": 950,
@@ -3964,6 +3999,7 @@
 											"model": {
 												"$ref": "AAAAAAF3sIVriB17o8I="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 317,
 											"top": 965,
@@ -3981,9 +4017,10 @@
 											"model": {
 												"$ref": "AAAAAAF3sLsJ3m6z2E4="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 317,
-											"top": 980,
+											"top": 952,
 											"width": 181.7080078125,
 											"height": 13,
 											"text": "+Piattaforma(0.. 1): varchar(10)",
@@ -3994,7 +4031,7 @@
 									"left": 312,
 									"top": 945,
 									"width": 191.7080078125,
-									"height": 53
+									"height": 10
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -4007,7 +4044,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 312,
-									"top": 998,
+									"top": 955,
 									"width": 191.7080078125,
 									"height": 10
 								},
@@ -4083,7 +4120,7 @@
 								"$ref": "AAAAAAF3sH9ROQzUzGY="
 							},
 							"lineStyle": 1,
-							"points": "408:919;408:865"
+							"points": "408:919;409:865"
 						},
 						{
 							"_type": "UMLClassView",
@@ -5348,6 +5385,24 @@
 							},
 							"name": "NumeroPartecipanti (1): int",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF4Ag3D64d4M4Y=",
+							"_parent": {
+								"$ref": "AAAAAAF3VKkhlYi5Yw8="
+							},
+							"name": "Luogo(0..1)",
+							"type": "varchar(10)"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF4Ag6GRYhw+6k=",
+							"_parent": {
+								"$ref": "AAAAAAF3VKkhlYi5Yw8="
+							},
+							"name": "Piattaforma(0..1)",
+							"type": "varchar(10)"
 						}
 					]
 				},
@@ -5820,7 +5875,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "Conference Call",
+					"name": "CompMeeting",
 					"ownedElements": [
 						{
 							"_type": "UMLAssociationClassLink",
