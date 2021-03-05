@@ -2682,17 +2682,17 @@
 										"$ref": "AAAAAAF3Xk9K8S4McGI="
 									},
 									"font": "Arial;13;0",
-									"left": 1128,
+									"left": 1126,
 									"top": 471,
-									"width": 59.6298828125,
+									"width": 86.35986328125,
 									"height": 13,
-									"alpha": 1.1039155076182803,
-									"distance": 39.35733730830886,
+									"alpha": 1.2385442745986077,
+									"distance": 50.92150822589606,
 									"hostEdge": {
 										"$ref": "AAAAAAF3Xk9K9S4PxdM="
 									},
 									"edgePosition": 2,
-									"text": "+Realizza"
+									"text": "+Realizzato da"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6592,9 +6592,9 @@
 										"$ref": "AAAAAAF3sQ1JzB+uF2E="
 									},
 									"font": "Arial;13;0",
-									"left": 1127,
+									"left": 1125,
 									"top": 1300,
-									"width": 118.88525390625,
+									"width": 123.22705078125,
 									"height": 13,
 									"alpha": 1.5864198606668711,
 									"distance": 64.00781202322104,
@@ -6602,7 +6602,7 @@
 										"$ref": "AAAAAAF3sQ1JzB+yFCI="
 									},
 									"edgePosition": 1,
-									"text": "+ProgettoPrecedenti"
+									"text": "+ProgettoPrecedente"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -7845,7 +7845,7 @@
 								"_parent": {
 									"$ref": "AAAAAAF3Xk9K8C4LkcU="
 								},
-								"name": "Realizza",
+								"name": "Realizzato da",
 								"reference": {
 									"$ref": "AAAAAAF3XjvyXxva4BA="
 								},
@@ -8637,7 +8637,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sQwgVfNDbqw="
 							},
-							"name": "ProgettoPrecedenti",
+							"name": "ProgettoPrecedente",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sQ1JzB+viPo=",
