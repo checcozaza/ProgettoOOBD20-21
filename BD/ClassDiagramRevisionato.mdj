@@ -1436,19 +1436,18 @@
 									"model": {
 										"$ref": "AAAAAAF3VJzW64ccsFY="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1128,
-									"top": 746,
-									"width": 73.353515625,
+									"left": 1126,
+									"top": 783,
+									"width": 88.5244140625,
 									"height": 13,
-									"alpha": 5.440822386712867,
-									"distance": 57.0087712549569,
+									"alpha": -1.5707961898085951,
+									"distance": 49,
 									"hostEdge": {
 										"$ref": "AAAAAAF3VJzW7Ycg7vE="
 									},
 									"edgePosition": 1,
-									"text": "+Partecipa a"
+									"text": "+Realizzazione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2618,17 +2617,18 @@
 									"model": {
 										"$ref": "AAAAAAF3Xk9K8C4LkcU="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1135,
+									"left": 1136,
 									"top": 514,
+									"width": 59.62353515625,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 1.5935195211835937,
+									"distance": 44.01136216933077,
 									"hostEdge": {
 										"$ref": "AAAAAAF3Xk9K9S4PxdM="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Gestione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -2907,17 +2907,18 @@
 									"model": {
 										"$ref": "AAAAAAF3XlMT4TOYUF0="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1799,
-									"top": 661,
+									"left": 1791,
+									"top": 759,
+									"width": 76.97802734375,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 0.43046482189511526,
+									"distance": 107.83784122468327,
 									"hostEdge": {
 										"$ref": "AAAAAAF3XlMT5TOczMo="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Dipendenza"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -3905,17 +3906,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sOSiRA3KjRI="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 863,
-									"top": 646,
+									"left": 784,
+									"top": 672,
+									"width": 129.6953125,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -2.6054336146754684,
+									"distance": 19.4164878389476,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOSiRQ3O5Ac="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+SocietàCommissione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4182,17 +4184,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sOUG+RAcZf0="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 863,
+									"left": 800,
 									"top": 583,
+									"width": 126.79443359375,
 									"height": 13,
 									"alpha": 1.5707963267948966,
 									"distance": 15,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOUG+RAgOOM="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+PrivatoCommissione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4459,17 +4462,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sPJ12jcvlw0="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 487,
-									"top": 933,
+									"left": 443,
+									"top": 959,
+									"width": 89.96533203125,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -1.5707954934615633,
+									"distance": 12,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sPJ12zczUnI="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Composizione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4732,17 +4736,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sPKASDe92ng="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 877,
-									"top": 932,
+									"left": 829,
+									"top": 959,
+									"width": 97.1953125,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -1.5707955575641275,
+									"distance": 13,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sPKASDfBkKM="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+ConferenceCall"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5376,17 +5381,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sQLY+bCrloU="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1297,
-									"top": 629,
+									"left": 1262,
+									"top": 671,
+									"width": 71.1826171875,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -1.5565112291050425,
+									"distance": 28,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQLY+rCvmcc="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Argomento"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5649,17 +5655,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sQLm7LGfwc4="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1548,
-									"top": 630,
+									"left": 1487,
+									"top": 672,
+									"width": 108.748046875,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -1.8111375343731222,
+									"distance": 27.892651361962706,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQLm7LGjXfQ="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Caratterizzazione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5782,7 +5789,7 @@
 									"top": 656,
 									"width": 81.2880859375,
 									"height": 13,
-									"alpha": 0.21757623112032132,
+									"alpha": 0.21630645753130606,
 									"distance": 48.05205510693585,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQLm7LGjXfQ="
@@ -6310,17 +6317,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sQ0afhzG/DY="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1137,
-									"top": 1085,
+									"left": 1127,
+									"top": 1096,
+									"width": 93.58984375,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 1.3771741748838378,
+									"distance": 51.97114584074513,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ0agBzKi0w="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Partecipazione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6439,12 +6447,12 @@
 										"$ref": "AAAAAAF3sQ0afhzI9Mw="
 									},
 									"font": "Arial;13;0",
-									"left": 1127,
-									"top": 1112,
+									"left": 1126,
+									"top": 1127,
 									"width": 68.2880859375,
 									"height": 13,
-									"alpha": -0.9789905638981239,
-									"distance": 45.48626166217664,
+									"alpha": -1.3283386784181819,
+									"distance": 39.05124837953327,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ0agBzKi0w="
 									},
@@ -6481,11 +6489,11 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1107,
-									"top": 1115,
+									"top": 1127,
 									"width": 7.22998046875,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 25,
+									"alpha": -5.308033238401663,
+									"distance": 15.811388300841896,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ0agBzKi0w="
 									},
@@ -6583,17 +6591,18 @@
 									"model": {
 										"$ref": "AAAAAAF3sQ1JzB+uF2E="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 1136,
+									"left": 1127,
 									"top": 1300,
+									"width": 118.88525390625,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 1.5864198606668711,
+									"distance": 64.00781202322104,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ1JzB+yFCI="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+ProgettoPrecedenti"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6712,12 +6721,12 @@
 										"$ref": "AAAAAAF3sQ1JzB+wcgE="
 									},
 									"font": "Arial;13;0",
-									"left": 1127,
-									"top": 1328,
+									"left": 1126,
+									"top": 1335,
 									"width": 84.91259765625,
 									"height": 13,
-									"alpha": -1.0722355307693352,
-									"distance": 53.23532661682466,
+									"alpha": -1.2140262613975001,
+									"distance": 49.9799959983992,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ1JzB+yFCI="
 									},
@@ -6753,12 +6762,12 @@
 										"$ref": "AAAAAAF3sQ1JzB+wcgE="
 									},
 									"font": "Arial;13;0",
-									"left": 1106,
-									"top": 1331,
+									"left": 1104,
+									"top": 1335,
 									"width": 7.22998046875,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 25,
+									"alpha": -5.550497754605154,
+									"distance": 22.67156809750927,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ1JzB+yFCI="
 									},
@@ -6775,6 +6784,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
+									"left": -40,
 									"width": 10,
 									"height": 10
 								},
@@ -6789,6 +6799,7 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
+									"left": -40,
 									"width": 10,
 									"height": 10
 								}
@@ -6964,6 +6975,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VGvEl4VFscE="
 							},
+							"name": "Argomento",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sQLY+bCslYg=",
@@ -7105,6 +7117,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VHI1mIV9nCc="
 							},
+							"name": "Realizzazione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3VJzW64cdCnc=",
@@ -7250,6 +7263,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VHI1mIV9nCc="
 							},
+							"name": "Partecipazione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sQ0afhzHjaU=",
@@ -7632,6 +7646,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VKkhlYi5Yw8="
 							},
+							"name": "Composizione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sPJ12jcw3kc=",
@@ -7823,6 +7838,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3XjvyXxva4BA="
 							},
+							"name": "Gestione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3Xk9K8S4McGI=",
@@ -7854,6 +7870,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3XjvyXxva4BA="
 							},
+							"name": "Dipendenza",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3XlMT4jOZ2Y8=",
@@ -8223,6 +8240,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sH9ROAzSLGw="
 							},
+							"name": "ConferenceCall",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sPKASDe+H0Q=",
@@ -8359,6 +8377,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sLIUSzSetmk="
 							},
+							"name": "PrivatoCommissione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sOUG+RAdogk=",
@@ -8442,6 +8461,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sLN7S0NqoLc="
 							},
+							"name": "SocietàCommissione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sOSiRA3LDaI=",
@@ -8524,6 +8544,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sP/6/pgibLQ="
 							},
+							"name": "Caratterizzazione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sQLm7LGgjUg=",
@@ -8616,6 +8637,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF3sQwgVfNDbqw="
 							},
+							"name": "ProgettoPrecedenti",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF3sQ1JzB+viPo=",
