@@ -278,13 +278,30 @@
 											"height": 13,
 											"text": "+Budget (1): decimal",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF4F81y3skKS4w=",
+											"_parent": {
+												"$ref": "AAAAAAF3VGvEoIVNbQo="
+											},
+											"model": {
+												"$ref": "AAAAAAF4F81yackHPwI="
+											},
+											"font": "Arial;13;0",
+											"left": 1005,
+											"top": 674,
+											"width": 235.92333984375,
+											"height": 13,
+											"text": "+Terminato (1): boolean",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 1000,
 									"top": 609,
 									"width": 245.92333984375,
-									"height": 68
+									"height": 83
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -297,7 +314,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1000,
-									"top": 677,
+									"top": 692,
 									"width": 245.92333984375,
 									"height": 10
 								},
@@ -7089,6 +7106,15 @@
 							},
 							"name": "Budget (1)",
 							"type": "decimal"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF4F81yackHPwI=",
+							"_parent": {
+								"$ref": "AAAAAAF3VGvEl4VFscE="
+							},
+							"name": "Terminato (1)",
+							"type": "boolean"
 						}
 					]
 				},
