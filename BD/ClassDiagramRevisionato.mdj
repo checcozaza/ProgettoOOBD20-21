@@ -3988,12 +3988,12 @@
 										"$ref": "AAAAAAF3sOSiRA3LDaI="
 									},
 									"font": "Arial;13;0",
-									"left": 711,
-									"top": 744,
+									"left": 720,
+									"top": 735,
 									"width": 115.248046875,
 									"height": 13,
-									"alpha": -0.4538095080384694,
-									"distance": 57.723478758647246,
+									"alpha": -0.30026801612490384,
+									"distance": 64.28063471995279,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOSiRQ3O5Ac="
 									},
@@ -4053,12 +4053,12 @@
 										"$ref": "AAAAAAF3sOSiRA3MT4M="
 									},
 									"font": "Arial;13;0",
-									"left": 909,
-									"top": 699,
+									"left": 908,
+									"top": 704,
 									"width": 86.33447265625,
 									"height": 13,
-									"alpha": 0.3690711360720824,
-									"distance": 54.91812087098393,
+									"alpha": 0.4095057721226749,
+									"distance": 58.82176467941097,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOSiRQ3O5Ac="
 									},
@@ -4095,11 +4095,11 @@
 									},
 									"font": "Arial;13;0",
 									"left": 976,
-									"top": 659,
+									"top": 688,
 									"width": 19.5126953125,
 									"height": 13,
-									"alpha": -0.8290807241804936,
-									"distance": 17.204650534085253,
+									"alpha": 0.7029622405588434,
+									"distance": 22.80350850198276,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOSiRQ3O5Ac="
 									},
@@ -4373,11 +4373,11 @@
 									},
 									"font": "Arial;13;0",
 									"left": 976,
-									"top": 628,
+									"top": 599,
 									"width": 19.5126953125,
 									"height": 13,
-									"alpha": 0.8813272906039211,
-									"distance": 17.804493814764857,
+									"alpha": -0.6680847481175594,
+									"distance": 22.02271554554524,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sOUG+RAgOOM="
 									},
@@ -6505,16 +6505,16 @@
 										"$ref": "AAAAAAF3sQ0afhzI9Mw="
 									},
 									"font": "Arial;13;0",
-									"left": 1107,
+									"left": 1101,
 									"top": 1127,
-									"width": 7.22998046875,
+									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -5.308033238401663,
 									"distance": 15.811388300841896,
 									"hostEdge": {
 										"$ref": "AAAAAAF3sQ0agBzKi0w="
 									},
-									"text": "*"
+									"text": "0..*"
 								},
 								{
 									"_type": "UMLQualifierCompartmentView",
@@ -6886,17 +6886,18 @@
 									"model": {
 										"$ref": "AAAAAAF4J3KMhEklKLQ="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 296,
+									"left": 295,
 									"top": 627,
+									"width": 58.90625,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": 0.4946539698242076,
+									"distance": 31.76476034853718,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J3KMhUkp14w="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Riunione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6949,17 +6950,18 @@
 									"model": {
 										"$ref": "AAAAAAF4J3KMhEkmFPM="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 280,
-									"top": 854,
+									"left": 303,
+									"top": 872,
+									"width": 76.97802734375,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 30,
+									"alpha": -1.3734007660696879,
+									"distance": 46.87216658103186,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J3KMhUkp14w="
 									},
-									"edgePosition": 2
+									"edgePosition": 2,
+									"text": "+É oggetto di"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -6992,17 +6994,17 @@
 										"$ref": "AAAAAAF4J3KMhEkmFPM="
 									},
 									"font": "Arial;13;0",
-									"left": 304,
-									"top": 859,
-									"width": 6.5,
+									"left": 272,
+									"top": 871,
+									"width": 19.5126953125,
 									"height": 13,
-									"alpha": -0.5235987755982988,
-									"distance": 25,
+									"alpha": -5.279542667285882,
+									"distance": 16.64331697709324,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J3KMhUkp14w="
 									},
 									"edgePosition": 2,
-									"text": "*"
+									"text": "1..*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -7013,18 +7015,17 @@
 									"model": {
 										"$ref": "AAAAAAF4J3KMhEkn+CY="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 863,
+									"left": 911,
 									"top": 656,
 									"width": 62.51171875,
 									"height": 13,
-									"alpha": 0.11663696046617877,
-									"distance": 105.68348972285122,
+									"alpha": 0.2103412043805868,
+									"distance": 58.249463516842795,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J3KMhUkp14w="
 									},
-									"text": "+Partecipa"
+									"text": "+Riguarda"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -7056,12 +7057,12 @@
 										"$ref": "AAAAAAF4J3KMhEkn+CY="
 									},
 									"font": "Arial;13;0",
-									"left": 896,
-									"top": 630,
+									"left": 976,
+									"top": 656,
 									"width": 7.22998046875,
 									"height": 13,
-									"alpha": -0.1264300742536495,
-									"distance": 100.84145972763385,
+									"alpha": 0.5432646634373466,
+									"distance": 23.323807579381203,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J3KMhUkp14w="
 									},
@@ -7587,7 +7588,7 @@
 								"reference": {
 									"$ref": "AAAAAAF3sQwgVfNDbqw="
 								},
-								"multiplicity": "*"
+								"multiplicity": "0..*"
 							}
 						}
 					],
@@ -7979,16 +7980,18 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VKkhlYi5Yw8="
 							},
+							"name": "Riunione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF4J3KMhEkmFPM=",
 								"_parent": {
 									"$ref": "AAAAAAF4J3KMhEklKLQ="
 								},
+								"name": "É oggetto di",
 								"reference": {
 									"$ref": "AAAAAAF3VKkhlYi5Yw8="
 								},
-								"multiplicity": "*"
+								"multiplicity": "1..*"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -7996,6 +7999,7 @@
 								"_parent": {
 									"$ref": "AAAAAAF4J3KMhEklKLQ="
 								},
+								"name": "Riguarda",
 								"reference": {
 									"$ref": "AAAAAAF3VGvEl4VFscE="
 								},

@@ -733,8 +733,8 @@
 												"$ref": "AAAAAAF3VIRbMIXvsdk="
 											},
 											"font": "Arial;13;0",
-											"left": 997,
-											"top": 397,
+											"left": 1205,
+											"top": 37,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "«enumeration»"
@@ -746,8 +746,8 @@
 												"$ref": "AAAAAAF3VIRbMIXvsdk="
 											},
 											"font": "Arial;13;1",
-											"left": 997,
-											"top": 412,
+											"left": 1205,
+											"top": 52,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "enum_tipologia"
@@ -760,8 +760,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 961.810546875,
-											"top": 656,
+											"left": 1377.810546875,
+											"top": -64,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -774,15 +774,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 961.810546875,
-											"top": 656,
+											"left": 1377.810546875,
+											"top": -64,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 992,
-									"top": 392,
+									"left": 1200,
+									"top": 32,
 									"width": 137.9052734375,
 									"height": 38,
 									"stereotypeLabel": {
@@ -809,8 +809,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 480.9052734375,
-									"top": 328,
+									"left": 688.9052734375,
+									"top": -32,
 									"width": 107.18896484375,
 									"height": 10
 								},
@@ -825,8 +825,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 480.9052734375,
-									"top": 328,
+									"left": 688.9052734375,
+									"top": -32,
 									"width": 10,
 									"height": 10
 								},
@@ -841,8 +841,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 480.9052734375,
-									"top": 328,
+									"left": 688.9052734375,
+									"top": -32,
 									"width": 10,
 									"height": 10
 								},
@@ -857,8 +857,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 480.9052734375,
-									"top": 328,
+									"left": 688.9052734375,
+									"top": -32,
 									"width": 10,
 									"height": 10
 								},
@@ -882,8 +882,8 @@
 												"$ref": "AAAAAAF3VIZZxYYpg6I="
 											},
 											"font": "Arial;13;0",
-											"left": 997,
-											"top": 435,
+											"left": 1205,
+											"top": 75,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca di base",
@@ -899,8 +899,8 @@
 												"$ref": "AAAAAAF3VIbSRoY2KWg="
 											},
 											"font": "Arial;13;0",
-											"left": 997,
-											"top": 450,
+											"left": 1205,
+											"top": 90,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca industriale",
@@ -916,8 +916,8 @@
 												"$ref": "AAAAAAF3VIb09YY8dww="
 											},
 											"font": "Arial;13;0",
-											"left": 997,
-											"top": 465,
+											"left": 1205,
+											"top": 105,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca sperimentale",
@@ -933,8 +933,8 @@
 												"$ref": "AAAAAAF3VIfD+IZE2Bw="
 											},
 											"font": "Arial;13;0",
-											"left": 997,
-											"top": 480,
+											"left": 1205,
+											"top": 120,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Sviluppo sperimentale",
@@ -942,16 +942,16 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 992,
-									"top": 430,
+									"left": 1200,
+									"top": 70,
 									"width": 137.9052734375,
 									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 992,
-							"top": 392,
+							"left": 1200,
+							"top": 32,
 							"width": 137.9052734375,
 							"height": 106,
 							"nameCompartment": {
@@ -1003,7 +1003,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 53,
+											"top": 37,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "«enumeration»"
@@ -1016,7 +1016,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 997,
-											"top": 68,
+											"top": 52,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "enum_ambito"
@@ -1030,7 +1030,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 720,
-											"top": -384,
+											"top": -416,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -1044,14 +1044,14 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 720,
-											"top": -384,
+											"top": -416,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 992,
-									"top": 48,
+									"top": 32,
 									"width": 188.4833984375,
 									"height": 38,
 									"stereotypeLabel": {
@@ -1079,7 +1079,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 360,
-									"top": -192,
+									"top": -208,
 									"width": 10,
 									"height": 10
 								},
@@ -1095,7 +1095,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 360,
-									"top": -192,
+									"top": -208,
 									"width": 10,
 									"height": 10
 								},
@@ -1111,7 +1111,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 360,
-									"top": -192,
+									"top": -208,
 									"width": 10,
 									"height": 10
 								},
@@ -1127,7 +1127,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 360,
-									"top": -192,
+									"top": -208,
 									"width": 10,
 									"height": 10
 								},
@@ -1152,7 +1152,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 91,
+											"top": 75,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Alimentare",
@@ -1169,7 +1169,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 106,
+											"top": 90,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Automobilistica",
@@ -1186,7 +1186,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 121,
+											"top": 105,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Chimica",
@@ -1203,7 +1203,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 136,
+											"top": 120,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Economia e finanza",
@@ -1220,7 +1220,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 151,
+											"top": 135,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Elettronica",
@@ -1237,7 +1237,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 166,
+											"top": 150,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Farmaceutica",
@@ -1254,7 +1254,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 181,
+											"top": 165,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Informatica",
@@ -1271,7 +1271,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 196,
+											"top": 180,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Marketing",
@@ -1288,7 +1288,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 211,
+											"top": 195,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Medicina",
@@ -1305,7 +1305,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 226,
+											"top": 210,
 											"width": 178.4833984375,
 											"height": 13,
 											"text": "Ricerca e sviluppo",
@@ -1314,7 +1314,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 992,
-									"top": 86,
+									"top": 70,
 									"width": 188.4833984375,
 									"height": 158
 								}
@@ -1322,7 +1322,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 992,
-							"top": 48,
+							"top": 32,
 							"width": 188.4833984375,
 							"height": 196,
 							"nameCompartment": {
@@ -2229,7 +2229,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 261,
+											"top": 245,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "«enumeration»"
@@ -2242,7 +2242,7 @@
 											},
 											"font": "Arial;13;1",
 											"left": 997,
-											"top": 276,
+											"top": 260,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "enum_ruolo"
@@ -2256,7 +2256,7 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 1040,
-											"top": 288,
+											"top": 256,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -2270,14 +2270,14 @@
 											"visible": false,
 											"font": "Arial;13;0",
 											"left": 1040,
-											"top": 288,
+											"top": 256,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 992,
-									"top": 256,
+									"top": 240,
 									"width": 210.1796875,
 									"height": 38,
 									"stereotypeLabel": {
@@ -2305,7 +2305,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 144,
+									"top": 128,
 									"width": 10,
 									"height": 10
 								},
@@ -2321,7 +2321,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 144,
+									"top": 128,
 									"width": 10,
 									"height": 10
 								},
@@ -2337,7 +2337,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 144,
+									"top": 128,
 									"width": 10,
 									"height": 10
 								},
@@ -2353,7 +2353,7 @@
 									"visible": false,
 									"font": "Arial;13;0",
 									"left": 520,
-									"top": 144,
+									"top": 128,
 									"width": 10,
 									"height": 10
 								},
@@ -2378,7 +2378,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 299,
+											"top": 283,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Project manager",
@@ -2395,7 +2395,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 314,
+											"top": 298,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile amministrazione",
@@ -2412,7 +2412,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 329,
+											"top": 313,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile area informatica",
@@ -2429,7 +2429,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 344,
+											"top": 328,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile della comunicazione",
@@ -2446,7 +2446,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 997,
-											"top": 359,
+											"top": 343,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Coordinatore di attività",
@@ -2455,7 +2455,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 992,
-									"top": 294,
+									"top": 278,
 									"width": 210.1796875,
 									"height": 83
 								}
@@ -2463,7 +2463,7 @@
 							"font": "Arial;13;0",
 							"containerChangeable": true,
 							"left": 992,
-							"top": 256,
+							"top": 240,
 							"width": 210.1796875,
 							"height": 121,
 							"nameCompartment": {
@@ -4785,17 +4785,18 @@
 									"model": {
 										"$ref": "AAAAAAF4J31qWdptP08="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 423,
-									"top": 697,
+									"left": 415,
+									"top": 727,
+									"width": 58.90625,
 									"height": 13,
-									"alpha": 1.5707963267948966,
-									"distance": 15,
+									"alpha": -1.4325967289533263,
+									"distance": 21.400934559032695,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J31qW9px0sQ="
 									},
-									"edgePosition": 1
+									"edgePosition": 1,
+									"text": "+Riunione"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4848,17 +4849,18 @@
 									"model": {
 										"$ref": "AAAAAAF4J31qWdpuig4="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 279,
-									"top": 780,
+									"left": 207,
+									"top": 782,
+									"width": 76.97802734375,
 									"height": 13,
-									"alpha": 0.5235987755982988,
-									"distance": 30,
+									"alpha": -4.537868282412596,
+									"distance": 29.832867780352597,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J31qW9px0sQ="
 									},
-									"edgePosition": 2
+									"edgePosition": 2,
+									"text": "+É oggetto di"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4891,9 +4893,9 @@
 										"$ref": "AAAAAAF4J31qWdpuig4="
 									},
 									"font": "Arial;13;0",
-									"left": 286,
+									"left": 279,
 									"top": 806,
-									"width": 5.05908203125,
+									"width": 19.5126953125,
 									"height": 13,
 									"alpha": -0.5235987755982988,
 									"distance": 25,
@@ -4901,7 +4903,7 @@
 										"$ref": "AAAAAAF4J31qW9px0sQ="
 									},
 									"edgePosition": 2,
-									"text": "*"
+									"text": "1..*"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -4912,16 +4914,17 @@
 									"model": {
 										"$ref": "AAAAAAF4J31qWdpvtpk="
 									},
-									"visible": false,
 									"font": "Arial;13;0",
-									"left": 569,
+									"left": 527,
 									"top": 615,
+									"width": 60.34716796875,
 									"height": 13,
-									"alpha": -0.5235987755982988,
-									"distance": 30,
+									"alpha": -0.5159255262749936,
+									"distance": 42,
 									"hostEdge": {
 										"$ref": "AAAAAAF4J31qW9px0sQ="
-									}
+									},
+									"text": "+Riguarda"
 								},
 								{
 									"_type": "EdgeLabelView",
@@ -5649,16 +5652,18 @@
 							"_parent": {
 								"$ref": "AAAAAAF3VKkhlYi5Yw8="
 							},
+							"name": "Riunione",
 							"end1": {
 								"_type": "UMLAssociationEnd",
 								"_id": "AAAAAAF4J31qWdpuig4=",
 								"_parent": {
 									"$ref": "AAAAAAF4J31qWdptP08="
 								},
+								"name": "É oggetto di",
 								"reference": {
 									"$ref": "AAAAAAF3VKkhlYi5Yw8="
 								},
-								"multiplicity": "*"
+								"multiplicity": "1..*"
 							},
 							"end2": {
 								"_type": "UMLAssociationEnd",
@@ -5666,6 +5671,7 @@
 								"_parent": {
 									"$ref": "AAAAAAF4J31qWdptP08="
 								},
+								"name": "Riguarda",
 								"reference": {
 									"$ref": "AAAAAAF3VGvEl4VFscE="
 								},
