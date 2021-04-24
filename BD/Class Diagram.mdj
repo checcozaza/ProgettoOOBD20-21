@@ -2590,6 +2590,23 @@
 									"subViews": [
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3XkP0fyOBUIM=",
+											"_parent": {
+												"$ref": "AAAAAAF3XjvyaBviAmU="
+											},
+											"model": {
+												"$ref": "AAAAAAF3XkP0LiN1GC0="
+											},
+											"font": "Arial;13;0",
+											"left": 581,
+											"top": 254,
+											"width": 252.509765625,
+											"height": 13,
+											"text": "+PartIVA (1): varchar(11)",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF3XjwmHhxqceM=",
 											"_parent": {
 												"$ref": "AAAAAAF3XjvyaBviAmU="
@@ -2599,7 +2616,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 581,
-											"top": 254,
+											"top": 269,
 											"width": 252.509765625,
 											"height": 13,
 											"text": "+Nome (1): varchar(20)",
@@ -2634,7 +2651,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 581,
-											"top": 269,
+											"top": 284,
 											"width": 252.509765625,
 											"height": 13,
 											"text": "+SedePrincipale (1): varchar(20)",
@@ -2656,23 +2673,6 @@
 											"width": 252.509765625,
 											"height": 13,
 											"text": "+SettoreEconomico (1, *): enum_settore",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
-											"_id": "AAAAAAF3XkP0fyOBUIM=",
-											"_parent": {
-												"$ref": "AAAAAAF3XjvyaBviAmU="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XkP0LiN1GC0="
-											},
-											"font": "Arial;13;0",
-											"left": 581,
-											"top": 284,
-											"width": 252.509765625,
-											"height": 13,
-											"text": "+ISIN (1): varchar(12)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -5924,6 +5924,15 @@
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3XkP0LiN1GC0=",
+							"_parent": {
+								"$ref": "AAAAAAF3XjvyXxva4BA="
+							},
+							"name": "PartIVA (1)",
+							"type": "varchar(11)"
+						},
+						{
+							"_type": "UMLAttribute",
 							"_id": "AAAAAAF3Xjwl3Rxe1UI=",
 							"_parent": {
 								"$ref": "AAAAAAF3XjvyXxva4BA="
@@ -5956,15 +5965,6 @@
 								"$ref": "AAAAAAF3XjvyXxva4BA="
 							},
 							"name": "SettoreEconomico (1, *): enum_settore",
-							"type": ""
-						},
-						{
-							"_type": "UMLAttribute",
-							"_id": "AAAAAAF3XkP0LiN1GC0=",
-							"_parent": {
-								"$ref": "AAAAAAF3XjvyXxva4BA="
-							},
-							"name": "ISIN (1): varchar(12)",
 							"type": ""
 						},
 						{

@@ -614,23 +614,6 @@
 										},
 										{
 											"_type": "UMLAttributeView",
-											"_id": "AAAAAAF3sQoHGOfjdrQ=",
-											"_parent": {
-												"$ref": "AAAAAAF3VHI1moWFA+0="
-											},
-											"model": {
-												"$ref": "AAAAAAF3sQoHDufgkjE="
-											},
-											"font": "Arial;13;0",
-											"left": 981,
-											"top": 984,
-											"width": 288.20263671875,
-											"height": 13,
-											"text": "+Ruolo (1): enum_ruolo",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLAttributeView",
 											"_id": "AAAAAAF3VHXMMYXN1tg=",
 											"_parent": {
 												"$ref": "AAAAAAF3VHI1moWFA+0="
@@ -640,7 +623,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 981,
-											"top": 999,
+											"top": 984,
 											"width": 288.20263671875,
 											"height": 13,
 											"text": "+SalarioMedio (1): decimal",
@@ -657,10 +640,27 @@
 											},
 											"font": "Arial;13;0",
 											"left": 981,
-											"top": 1014,
+											"top": 999,
 											"width": 288.20263671875,
 											"height": 13,
 											"text": "+Valutazione (0, 1): integer",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF3sQoHGOfjdrQ=",
+											"_parent": {
+												"$ref": "AAAAAAF3VHI1moWFA+0="
+											},
+											"model": {
+												"$ref": "AAAAAAF3sQoHDufgkjE="
+											},
+											"font": "Arial;13;0",
+											"left": 981,
+											"top": 1014,
+											"width": 288.20263671875,
+											"height": 13,
+											"text": "+Ruolo (1): enum_ruolo",
 											"horizontalAlignment": 0
 										},
 										{
@@ -2429,7 +2429,7 @@
 											"top": 342,
 											"width": 252.509765625,
 											"height": 13,
-											"text": "+ISIN (1): varchar(12)",
+											"text": "+PartIVA(1): varchar(11)",
 											"horizontalAlignment": 0
 										},
 										{
@@ -7667,17 +7667,6 @@
 						},
 						{
 							"_type": "UMLAttribute",
-							"_id": "AAAAAAF3sQoHDufgkjE=",
-							"_parent": {
-								"$ref": "AAAAAAF3VHI1mIV9nCc="
-							},
-							"name": "Ruolo (1)",
-							"type": {
-								"$ref": "AAAAAAF3VNHpVZjV/bE="
-							}
-						},
-						{
-							"_type": "UMLAttribute",
 							"_id": "AAAAAAF3VHXMDoXKAGU=",
 							"_parent": {
 								"$ref": "AAAAAAF3VHI1mIV9nCc="
@@ -7693,6 +7682,17 @@
 							},
 							"name": "Valutazione (0, 1)",
 							"type": "integer"
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF3sQoHDufgkjE=",
+							"_parent": {
+								"$ref": "AAAAAAF3VHI1mIV9nCc="
+							},
+							"name": "Ruolo (1)",
+							"type": {
+								"$ref": "AAAAAAF3VNHpVZjV/bE="
+							}
 						},
 						{
 							"_type": "UMLAttribute",
@@ -8265,8 +8265,8 @@
 							"_parent": {
 								"$ref": "AAAAAAF3XjvyXxva4BA="
 							},
-							"name": "ISIN (1)",
-							"type": "varchar(12)"
+							"name": "PartIVA(1)",
+							"type": "varchar(11)"
 						},
 						{
 							"_type": "UMLAttribute",
