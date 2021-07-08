@@ -638,6 +638,7 @@
 											"model": {
 												"$ref": "AAAAAAF3VHXwV4XQB94="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 981,
 											"top": 999,
@@ -657,7 +658,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 981,
-											"top": 1014,
+											"top": 999,
 											"width": 288.20263671875,
 											"height": 13,
 											"text": "+Ruolo (1): enum_ruolo",
@@ -722,7 +723,7 @@
 									"left": 976,
 									"top": 889,
 									"width": 298.20263671875,
-									"height": 143
+									"height": 128
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -735,7 +736,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 976,
-									"top": 1032,
+									"top": 1017,
 									"width": 298.20263671875,
 									"height": 10
 								},
@@ -6273,11 +6274,30 @@
 									"model": {
 										"$ref": "AAAAAAF3sQwgVfNDbqw="
 									},
+									"subViews": [
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAF6iAOKdVu+LSY=",
+											"_parent": {
+												"$ref": "AAAAAAF3sQwgVvNL6P8="
+											},
+											"model": {
+												"$ref": "AAAAAAF6iAOKWVugRFQ="
+											},
+											"font": "Arial;13;0",
+											"left": 1053,
+											"top": 1174,
+											"width": 142,
+											"height": 13,
+											"text": "+Valutazione (1): integer",
+											"horizontalAlignment": 0
+										}
+									],
 									"font": "Arial;13;0",
 									"left": 1048,
 									"top": 1169,
 									"width": 152,
-									"height": 10
+									"height": 23
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -6290,7 +6310,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 1048,
-									"top": 1179,
+									"top": 1192,
 									"width": 152,
 									"height": 10
 								},
@@ -9048,6 +9068,17 @@
 								},
 								"multiplicity": "1"
 							}
+						}
+					],
+					"attributes": [
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAF6iAOKWVugRFQ=",
+							"_parent": {
+								"$ref": "AAAAAAF3sQwgVfNDbqw="
+							},
+							"name": "Valutazione (1)",
+							"type": "integer"
 						}
 					]
 				}

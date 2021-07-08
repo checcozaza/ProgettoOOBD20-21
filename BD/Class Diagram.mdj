@@ -569,6 +569,7 @@
 											"model": {
 												"$ref": "AAAAAAF3VHXwV4XQB94="
 											},
+											"visible": false,
 											"font": "Arial;13;0",
 											"left": 565,
 											"top": 866,
@@ -588,7 +589,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 565,
-											"top": 881,
+											"top": 866,
 											"width": 288.20263671875,
 											"height": 13,
 											"text": "+ProgettiRealizzati (0.. *): enum_tipologia",
@@ -605,7 +606,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 565,
-											"top": 896,
+											"top": 881,
 											"width": 288.20263671875,
 											"height": 13,
 											"text": "+Ruolo (1): enum_ruolo",
@@ -634,7 +635,7 @@
 									"left": 560,
 									"top": 801,
 									"width": 298.20263671875,
-									"height": 113
+									"height": 98
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -647,7 +648,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 560,
-									"top": 914,
+									"top": 899,
 									"width": 298.20263671875,
 									"height": 10
 								},
