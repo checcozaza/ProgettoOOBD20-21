@@ -822,8 +822,8 @@
 												"$ref": "AAAAAAF3VIRbMIXvsdk="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 293,
+											"left": 309,
+											"top": 461,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "«enumeration»"
@@ -835,8 +835,8 @@
 												"$ref": "AAAAAAF3VIRbMIXvsdk="
 											},
 											"font": "Arial;13;1",
-											"left": 749,
-											"top": 308,
+											"left": 309,
+											"top": 476,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "enum_tipologia"
@@ -849,8 +849,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 465.810546875,
-											"top": 448,
+											"left": -414.189453125,
+											"top": 784,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -863,15 +863,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 465.810546875,
-											"top": 448,
+											"left": -414.189453125,
+											"top": 784,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 744,
-									"top": 288,
+									"left": 304,
+									"top": 456,
 									"width": 137.9052734375,
 									"height": 38,
 									"stereotypeLabel": {
@@ -898,8 +898,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 152.9052734375,
-									"top": 216,
+									"left": -287.0947265625,
+									"top": 384,
 									"width": 107.18896484375,
 									"height": 10
 								},
@@ -914,8 +914,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 152.9052734375,
-									"top": 216,
+									"left": -287.0947265625,
+									"top": 384,
 									"width": 10,
 									"height": 10
 								},
@@ -930,8 +930,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 152.9052734375,
-									"top": 216,
+									"left": -287.0947265625,
+									"top": 384,
 									"width": 10,
 									"height": 10
 								},
@@ -946,8 +946,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 152.9052734375,
-									"top": 216,
+									"left": -287.0947265625,
+									"top": 384,
 									"width": 10,
 									"height": 10
 								},
@@ -971,8 +971,8 @@
 												"$ref": "AAAAAAF3VIZZxYYpg6I="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 331,
+											"left": 309,
+											"top": 499,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca di base",
@@ -988,8 +988,8 @@
 												"$ref": "AAAAAAF3VIbSRoY2KWg="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 346,
+											"left": 309,
+											"top": 514,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca industriale",
@@ -1005,8 +1005,8 @@
 												"$ref": "AAAAAAF3VIb09YY8dww="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 361,
+											"left": 309,
+											"top": 529,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Ricerca sperimentale",
@@ -1022,8 +1022,8 @@
 												"$ref": "AAAAAAF3VIfD+IZE2Bw="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 376,
+											"left": 309,
+											"top": 544,
 											"width": 127.9052734375,
 											"height": 13,
 											"text": "Sviluppo sperimentale",
@@ -1031,16 +1031,16 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 744,
-									"top": 326,
+									"left": 304,
+									"top": 494,
 									"width": 137.9052734375,
 									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 744,
-							"top": 288,
+							"left": 304,
+							"top": 456,
 							"width": 137.9052734375,
 							"height": 106,
 							"nameCompartment": {
@@ -1062,377 +1062,6 @@
 							},
 							"enumerationLiteralCompartment": {
 								"$ref": "AAAAAAF3VIRbM4X4oh4="
-							}
-						},
-						{
-							"_type": "UMLEnumerationView",
-							"_id": "AAAAAAF3VIh894ZNOGo=",
-							"_parent": {
-								"$ref": "AAAAAAFF+qBtyKM79qY="
-							},
-							"model": {
-								"$ref": "AAAAAAF3VIh89oZL8Ig="
-							},
-							"subViews": [
-								{
-									"_type": "UMLNameCompartmentView",
-									"_id": "AAAAAAF3VIh894ZOpqc=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"subViews": [
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAF3VIh8+IZPkXo=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh894ZOpqc="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 165,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "«enumeration»"
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAF3VIh8+IZQVis=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh894ZOpqc="
-											},
-											"font": "Arial;13;1",
-											"left": 549,
-											"top": 180,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "enum_ambito"
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAF3VIh8+IZR2Hc=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh894ZOpqc="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": 477,
-											"top": 283,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "(from Model)"
-										},
-										{
-											"_type": "LabelView",
-											"_id": "AAAAAAF3VIh8+IZSwrc=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh894ZOpqc="
-											},
-											"visible": false,
-											"font": "Arial;13;0",
-											"left": -176,
-											"top": -160,
-											"height": 13,
-											"horizontalAlignment": 1
-										}
-									],
-									"font": "Arial;13;0",
-									"left": 544,
-									"top": 160,
-									"width": 188.4833984375,
-									"height": 38,
-									"stereotypeLabel": {
-										"$ref": "AAAAAAF3VIh8+IZPkXo="
-									},
-									"nameLabel": {
-										"$ref": "AAAAAAF3VIh8+IZQVis="
-									},
-									"namespaceLabel": {
-										"$ref": "AAAAAAF3VIh8+IZR2Hc="
-									},
-									"propertyLabel": {
-										"$ref": "AAAAAAF3VIh8+IZSwrc="
-									}
-								},
-								{
-									"_type": "UMLAttributeCompartmentView",
-									"_id": "AAAAAAF3VIh8+IZT1pM=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"visible": false,
-									"font": "Arial;13;0",
-									"left": -168,
-									"top": -88,
-									"width": 10,
-									"height": 10
-								},
-								{
-									"_type": "UMLOperationCompartmentView",
-									"_id": "AAAAAAF3VIh8+YZUBBM=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"visible": false,
-									"font": "Arial;13;0",
-									"left": -168,
-									"top": -88,
-									"width": 10,
-									"height": 10
-								},
-								{
-									"_type": "UMLReceptionCompartmentView",
-									"_id": "AAAAAAF3VIh8+YZVYXk=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"visible": false,
-									"font": "Arial;13;0",
-									"left": -168,
-									"top": -88,
-									"width": 10,
-									"height": 10
-								},
-								{
-									"_type": "UMLTemplateParameterCompartmentView",
-									"_id": "AAAAAAF3VIh8+YZWVc8=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"visible": false,
-									"font": "Arial;13;0",
-									"left": -168,
-									"top": -88,
-									"width": 10,
-									"height": 10
-								},
-								{
-									"_type": "UMLEnumerationLiteralCompartmentView",
-									"_id": "AAAAAAF3VIh8+YZXTNE=",
-									"_parent": {
-										"$ref": "AAAAAAF3VIh894ZNOGo="
-									},
-									"model": {
-										"$ref": "AAAAAAF3VIh89oZL8Ig="
-									},
-									"subViews": [
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XmE+JD7Zo6c=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XmE95j7WhC0="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 203,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Alimentare",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XpKlb8qVnOo=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XpKlAsqSGK8="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 218,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Automobilistica",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XppJz9pdlCI=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XppJmNpaO2c="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 233,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Chimica",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3VIjFroZ867s=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3VIjFiYZ5PYE="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 248,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Economia e finanza",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XphN9NUThZA=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XphNtdUQfEs="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 263,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Elettronica",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XpV+4My4Nbk=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XpV+pcy1KYk="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 278,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Farmaceutica",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XmCAwDzTVJE=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3XmCAgDzQxbU="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 293,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Informatica",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3Xpm08Nifxzc=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3Xpm0q9icNPU="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 308,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Marketing",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3VIkGGYaDO7o=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3VIkF8IaATpk="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 323,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Medicina",
-											"horizontalAlignment": 0
-										},
-										{
-											"_type": "UMLEnumerationLiteralView",
-											"_id": "AAAAAAF3XpnvNtl+17w=",
-											"_parent": {
-												"$ref": "AAAAAAF3VIh8+YZXTNE="
-											},
-											"model": {
-												"$ref": "AAAAAAF3Xpnu/tl7SBs="
-											},
-											"font": "Arial;13;0",
-											"left": 549,
-											"top": 338,
-											"width": 178.4833984375,
-											"height": 13,
-											"text": "Ricerca e sviluppo",
-											"horizontalAlignment": 0
-										}
-									],
-									"font": "Arial;13;0",
-									"left": 544,
-									"top": 198,
-									"width": 188.4833984375,
-									"height": 158
-								}
-							],
-							"font": "Arial;13;0",
-							"containerChangeable": true,
-							"left": 544,
-							"top": 160,
-							"width": 188.4833984375,
-							"height": 211,
-							"nameCompartment": {
-								"$ref": "AAAAAAF3VIh894ZOpqc="
-							},
-							"suppressAttributes": true,
-							"suppressOperations": true,
-							"attributeCompartment": {
-								"$ref": "AAAAAAF3VIh8+IZT1pM="
-							},
-							"operationCompartment": {
-								"$ref": "AAAAAAF3VIh8+YZUBBM="
-							},
-							"receptionCompartment": {
-								"$ref": "AAAAAAF3VIh8+YZVYXk="
-							},
-							"templateParameterCompartment": {
-								"$ref": "AAAAAAF3VIh8+YZWVc8="
-							},
-							"enumerationLiteralCompartment": {
-								"$ref": "AAAAAAF3VIh8+YZXTNE="
 							}
 						},
 						{
@@ -2090,8 +1719,8 @@
 												"$ref": "AAAAAAF3VNHpV5jYGJs="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 165,
+											"left": 309,
+											"top": 325,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "«enumeration»"
@@ -2103,8 +1732,8 @@
 												"$ref": "AAAAAAF3VNHpV5jYGJs="
 											},
 											"font": "Arial;13;1",
-											"left": 749,
-											"top": 180,
+											"left": 309,
+											"top": 340,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "enum_ruolo"
@@ -2117,8 +1746,8 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 544,
-											"top": 96,
+											"left": -336,
+											"top": 416,
 											"width": 73.67724609375,
 											"height": 13,
 											"text": "(from Model)"
@@ -2131,15 +1760,15 @@
 											},
 											"visible": false,
 											"font": "Arial;13;0",
-											"left": 544,
-											"top": 96,
+											"left": -336,
+											"top": 416,
 											"height": 13,
 											"horizontalAlignment": 1
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 744,
-									"top": 160,
+									"left": 304,
+									"top": 320,
 									"width": 210.1796875,
 									"height": 38,
 									"stereotypeLabel": {
@@ -2166,8 +1795,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 40,
+									"left": -248,
+									"top": 200,
 									"width": 10,
 									"height": 10
 								},
@@ -2182,8 +1811,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 40,
+									"left": -248,
+									"top": 200,
 									"width": 10,
 									"height": 10
 								},
@@ -2198,8 +1827,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 40,
+									"left": -248,
+									"top": 200,
 									"width": 10,
 									"height": 10
 								},
@@ -2214,8 +1843,8 @@
 									},
 									"visible": false,
 									"font": "Arial;13;0",
-									"left": 192,
-									"top": 40,
+									"left": -248,
+									"top": 200,
 									"width": 10,
 									"height": 10
 								},
@@ -2239,8 +1868,8 @@
 												"$ref": "AAAAAAF3VNpsipvem8g="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 203,
+											"left": 309,
+											"top": 363,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Project manager",
@@ -2256,8 +1885,8 @@
 												"$ref": "AAAAAAF3VNlCZ5p56CA="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 218,
+											"left": 309,
+											"top": 378,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile amministrazione",
@@ -2273,8 +1902,8 @@
 												"$ref": "AAAAAAF3VNnqzJsHV/g="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 233,
+											"left": 309,
+											"top": 393,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile area informatica",
@@ -2290,8 +1919,8 @@
 												"$ref": "AAAAAAF3VNIispld1m8="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 248,
+											"left": 309,
+											"top": 408,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Responsabile della comunicazione",
@@ -2307,8 +1936,8 @@
 												"$ref": "AAAAAAF3VNj4EJnrXTE="
 											},
 											"font": "Arial;13;0",
-											"left": 749,
-											"top": 263,
+											"left": 309,
+											"top": 423,
 											"width": 200.1796875,
 											"height": 13,
 											"text": "Coordinatore di attività",
@@ -2316,16 +1945,16 @@
 										}
 									],
 									"font": "Arial;13;0",
-									"left": 744,
-									"top": 198,
+									"left": 304,
+									"top": 358,
 									"width": 210.1796875,
 									"height": 83
 								}
 							],
 							"font": "Arial;13;0",
 							"containerChangeable": true,
-							"left": 744,
-							"top": 160,
+							"left": 304,
+							"top": 320,
 							"width": 210.1796875,
 							"height": 121,
 							"nameCompartment": {
