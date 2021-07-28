@@ -13,12 +13,13 @@ public class Employee {
 	private String surname;
 	private String passwd;
 	private EnumRole role;
-	private double avgWage;
+	private float avgWage;
+	private Company hiredBy;
 	private ArrayList<Project> employeeProject;
 	private ArrayList<Meeting> employeeMeetings;
 	private ArrayList<EmployeeProjectRating> employeeRatings;
 	
-	public Employee(String fiscalCode, String name, String surname, String passwd, EnumRole role, double avgWage,
+	public Employee(String fiscalCode, String name, String surname, String passwd, EnumRole role, float avgWage, Company hiredBy,
 					ArrayList<Project> employeeProject, ArrayList<Meeting> employeeMeetings,
 					ArrayList<EmployeeProjectRating> employeeRatings) {
 		this.fiscalCode = fiscalCode;
@@ -27,6 +28,7 @@ public class Employee {
 		this.passwd = passwd;
 		this.role = role;
 		this.avgWage = avgWage;
+		this.hiredBy = hiredBy;
 		this.employeeProject = employeeProject;
 		this.employeeMeetings = employeeMeetings;
 		this.employeeRatings = employeeRatings;
@@ -37,6 +39,14 @@ public class Employee {
 	}
 	public void setFiscalCode(String fiscalCode) {
 		this.fiscalCode = fiscalCode;
+	}
+	
+	
+	public Company getHiredBy() {
+		return hiredBy;
+	}
+	public void setHiredBy(Company hiredBy) {
+		this.hiredBy = hiredBy;
 	}
 	
 	
@@ -75,7 +85,7 @@ public class Employee {
 	public double getAvgWage() {
 		return avgWage;
 	}
-	public void setAvgWage(double avgWage) {
+	public void setAvgWage(float avgWage) {
 		this.avgWage = avgWage;
 	}
 	

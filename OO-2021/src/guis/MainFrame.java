@@ -18,6 +18,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormSpecs;
 import com.jgoodies.forms.layout.RowSpec;
+
+import controllers.Controller;
+
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -36,28 +39,14 @@ public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField cfTextField;
-	private JPasswordField passwordField;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainFrame frame = new MainFrame();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private JPasswordField passwordTextField;
+	private Controller c;
 
 	/**
 	 * Create the frame.
 	 */
-	public MainFrame() {
+	public MainFrame(Controller co) {
+		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 411, 289);
@@ -72,8 +61,10 @@ public class MainFrame extends JFrame {
 		contentPane.add(titlePanel, BorderLayout.NORTH);
 		
 		JLabel titleLabel = new JLabel("Autenticazione");
+		titleLabel.setIconTextGap(18);
+		titleLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/enter.png")));
 		titleLabel.setForeground(Color.decode("#D8DEE9"));
-		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 25));
+		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		titlePanel.add(titleLabel);
 		
 		JPanel formsPanel = new JPanel();
@@ -120,16 +111,16 @@ public class MainFrame extends JFrame {
 		gbc_passwordLabel.gridy = 3;
 		formsPanel.add(passwordLabel, gbc_passwordLabel);
 		
-		passwordField = new JPasswordField();
-		passwordField.setFont(new Font("Roboto", Font.PLAIN, 12));
-		passwordField.setForeground(Color.decode("#5E81AC"));
-		GridBagConstraints gbc_passwordField = new GridBagConstraints();
-		gbc_passwordField.insets = new Insets(0, 0, 0, 5);
-		gbc_passwordField.anchor = GridBagConstraints.NORTH;
-		gbc_passwordField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_passwordField.gridx = 0;
-		gbc_passwordField.gridy = 4;
-		formsPanel.add(passwordField, gbc_passwordField);
+		passwordTextField = new JPasswordField();
+		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
+		passwordTextField.setForeground(Color.decode("#5E81AC"));
+		GridBagConstraints gbc_passwordTextField = new GridBagConstraints();
+		gbc_passwordTextField.insets = new Insets(0, 0, 0, 5);
+		gbc_passwordTextField.anchor = GridBagConstraints.NORTH;
+		gbc_passwordTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_passwordTextField.gridx = 0;
+		gbc_passwordTextField.gridy = 4;
+		formsPanel.add(passwordTextField, gbc_passwordTextField);
 		
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.decode("#3B4252"));
@@ -142,13 +133,24 @@ public class MainFrame extends JFrame {
 		signupButton.setBorderPainted(false);
 		signupButton.setBackground(Color.decode("#81A1C1"));
 		signupButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent clickSignUp) {
+				try {
+					c.openSignUpForm();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		});
 		signupButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(signupButton);
 		
 		JButton loginButton = new JButton("Login");
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogin) {
+				//if (cfTextField.getText().length > 0 && passwordTextField.getText().length > 0)
+					//c.credentialsCheck(cfTextField.getText(), passwordTextField.getText());
+			}
+		});
 		loginButton.setForeground(Color.decode("#2E3440"));
 		loginButton.setFocusPainted(false);
 		loginButton.setBorderPainted(false);
@@ -162,7 +164,7 @@ public class MainFrame extends JFrame {
 		
 		JLabel iconLabel = new JLabel("");
 		iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		iconLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/user.png")));
+		iconLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/worldwide.png")));
 		GroupLayout gl_iconPanel = new GroupLayout(iconPanel);
 		gl_iconPanel.setHorizontalGroup(
 			gl_iconPanel.createParallelGroup(Alignment.LEADING)
@@ -175,5 +177,6 @@ public class MainFrame extends JFrame {
 		iconPanel.setLayout(gl_iconPanel);
 		
 		pack();
+		setLocationRelativeTo(null);
 	}
 }
