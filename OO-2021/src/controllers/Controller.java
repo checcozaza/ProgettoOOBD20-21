@@ -9,9 +9,12 @@ import dao.CompanyDAOPG;
 import dao.EmployeeDAOPG;
 import dao.TownDAOPG;
 import entities.Employee;
+import enums.EnumRole;
 import guis.MainFrame;
+import guis.ProjectManagerFrame;
 import guis.SignUpFrame;
 import guis.SignedUp;
+import guis.UserFrame;
 
 public class Controller {
 	
@@ -24,6 +27,8 @@ public class Controller {
 	EmployeeDAOPG edp;
 	CompanyDAOPG cdp;
 	SignedUp sud;
+	ProjectManagerFrame pmf;
+	UserFrame uf;
 	
 	public static void main(String[] args) {
 		c = new Controller();
@@ -605,6 +610,31 @@ public class Controller {
 		suf.dispose();
 		mf.setVisible(true);
 		
+	}
+
+	public void checkForLogin(String username, String pwd) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		Employee signedIn = edp.takeEmployee(username, pwd);
+		if (signedIn != null) {
+			if (signedIn.getRole() == EnumRole.Project_Manager)
+				openPMFrame(signedIn);
+			else
+				openUserFrame(signedIn);
+		}
+		return;
+	}
+
+	private void openUserFrame(Employee signedIn) {
+		mf.setVisible(false);
+		UserFrame uf = new UserFrame(this, signedIn);
+		uf.setVisible(true);
+		
+	}
+
+	private void openPMFrame(Employee signedIn) {
+		mf.setVisible(false);
+		ProjectManagerFrame pmf = new ProjectManagerFrame(this, signedIn);
+		pmf.setVisible(true);
 	}
 	
 }

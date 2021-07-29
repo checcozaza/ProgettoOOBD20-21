@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import controllers.Controller;
+import entities.Company;
 import entities.Employee;
+import enums.EnumRole;
 
 public class EmployeeDAOPG {
 
@@ -36,6 +38,35 @@ public class EmployeeDAOPG {
 		query.executeUpdate();
 		conn.close();
 		return;
+	}
+
+	public Employee takeEmployee(String username, String pwd) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
+		
+		query = conn.prepareStatement("SELECT * FROM Partecipante WHERE cf = ? AND pw = ?");
+		query.setString(1, username);
+		query.setString(2, pwd);
+		result = query.executeQuery();
+		
+		Employee found;
+		if (result.next())
+			found = new Employee(result.getString("cf"),
+								 result.getString("nome"),
+								 result.getString("cognome"),
+								 result.getString("pw"),
+								 result.getString("ruolo") == null ? null : EnumRole.valueOf(result.getString("ruolo").replace(' ', '_')),
+								 result.getFloat("salariomedio"),
+								 new Company(result.getString("partiva"), null, null, null, null),
+								 null, null, null);
+		else
+			found = null;
+	
+		
+		result.close();
+		conn.close();
+		
+		return found;
 	}
 	
 	

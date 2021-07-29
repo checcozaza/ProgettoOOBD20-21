@@ -8,7 +8,6 @@ public class Employee {
 
 	
 	private String fiscalCode;
-
 	private String name;
 	private String surname;
 	private String passwd;

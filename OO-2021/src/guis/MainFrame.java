@@ -147,8 +147,15 @@ public class MainFrame extends JFrame {
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogin) {
-				//if (cfTextField.getText().length > 0 && passwordTextField.getText().length > 0)
-					//c.credentialsCheck(cfTextField.getText(), passwordTextField.getText());
+				String username = cfTextField.getText();
+				String pwd = new String (passwordTextField.getPassword());
+				if (username.length() == 16 && !pwd.isBlank()) {
+					try {
+						c.checkForLogin(username, pwd);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 			}
 		});
 		loginButton.setForeground(Color.decode("#2E3440"));
