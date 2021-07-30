@@ -58,25 +58,25 @@ public class SignUpFrame extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 580, 448);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.decode("#3B4252"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.decode("#4C566A"));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel titlePanel = new JPanel();
-		titlePanel.setBackground(Color.decode("#3B4252"));
+		titlePanel.setBackground(Color.decode("#434C5E"));
 		contentPane.add(titlePanel, BorderLayout.NORTH);
 		titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel signUpLabel = new JLabel("Registrazione");
 		signUpLabel.setIconTextGap(18);
 		signUpLabel.setIcon(new ImageIcon(SignUpFrame.class.getResource("/contract.png")));
-		signUpLabel.setForeground(Color.decode("#D8DEE9"));
+		signUpLabel.setForeground(Color.decode("#EBCB8B"));
 		signUpLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		titlePanel.add(signUpLabel);
 		
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.decode("#3B4252"));
+		buttonPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -89,7 +89,7 @@ public class SignUpFrame extends JFrame {
 		goBackButton.setForeground(Color.decode("#2E3440"));
 		goBackButton.setFocusPainted(false);
 		goBackButton.setBorderPainted(false);
-		goBackButton.setBackground(Color.decode("#81A1C1"));
+		goBackButton.setBackground(Color.decode("#EBCB8B"));
 		goBackButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(goBackButton);
 		
@@ -122,12 +122,12 @@ public class SignUpFrame extends JFrame {
 		signUpButton.setForeground(Color.decode("#2E3440"));
 		signUpButton.setFocusPainted(false);
 		signUpButton.setBorderPainted(false);
-		signUpButton.setBackground(Color.decode("#81A1C1"));
+		signUpButton.setBackground(Color.decode("#EBCB8B"));
 		signUpButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(signUpButton);
 		
 		JPanel formsPanel = new JPanel();
-		formsPanel.setBackground(Color.decode("#3B4252"));
+		formsPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(formsPanel, BorderLayout.CENTER);
 		
 		JLabel nameLabel = new JLabel("Nome");
@@ -295,21 +295,22 @@ public class SignUpFrame extends JFrame {
 									.addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
 									.addGap(70)
 									.addComponent(surnameLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
-							.addGap(52)
-							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(iconLabel, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-								.addComponent(companyComboBox, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+								.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+								.addComponent(companyComboBox, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap())))
 		);
 		gl_formsPanel.setVerticalGroup(
 			gl_formsPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_formsPanel.createSequentialGroup()
 					.addGap(30)
-					.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-						.addComponent(nameLabel)
-						.addGroup(gl_formsPanel.createParallelGroup(Alignment.BASELINE)
-							.addComponent(surnameLabel)
-							.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)))
+					.addGroup(gl_formsPanel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+							.addComponent(nameLabel)
+							.addComponent(surnameLabel))
+						.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE))
 					.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_formsPanel.createSequentialGroup()
 							.addGap(5)

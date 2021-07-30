@@ -34,6 +34,7 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
+import java.awt.Toolkit;
 
 public class MainFrame extends JFrame {
 
@@ -46,29 +47,31 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame(Controller co) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/contract.png")));
+		setTitle("Autenticazione - Projesting");
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 411, 289);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.decode("#3B4252"));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setBackground(Color.decode("#4C566A"));
+		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel titlePanel = new JPanel();
-		titlePanel.setBackground(Color.decode("#3B4252"));
+		titlePanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(titlePanel, BorderLayout.NORTH);
 		
 		JLabel titleLabel = new JLabel("Autenticazione");
 		titleLabel.setIconTextGap(18);
 		titleLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/enter.png")));
-		titleLabel.setForeground(Color.decode("#D8DEE9"));
+		titleLabel.setForeground(Color.decode("#EBCB8B"));
 		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		titlePanel.add(titleLabel);
 		
 		JPanel formsPanel = new JPanel();
-		formsPanel.setBackground(Color.decode("#3B4252"));
+		formsPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(formsPanel, BorderLayout.EAST);
 		GridBagLayout gbl_formsPanel = new GridBagLayout();
 		gbl_formsPanel.columnWidths = new int[]{157, 25, 0};
@@ -123,7 +126,7 @@ public class MainFrame extends JFrame {
 		formsPanel.add(passwordTextField, gbc_passwordTextField);
 		
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setBackground(Color.decode("#3B4252"));
+		buttonPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
@@ -131,7 +134,7 @@ public class MainFrame extends JFrame {
 		signupButton.setForeground(Color.decode("#2E3440"));
 		signupButton.setFocusPainted(false);
 		signupButton.setBorderPainted(false);
-		signupButton.setBackground(Color.decode("#81A1C1"));
+		signupButton.setBackground(Color.decode("#EBCB8B"));
 		signupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickSignUp) {
 				try {
@@ -168,12 +171,12 @@ public class MainFrame extends JFrame {
 		loginButton.setForeground(Color.decode("#2E3440"));
 		loginButton.setFocusPainted(false);
 		loginButton.setBorderPainted(false);
-		loginButton.setBackground(Color.decode("#81A1C1"));
+		loginButton.setBackground(Color.decode("#EBCB8B"));
 		loginButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(loginButton);
 		
 		JPanel iconPanel = new JPanel();
-		iconPanel.setBackground(Color.decode("#3B4252"));
+		iconPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(iconPanel, BorderLayout.CENTER);
 		
 		JLabel iconLabel = new JLabel("");
