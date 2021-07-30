@@ -17,6 +17,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
+import javax.swing.JButton;
 
 public class ProjectManagerFrame extends JFrame {
 
@@ -27,6 +29,8 @@ public class ProjectManagerFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public ProjectManagerFrame(Controller co, Employee manager) {
+		setTitle("Homepage - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ProjectManagerFrame.class.getResource("/bulb.png")));
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,15 +49,23 @@ public class ProjectManagerFrame extends JFrame {
 		welcomeManagerLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeManagerPanel.add(welcomeManagerLabel);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/laptop.png")));
+		JLabel managerIconLabel = new JLabel("");
+		managerIconLabel.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/laptop.png")));
+		
+		JButton logoutButton = new JButton("Logout");
+		logoutButton.setForeground(new Color(46, 52, 64));
+		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
+		logoutButton.setBorderPainted(false);
+		logoutButton.setBackground(new Color(235, 203, 139));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeManagerPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(436, Short.MAX_VALUE)
-					.addComponent(lblNewLabel)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(246, Short.MAX_VALUE)
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+					.addGap(119)
+					.addComponent(managerIconLabel)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
@@ -61,7 +73,11 @@ public class ProjectManagerFrame extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(welcomeManagerPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
-					.addComponent(lblNewLabel))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(managerIconLabel)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(logoutButton)
+							.addContainerGap())))
 		);
 		contentPane.setLayout(gl_contentPane);
 		

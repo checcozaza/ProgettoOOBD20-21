@@ -17,6 +17,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
+import javax.swing.JButton;
 
 public class UserFrame extends JFrame {
 
@@ -27,6 +29,8 @@ public class UserFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public UserFrame(Controller co, Employee user) {
+		setTitle("Homepage - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(UserFrame.class.getResource("/bulb.png")));
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,27 +49,36 @@ public class UserFrame extends JFrame {
 		welcomeUserLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeUserPanel.add(welcomeUserLabel);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(UserFrame.class.getResource("/cv.png")));
+		JLabel userIconLabel = new JLabel("");
+		userIconLabel.setIcon(new ImageIcon(UserFrame.class.getResource("/cv.png")));
+		
+		JButton logoutButton = new JButton("Logout");
+		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
+		logoutButton.setBorderPainted(false);
+		logoutButton.setBackground(Color.decode("#EBCB8B"));
+		logoutButton.setForeground(Color.decode("#2E3440"));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeUserPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(256)
+					.addComponent(logoutButton)
+					.addGap(119)
+					.addComponent(userIconLabel))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(welcomeUserPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
-					.addComponent(lblNewLabel)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(userIconLabel)
+						.addComponent(logoutButton))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);
 		
 		setLocationRelativeTo(null);
 	}
-
 }

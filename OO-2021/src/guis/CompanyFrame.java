@@ -20,6 +20,10 @@ import javax.swing.GroupLayout.Alignment;
 import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import java.awt.Toolkit;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CompanyFrame extends JFrame {
 
@@ -30,6 +34,8 @@ public class CompanyFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public CompanyFrame(Controller co, Company signedInCompany) {
+		setTitle("Homepage - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(CompanyFrame.class.getResource("/bulb.png")));
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,12 +56,25 @@ public class CompanyFrame extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
+		
+		JButton btnNewButton = new JButton("Logout");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogout) {
+				
+			}
+		});
+		btnNewButton.setForeground(new Color(46, 52, 64));
+		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 12));
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setBackground(new Color(235, 203, 139));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(436, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(247, Short.MAX_VALUE)
+					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+					.addGap(118)
 					.addComponent(lblNewLabel)
 					.addContainerGap())
 		);
@@ -64,7 +83,9 @@ public class CompanyFrame extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(welcomeCompanyPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
-					.addComponent(lblNewLabel)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblNewLabel)
+						.addComponent(btnNewButton))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);

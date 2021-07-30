@@ -47,7 +47,7 @@ public class MainFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public MainFrame(Controller co) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/contract.png")));
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/bulb.png")));
 		setTitle("Autenticazione - Projesting");
 		c = co;
 		setResizable(false);

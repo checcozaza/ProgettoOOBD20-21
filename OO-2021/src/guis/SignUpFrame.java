@@ -30,6 +30,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
+import java.awt.Toolkit;
 
 public class SignUpFrame extends JFrame {
 
@@ -53,6 +54,8 @@ public class SignUpFrame extends JFrame {
 	 * @throws Exception 
 	 */
 	public SignUpFrame(Controller co) throws Exception {
+		setTitle("Registrazione - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignUpFrame.class.getResource("/bulb.png")));
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
