@@ -10,7 +10,7 @@ public class PgConnection {
     private static PgConnection instance;
     private final String USERNAME = "postgres";
     private final String PASSWORD = "010993";
-    private final String IP = "localhost";
+    private final String IP = "188.153.228.238";
     private final String PORT = "5432";
     private Connection connection = null;
     private String url = "jdbc:postgresql://"+IP+":"+PORT+"/Progetto_BD";
