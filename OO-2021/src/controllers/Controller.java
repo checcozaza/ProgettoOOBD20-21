@@ -7,9 +7,14 @@ import java.time.LocalDate;
 import connections.PgConnection;
 import dao.CompanyDAOPG;
 import dao.EmployeeDAOPG;
+import dao.MeetingDAOPG;
+import dao.ProjectDAOPG;
+import dao.RatingsDAOPG;
 import dao.TownDAOPG;
+import entities.Company;
 import entities.Employee;
 import enums.EnumRole;
+import guis.CompanyFrame;
 import guis.MainFrame;
 import guis.ProjectManagerFrame;
 import guis.SignUpFrame;
@@ -29,6 +34,10 @@ public class Controller {
 	SignedUp sud;
 	ProjectManagerFrame pmf;
 	UserFrame uf;
+	CompanyFrame cfr;
+	ProjectDAOPG pdp;
+	MeetingDAOPG mdp;
+	RatingsDAOPG rdp;
 	
 	public static void main(String[] args) {
 		c = new Controller();
@@ -612,16 +621,29 @@ public class Controller {
 		
 	}
 
-	public void checkForLogin(String username, String pwd) throws Exception {
+	public void checkLoginForEmployee(String username, String pwd) throws Exception {
 		edp = new EmployeeDAOPG(this);
 		Employee signedIn = edp.takeEmployee(username, pwd);
 		if (signedIn != null) {
+			signedIn = fillEmployeeForLogin(signedIn);
 			if (signedIn.getRole() == EnumRole.Project_Manager)
 				openPMFrame(signedIn);
 			else
 				openUserFrame(signedIn);
 		}
 		return;
+	}
+	
+	private Employee fillEmployeeForLogin(Employee signedIn) throws Exception {
+		cdp = new CompanyDAOPG(this);
+		signedIn.setHiredBy(cdp.takeCompany(signedIn.getHiredBy().getVatNumber(), null));
+		mdp = new MeetingDAOPG(this);
+		signedIn.setEmployeeMeetings(mdp.takeMeetings(signedIn));
+		pdp = new ProjectDAOPG(this);
+		signedIn.setEmployeeProject(pdp.takeProject(signedIn));
+		rdp = new RatingsDAOPG(this);
+		signedIn.setEmployeeRatings(rdp.takeRatings(signedIn));
+		return signedIn;
 	}
 
 	private void openUserFrame(Employee signedIn) {
@@ -635,6 +657,30 @@ public class Controller {
 		mf.setVisible(false);
 		ProjectManagerFrame pmf = new ProjectManagerFrame(this, signedIn);
 		pmf.setVisible(true);
+	}
+
+	public void checkLoginForCompany(String username, String pwd) throws Exception {
+		cdp = new CompanyDAOPG(this);
+		Company signedInCompany = cdp.takeCompany(username, pwd);
+		if (signedInCompany != null) {
+			signedInCompany = fillCompanyForLogin(signedInCompany);
+			openCompanyFrame(signedInCompany);
+		}
+	}
+	
+	private Company fillCompanyForLogin(Company signedInCompany) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		signedInCompany.setCompanyEmployees(edp.takeEmployeesForCompany(signedInCompany));
+		pdp = new ProjectDAOPG(this);
+		signedInCompany.setCompanyProjects(pdp.takeProjectsForCompany(signedInCompany));
+		return signedInCompany;
+	}
+
+	private void openCompanyFrame(Company signedInCompany) {
+		mf.setVisible(false);
+		cfr = new CompanyFrame(this, signedInCompany);
+		cfr.setVisible(true);
+		
 	}
 	
 }

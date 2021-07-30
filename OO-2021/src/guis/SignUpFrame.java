@@ -105,7 +105,7 @@ public class SignUpFrame extends JFrame {
 						String cf = c.cfGenerator(nameTextField.getText(), surnameTextField.getText(),
 									  birthDatePicker.getDate(), genderComboBox.getSelectedItem().toString().toCharArray() [0], 
 									  cityComboBox.getSelectedItem().toString());
-						Company hiringCompany = new Company(companyComboBox.getSelectedItem().toString(), null, null, null, null);
+						Company hiringCompany = new Company(companyComboBox.getSelectedItem().toString(), null, null, null, null, null);
 						c.insertEmployee(new Employee(cf, nameTextField.getText(), surnameTextField.getText(),
 										 			  new String (passwordTextField.getPassword()), null, 
 										 			  Float.parseFloat(wageSpinner.getValue().toString()),

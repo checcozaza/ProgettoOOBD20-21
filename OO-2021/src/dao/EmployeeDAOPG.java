@@ -4,10 +4,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Company;
 import entities.Employee;
+import entities.Meeting;
+import entities.Project;
 import enums.EnumRole;
 
 public class EmployeeDAOPG {
@@ -57,8 +63,9 @@ public class EmployeeDAOPG {
 								 result.getString("pw"),
 								 result.getString("ruolo") == null ? null : EnumRole.valueOf(result.getString("ruolo").replace(' ', '_')),
 								 result.getFloat("salariomedio"),
-								 new Company(result.getString("partiva"), null, null, null, null),
-								 null, null, null);
+								 new Company(result.getString("partiva"), null, null, null, null, null),
+								 new Project(result.getInt("codprogetto"), null, 0, 0, false, null, null, null, null, null, null),
+								 null, null);
 		else
 			found = null;
 	
@@ -67,6 +74,31 @@ public class EmployeeDAOPG {
 		conn.close();
 		
 		return found;
+	}
+
+	public ArrayList<Employee> takeEmployeesForCompany(Company signedIn) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
+		
+		query = conn.prepareStatement("SELECT * FROM Partecipante WHERE partiva = ?");
+		
+		query.setString(1, signedIn.getVatNumber());
+		result = query.executeQuery();
+		
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		while (result.next())
+			employees.add(new Employee(result.getString("cf"),
+									   result.getString("nome"),
+									   result.getString("cognome"),
+									   result.getString("pw"),
+									   result.getString("ruolo") == null ? null : EnumRole.valueOf(result.getString("ruolo").replace(' ', '_')),
+									   result.getFloat("salariomedio"),
+									   signedIn,
+									   new Project(result.getInt("codprogetto"), null, 0, 0, false, null, null, null, null, null, null),
+									   null, null));
+		result.close();
+		conn.close();
+		return employees;
 	}
 	
 	

@@ -38,7 +38,7 @@ import java.awt.Color;
 public class MainFrame extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField cfTextField;
+	private JTextField usernameTextField;
 	private JPasswordField passwordTextField;
 	private Controller c;
 
@@ -77,28 +77,28 @@ public class MainFrame extends JFrame {
 		gbl_formsPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		formsPanel.setLayout(gbl_formsPanel);
 		
-		JLabel cfLabel = new JLabel("Codice Fiscale");
-		cfLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
-		cfLabel.setForeground(Color.decode("#D8DEE9"));
-		GridBagConstraints gbc_cfLabel = new GridBagConstraints();
-		gbc_cfLabel.anchor = GridBagConstraints.NORTH;
-		gbc_cfLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cfLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_cfLabel.gridx = 0;
-		gbc_cfLabel.gridy = 1;
-		formsPanel.add(cfLabel, gbc_cfLabel);
+		JLabel usernameLabel = new JLabel("Username");
+		usernameLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
+		usernameLabel.setForeground(Color.decode("#D8DEE9"));
+		GridBagConstraints gbc_usernameLabel = new GridBagConstraints();
+		gbc_usernameLabel.anchor = GridBagConstraints.NORTH;
+		gbc_usernameLabel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_usernameLabel.insets = new Insets(0, 0, 5, 5);
+		gbc_usernameLabel.gridx = 0;
+		gbc_usernameLabel.gridy = 1;
+		formsPanel.add(usernameLabel, gbc_usernameLabel);
 		
-		cfTextField = new JTextField();
-		cfTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
-		cfTextField.setForeground(Color.decode("#5E81AC"));
-		GridBagConstraints gbc_cfTextField = new GridBagConstraints();
-		gbc_cfTextField.anchor = GridBagConstraints.NORTH;
-		gbc_cfTextField.fill = GridBagConstraints.HORIZONTAL;
-		gbc_cfTextField.insets = new Insets(0, 0, 5, 5);
-		gbc_cfTextField.gridx = 0;
-		gbc_cfTextField.gridy = 2;
-		formsPanel.add(cfTextField, gbc_cfTextField);
-		cfTextField.setColumns(10);
+		usernameTextField = new JTextField();
+		usernameTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
+		usernameTextField.setForeground(Color.decode("#5E81AC"));
+		GridBagConstraints gbc_usernameTextField = new GridBagConstraints();
+		gbc_usernameTextField.anchor = GridBagConstraints.NORTH;
+		gbc_usernameTextField.fill = GridBagConstraints.HORIZONTAL;
+		gbc_usernameTextField.insets = new Insets(0, 0, 5, 5);
+		gbc_usernameTextField.gridx = 0;
+		gbc_usernameTextField.gridy = 2;
+		formsPanel.add(usernameTextField, gbc_usernameTextField);
+		usernameTextField.setColumns(10);
 		
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -147,11 +147,18 @@ public class MainFrame extends JFrame {
 		JButton loginButton = new JButton("Login");
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogin) {
-				String username = cfTextField.getText();
+				String username = usernameTextField.getText();
 				String pwd = new String (passwordTextField.getPassword());
 				if (username.length() == 16 && !pwd.isBlank()) {
 					try {
-						c.checkForLogin(username, pwd);
+						c.checkLoginForEmployee(username, pwd);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+				else if (username.length() == 11) {
+					try {
+						c.checkLoginForCompany(username, pwd);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

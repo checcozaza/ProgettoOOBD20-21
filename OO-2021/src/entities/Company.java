@@ -8,14 +8,16 @@ public class Company {
 	private String vatNumber;
 	private String name;
 	private String headquarters;
+	private String passw;
 	private ArrayList<Project> companyProjects;
 	private ArrayList<Employee> companyEmployees;
 	
-	public Company(String vatNumber, String name, String headquarters, ArrayList<Project> companyProjects,
+	public Company(String vatNumber, String name, String headquarters, String passw, ArrayList<Project> companyProjects,
 			ArrayList<Employee> companyEmployees) {
 		this.vatNumber = vatNumber;
 		this.name = name;
 		this.headquarters = headquarters;
+		this.passw = passw;
 		this.companyProjects = companyProjects;
 		this.companyEmployees = companyEmployees;
 	}
@@ -43,6 +45,12 @@ public class Company {
 		this.headquarters = headquarters;
 	}
 	
+	public String getPassw() {
+		return passw;
+	}
+	public void setPassw(String passw) {
+		this.passw = passw;
+	}
 	
 	public ArrayList<Project> getCompanyProjects() {
 		return companyProjects;

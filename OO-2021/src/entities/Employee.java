@@ -14,13 +14,13 @@ public class Employee {
 	private EnumRole role;
 	private float avgWage;
 	private Company hiredBy;
-	private ArrayList<Project> employeeProject;
+	private Project employeeProject;
 	private ArrayList<Meeting> employeeMeetings;
-	private ArrayList<EmployeeProjectRating> employeeRatings;
+	private ArrayList<EmployeeRating> employeeRatings;
 	
 	public Employee(String fiscalCode, String name, String surname, String passwd, EnumRole role, float avgWage, Company hiredBy,
-					ArrayList<Project> employeeProject, ArrayList<Meeting> employeeMeetings,
-					ArrayList<EmployeeProjectRating> employeeRatings) {
+					Project employeeProject, ArrayList<Meeting> employeeMeetings,
+					ArrayList<EmployeeRating> employeeRatings) {
 		this.fiscalCode = fiscalCode;
 		this.name = name;
 		this.surname = surname;
@@ -89,10 +89,10 @@ public class Employee {
 	}
 	
 	
-	public ArrayList<Project> getEmployeeProject() {
+	public Project getEmployeeProject() {
 		return employeeProject;
 	}
-	public void setEmployeeProject(ArrayList<Project> employeeProject) {
+	public void setEmployeeProject(Project employeeProject) {
 		this.employeeProject = employeeProject;
 	}
 	
@@ -105,10 +105,10 @@ public class Employee {
 	}
 	
 	
-	public ArrayList<EmployeeProjectRating> getEmployeeRatings() {
+	public ArrayList<EmployeeRating> getEmployeeRatings() {
 		return employeeRatings;
 	}
-	public void setEmployeeRatings(ArrayList<EmployeeProjectRating> employeeRatings) {
+	public void setEmployeeRatings(ArrayList<EmployeeRating> employeeRatings) {
 		this.employeeRatings = employeeRatings;
 	}
 }

@@ -6,9 +6,8 @@ import enums.EnumTypology;
 
 public class Project {
 	
+	private int projectNumber;
 	private EnumTypology typology;
-
-
 	private int employees;
 	private double budget;
 	private boolean closed;
@@ -20,9 +19,10 @@ public class Project {
 	private ArrayList<Meeting> projectMeetings;
 	
 	
-	public Project(EnumTypology typology, int employees, double budget, boolean closed,
+	public Project(int projectNumber, EnumTypology typology, int employees, double budget, boolean closed,
 				   ArrayList<Employee> projectEmployees, Company projectCompany, Customer projectCustomer,
 			       Society projectSociety, ArrayList<Topic> projectTopics, ArrayList<Meeting> projectMeetings) {
+		this.projectNumber = projectNumber;
 		this.typology = typology;
 		this.employees = employees;
 		this.budget = budget;
@@ -33,6 +33,13 @@ public class Project {
 		this.projectSociety = projectSociety;
 		this.projectTopics = projectTopics;
 		this.projectMeetings = projectMeetings;
+	}
+	
+	public int getProjectNumber() {
+		return projectNumber;
+	}
+	public void setProjectNumber(int projectNumber) {
+		this.projectNumber = projectNumber;
 	}
 	
 	

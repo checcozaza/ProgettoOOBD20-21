@@ -1,12 +1,12 @@
 package entities;
 
-public class EmployeeProjectRating {
+public class EmployeeRating {
 	
 	private int rating;
 	private Employee pastEmployee;
 	private ProjectHistory pastProject;
 	
-	public EmployeeProjectRating(int rating, Employee pastEmployee, ProjectHistory pastProject) {
+	public EmployeeRating(int rating, Employee pastEmployee, ProjectHistory pastProject) {
 		this.rating = rating;
 		this.pastEmployee = pastEmployee;
 		this.pastProject = pastProject;

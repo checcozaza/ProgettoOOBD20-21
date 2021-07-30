@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Company;
+import entities.Employee;
+import enums.EnumRole;
 
 public class CompanyDAOPG {
 	private Controller c;
@@ -32,5 +34,36 @@ public class CompanyDAOPG {
 		result.close();
 		conn.close();
 		return companies.toArray();
+	}
+
+	public Company takeCompany(String username, String pwd) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
+		
+		if (pwd == null) {
+			query = conn.prepareStatement("SELECT * FROM Azienda WHERE partiva = ?");
+		}
+		else {
+			query = conn.prepareStatement("SELECT * FROM Azienda WHERE partiva = ? AND passw = ?");
+			query.setString(2, pwd);
+		}
+			
+		query.setString(1, username);
+		result = query.executeQuery();
+		
+		Company foundCompany;
+		if (result.next())
+			foundCompany = new Company(result.getString("partiva"),
+								 result.getString("nome"),
+								 result.getString("sedeprincipale"),
+								 result.getString("passw"),
+								 null, null);
+		else
+			foundCompany = null;
+	
+		result.close();
+		conn.close();
+		
+		return foundCompany;
 	}
 }

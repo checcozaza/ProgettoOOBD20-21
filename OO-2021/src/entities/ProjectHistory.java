@@ -6,16 +6,23 @@ import enums.EnumTypology;
 
 public class ProjectHistory {
 	
+	private int projectNumber;
 	private EnumTypology typology;
-	private ArrayList<EmployeeProjectRating> projectInfo;
+	private ArrayList<EmployeeRating> projectInfo;
 	
 	
-	public ProjectHistory(EnumTypology typology, ArrayList<EmployeeProjectRating> projectInfo) {
-		super();
+	public ProjectHistory(int projectNumber, EnumTypology typology, ArrayList<EmployeeRating> projectInfo) {
+		this.projectNumber = projectNumber;
 		this.typology = typology;
 		this.projectInfo = projectInfo;
 	}
 	
+	public int getProjectNumber() {
+		return projectNumber;
+	}	
+	public void setProjectNumber(int projectNumber) {
+		this.projectNumber = projectNumber;
+	}
 	
 	public EnumTypology getTypology() {
 		return typology;
@@ -25,10 +32,10 @@ public class ProjectHistory {
 	}
 	
 	
-	public ArrayList<EmployeeProjectRating> getProjectInfo() {
+	public ArrayList<EmployeeRating> getProjectInfo() {
 		return projectInfo;
 	}
-	public void setProjectInfo(ArrayList<EmployeeProjectRating> projectInfo) {
+	public void setProjectInfo(ArrayList<EmployeeRating> projectInfo) {
 		this.projectInfo = projectInfo;
 	}
 }
