@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
+import javax.swing.JFrame;
+
 import connections.PgConnection;
 import dao.CompanyDAOPG;
 import dao.EmployeeDAOPG;
@@ -71,8 +73,7 @@ public class Controller {
 	}
 
 	public void backToLogin() {
-		suf.dispose();
-		mf.setVisible(true);
+			mf.setVisible(true);
 	}
 
 	public Object[] pickRegions() throws Exception {

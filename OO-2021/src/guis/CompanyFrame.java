@@ -57,24 +57,25 @@ public class CompanyFrame extends JFrame {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
 		
-		JButton btnNewButton = new JButton("Logout");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton logoutButton = new JButton("Logout");
+		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				
+				dispose();
+				c.backToLogin();
 			}
 		});
-		btnNewButton.setForeground(new Color(46, 52, 64));
-		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 12));
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBackground(new Color(235, 203, 139));
+		logoutButton.setForeground(new Color(46, 52, 64));
+		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
+		logoutButton.setBorderPainted(false);
+		logoutButton.setBackground(new Color(235, 203, 139));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(247, Short.MAX_VALUE)
-					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-					.addGap(118)
+					.addContainerGap()
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
 					.addComponent(lblNewLabel)
 					.addContainerGap())
 		);
@@ -85,7 +86,7 @@ public class CompanyFrame extends JFrame {
 					.addPreferredGap(ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNewLabel)
-						.addComponent(btnNewButton))
+						.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);

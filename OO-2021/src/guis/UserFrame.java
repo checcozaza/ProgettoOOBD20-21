@@ -19,6 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class UserFrame extends JFrame {
 
@@ -52,7 +54,16 @@ public class UserFrame extends JFrame {
 		JLabel userIconLabel = new JLabel("");
 		userIconLabel.setIcon(new ImageIcon(UserFrame.class.getResource("/cv.png")));
 		
-		JButton logoutButton = new JButton("Logout");
+		JButton logoutButton = new JButton("");
+		logoutButton.setFocusPainted(false);
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogin) {
+				dispose();
+				c.backToLogin();
+			}
+		});
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		logoutButton.setBorderPainted(false);
 		logoutButton.setBackground(Color.decode("#EBCB8B"));
@@ -62,9 +73,9 @@ public class UserFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeUserPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(256)
-					.addComponent(logoutButton)
-					.addGap(119)
+					.addContainerGap()
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+					.addGap(392)
 					.addComponent(userIconLabel))
 		);
 		gl_contentPane.setVerticalGroup(

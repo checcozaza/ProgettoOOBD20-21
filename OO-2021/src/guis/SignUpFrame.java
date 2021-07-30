@@ -86,6 +86,7 @@ public class SignUpFrame extends JFrame {
 		JButton goBackButton = new JButton("Indietro");
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
+				dispose();
 				c.backToLogin();
 			}
 		});

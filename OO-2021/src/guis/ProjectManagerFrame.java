@@ -19,6 +19,8 @@ import javax.swing.ImageIcon;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ProjectManagerFrame extends JFrame {
 
@@ -52,7 +54,14 @@ public class ProjectManagerFrame extends JFrame {
 		JLabel managerIconLabel = new JLabel("");
 		managerIconLabel.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/laptop.png")));
 		
+		
 		JButton logoutButton = new JButton("Logout");
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogout) {
+				dispose();
+				c.backToLogin();
+			}
+		});
 		logoutButton.setForeground(new Color(46, 52, 64));
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		logoutButton.setBorderPainted(false);
@@ -62,9 +71,9 @@ public class ProjectManagerFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeManagerPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(246, Short.MAX_VALUE)
-					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-					.addGap(119)
+					.addContainerGap()
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
 					.addComponent(managerIconLabel)
 					.addContainerGap())
 		);
@@ -76,7 +85,7 @@ public class ProjectManagerFrame extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(managerIconLabel)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(logoutButton)
+							.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())))
 		);
 		contentPane.setLayout(gl_contentPane);
