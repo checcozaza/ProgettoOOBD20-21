@@ -2,16 +2,19 @@ package entities;
 
 public class Customer {
 	
+	// Attributi
 	private String fiscalCode;
 	private String name;
 	private String surname;
 	
+	// Costruttore
 	public Customer(String fiscalCode, String name, String surname) {
 		this.fiscalCode = fiscalCode;
 		this.name = name;
 		this.surname = surname;
 	}
 	
+	// Getters e setters
 	public String getFiscalCode() {
 		return fiscalCode;
 	}

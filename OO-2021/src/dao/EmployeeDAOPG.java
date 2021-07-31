@@ -17,8 +17,8 @@ import entities.Project;
 import enums.EnumRole;
 
 public class EmployeeDAOPG {
-
 	
+	// Attributi
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
@@ -28,6 +28,7 @@ public class EmployeeDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette l'inserimento di un utente nel DB
 	public void insertEmployeeProfile(Employee employee) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -46,6 +47,7 @@ public class EmployeeDAOPG {
 		return;
 	}
 
+	// Metodo che permette il recupero di un utente dal DB
 	public Employee takeEmployee(String username, String pwd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -76,6 +78,7 @@ public class EmployeeDAOPG {
 		return found;
 	}
 
+	// Metodo che permette il recupero dei dipendenti di un'azienda dal DB
 	public ArrayList<Employee> takeEmployeesForCompany(Company signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -100,7 +103,4 @@ public class EmployeeDAOPG {
 		conn.close();
 		return employees;
 	}
-	
-	
-
 }

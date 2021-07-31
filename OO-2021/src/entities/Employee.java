@@ -6,18 +6,20 @@ import enums.EnumRole;
 
 public class Employee {
 
-	
+	// Attributi
 	private String fiscalCode;
 	private String name;
 	private String surname;
 	private String passwd;
 	private EnumRole role;
 	private float avgWage;
-	private Company hiredBy;
-	private Project employeeProject;
-	private ArrayList<Meeting> employeeMeetings;
-	private ArrayList<EmployeeRating> employeeRatings;
+	private Company hiredBy; // Codifica associazione
+	private Project employeeProject; // Codifica associazione
+	private ArrayList<Meeting> employeeMeetings; // Codifica associazione
+	private ArrayList<EmployeeRating> employeeRatings; // Codifica associazione
 	
+	
+	// Costruttore
 	public Employee(String fiscalCode, String name, String surname, String passwd, EnumRole role, float avgWage, Company hiredBy,
 					Project employeeProject, ArrayList<Meeting> employeeMeetings,
 					ArrayList<EmployeeRating> employeeRatings) {
@@ -33,6 +35,8 @@ public class Employee {
 		this.employeeRatings = employeeRatings;
 	}
 	
+	
+	// Getters e setters
 	public String getFiscalCode() {
 		return fiscalCode;
 	}

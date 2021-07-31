@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class Company {
 	
+	// Attributi
 	private String vatNumber;
 	private String name;
 	private String headquarters;
 	private String passw;
-	private ArrayList<Project> companyProjects;
-	private ArrayList<Employee> companyEmployees;
+	private ArrayList<Project> companyProjects; // Codifica associazione
+	private ArrayList<Employee> companyEmployees; // Codifica associazione
 	
+	// Costruttore
 	public Company(String vatNumber, String name, String headquarters, String passw, ArrayList<Project> companyProjects,
 			ArrayList<Employee> companyEmployees) {
 		this.vatNumber = vatNumber;
@@ -22,6 +24,7 @@ public class Company {
 		this.companyEmployees = companyEmployees;
 	}
 	
+	// Getters e setters
 	public String getVatNumber() {
 		return vatNumber;
 	}

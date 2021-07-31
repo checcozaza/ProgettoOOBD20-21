@@ -21,6 +21,7 @@ public class CompanyDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette il recupero delle aziende dal DB
 	public Object[] retrieveCompanies() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -36,6 +37,7 @@ public class CompanyDAOPG {
 		return companies.toArray();
 	}
 
+	// Metodo che permette il recupero dell'azienda dell'utente loggato dal DB
 	public Company takeCompany(String username, String pwd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

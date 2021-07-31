@@ -59,7 +59,7 @@ public class UserFrame extends JFrame {
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
 		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogin) {
+			public void actionPerformed(ActionEvent clickLogin) { // Al click del tasto logout, si tornerà alla schermata principale
 				dispose();
 				c.backToLogin();
 			}

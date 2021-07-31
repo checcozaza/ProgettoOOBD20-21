@@ -2,17 +2,19 @@ package entities;
 
 public class EmployeeRating {
 	
+	// Attributi
 	private int rating;
-	private Employee pastEmployee;
-	private ProjectHistory pastProject;
+	private Employee pastEmployee; // Codifica associazione
+	private ProjectHistory pastProject; // Codifica associazione
 	
+	// Costruttore
 	public EmployeeRating(int rating, Employee pastEmployee, ProjectHistory pastProject) {
 		this.rating = rating;
 		this.pastEmployee = pastEmployee;
 		this.pastProject = pastProject;
 	}
 	
-	
+	// Getters e setters
 	public int getRating() {
 		return rating;
 	}

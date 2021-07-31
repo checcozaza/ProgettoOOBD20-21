@@ -27,6 +27,7 @@ public class RatingsDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette il recupero delle valutazioni del dipendente loggato dal DB
 	public ArrayList<EmployeeRating> takeRatings(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

@@ -17,41 +17,45 @@ import entities.Company;
 import entities.Employee;
 import enums.EnumRole;
 import guis.CompanyFrame;
+import guis.PopupDialog;
 import guis.MainFrame;
 import guis.ProjectManagerFrame;
 import guis.SignUpFrame;
-import guis.SignedUp;
+import guis.SignedUpDialog;
 import guis.UserFrame;
 
 public class Controller {
 	
+	// Attributi
 	private static Controller c;
 	private Connection conn = null;
 	private PgConnection pgc = null;
-	MainFrame mf;
-	SignUpFrame suf;
-	TownDAOPG tdp;
-	EmployeeDAOPG edp;
-	CompanyDAOPG cdp;
-	SignedUp sud;
-	ProjectManagerFrame pmf;
-	UserFrame uf;
-	CompanyFrame cfr;
-	ProjectDAOPG pdp;
-	MeetingDAOPG mdp;
-	RatingsDAOPG rdp;
+	private ProjectDAOPG pdp;
+	private MeetingDAOPG mdp;
+	private RatingsDAOPG rdp;
+	private TownDAOPG tdp;
+	private EmployeeDAOPG edp;
+	private CompanyDAOPG cdp;
+	private MainFrame mf;
+	private SignUpFrame suf;
+	private SignedUpDialog sud;
+	private ProjectManagerFrame pmf;
+	private UserFrame uf;
+	private CompanyFrame cfr;
+	private PopupDialog infoDialog;
 	
 	public static void main(String[] args) {
 		c = new Controller();
 	}
 	
+	// Costruttore
 	public Controller() {
 		mf = new MainFrame(this);
 		mf.setVisible(true);
 	}
 	
-	//Metodo utilizzato da classi DAO che effettuano le connessioni, 
-	//ritorna un oggetto di tipo Connessione, se questa avviene correttamente
+	/* Metodo che permette di effettuare connessioni alle classi DAO. 
+	   Se la connessione avviene con successo, ritorna un oggetto di tipo Connection. */
 	public Connection connect() {
 		try {
 			pgc = PgConnection.getInstance();
@@ -65,50 +69,63 @@ public class Controller {
 			return null;
 		}
 	}
-	
-	public void openSignUpForm() throws Exception {
-		mf.setVisible(false);
-		suf = new SignUpFrame(this);
-		suf.setVisible(true);
-	}
 
-	public void backToLogin() {
-			mf.setVisible(true);
-	}
-
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le regioni
 	public Object[] pickRegions() throws Exception {
 		tdp = new TownDAOPG(this);
 		return tdp.retrieveRegions();
 	}
 
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le province
 	public Object[] pickProvince(String selectedRegion) throws Exception {
 		tdp = new TownDAOPG(this);
 		return tdp.retrieveProvinces(selectedRegion);
 	}
 
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le città
 	public Object[] pickCity(String selectedProvince) throws Exception {
 		tdp = new TownDAOPG(this);
 		return tdp.retrieveCity(selectedProvince);
 	}
 	
-	//Metodo per il controllo sulle vocali
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare i codici catastali
+	private String pickCodeCat(String town) throws Exception {
+		tdp = new TownDAOPG(this);
+		return tdp.retrieveCodeCat(town);
+	}
+	
+	// Metodo per effettuare una query nel DB con lo scopo di inserire un utente appena registrato
+	public void insertEmployee(Employee employee) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		edp.insertEmployeeProfile(employee);
+		return;
+	}
+	
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le aziende
+	public Object[] pickCompanies() throws Exception {
+		cdp = new CompanyDAOPG(this);
+		return cdp.retrieveCompanies();
+	}
+	
+	// Metodo utilizzato per il controllo delle vocali, necessario nel calcolo del codice fiscale
 	private boolean isVowel(char c) {
 		return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
 	}
 	
-	//Metodo per il calcolo del codice fiscale
+	// Metodo per il calcolo del codice fiscale
 	public String cfGenerator(String name, String surname, LocalDate birthDate, char sex, String comune) throws Exception {
 		
+		 // Il metodo riceve come parametro l'intera data di nascita; è necessario quindi effettuare un parsing del dato
 		Integer year = birthDate.getYear();
 		String month = birthDate.getMonth().toString();
 		Integer day = birthDate.getDayOfMonth();
 		String code = pickCodeCat(comune);
 		
-		//Dichiarazione variabili utili
+		// Dichiarazione variabili utilizzate
 		String cf = "";
 		int count = 0, cons = 0;
 		
-		//Aggiunta cognome:
+		// Generazione codice fiscale a partire dal cognome inserito
 		for(char c: surname.toUpperCase().toCharArray()) {
 			if(count == 3) break;
 			if(!isVowel(c) && c != ' ') {
@@ -117,7 +134,7 @@ public class Controller {
 			}
 		}
 		
-		//Se ci sono meno di 3 consonanti;
+		// Blocco di istruzioni da eseguire se non ci sono abbastanza consonanti nel cognome
 		if(count != 3) {
 			for(char c: surname.toUpperCase().toCharArray()) {
 				if(count == 3) break;
@@ -128,16 +145,16 @@ public class Controller {
 			}
 		}
 		
-		//Se non bastano le vocali;
+		// Blocco di istruzioni da eseguire se non ci sono abbastanza vocali nel cognome
 		while(cf.length() < 3) cf += 'X';
 		
-		//Aggiunta nome:
+		// Generazione codice fiscale a partire dal nome inserito
 		count = 0;
 		for(char c: name.toUpperCase().toCharArray())
 			if(!isVowel(c) && c != ' ') cons++;
 		
-		//Se ci sono pià di 3 consonanti;
-		if(cons > 3)
+		// Blocco di istruzioni da eseguire se ci sono più di tre consonanti nel nome
+		if (cons > 3)
 			for(char c: name.toUpperCase().toCharArray()) {
 				if (count == 4) break;
 				if(!isVowel(c) && c != ' ')
@@ -155,7 +172,8 @@ public class Controller {
 					count++;
 				}
 			}
-			//Se ci sono meno di 3 consonanti;
+			
+			// Blocco di istruzioni da eseguire se ci sono meno di tre consonanti nel nome
 			if(count != 3) {
 				for(char c: name.toUpperCase().toCharArray()) {
 					if(count == 3) break;
@@ -165,14 +183,15 @@ public class Controller {
 					}
 				}
 			}
-			//Se non bastano le vocali;
+			
+			// Blocco di istruzioni da eseguire se non ci sono abbastanza vocali nel nome
 			while(cf.length() < 6) cf+='X';
 		}
 		
-		//Aggiunta anno:
+		// Aggiunta anno di nascita
 		cf += year.toString().substring(2);
 		
-		//Aggiunta mese:
+		// Aggiunta mese di nascita
 		switch (month) {
 		case "JANUARY":
 				cf += 'A';
@@ -223,7 +242,7 @@ public class Controller {
 			break;
 		}
 			
-		//Aggiunta giorno:
+		// Aggiunta giorno di nascita 
 		if(sex == 'F') 
 			cf += day+40;
 		else {
@@ -232,10 +251,10 @@ public class Controller {
 			cf += day;
 		}
 		
-		//Aggiunta codice catastale:
+		// Aggiunta codice catastale
 		cf += code;
 		
-		//Codice di controllo:
+		// Aggiunta codice di controllo
 		int tempCTRL = 0;
 		
 		for(int i = 0; i < cf.length(); i++) {
@@ -584,12 +603,9 @@ public class Controller {
 		
 		return cf;
 	}
-
-	private String pickCodeCat(String comune) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveCodeCat(comune);
-	}
-
+	
+	/* Metodo che controlla se, alla registrazione, tutti i campi del form sono stati riempiti e se la password confermata
+	è uguale a quella inserita in precedenza */
 	public boolean checkCredentials(String name, String surname, String password, String confirmedPassword, LocalDate birthday) {
 		if (name.length() <= 0 || surname.length() <= 0 || password.length() <= 0 || confirmedPassword.length() <= 0 || birthday == null)
 			return false;
@@ -597,44 +613,8 @@ public class Controller {
 			return false;
 		return true;
 	}
-
-	public void insertEmployee(Employee employee) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		edp.insertEmployeeProfile(employee);
-		return;
-	}
-
-	public Object[] pickCompanies() throws Exception {
-		cdp = new CompanyDAOPG(this);
-		return cdp.retrieveCompanies();
-	}
-
-	public void openSuccessDialog(String cf) {
-		sud = new SignedUp(this, cf);
-		sud.setVisible(true);
-		suf.setEnabled(false);
-	}
-
-	public void endSignUp() {
-		sud.dispose();
-		suf.dispose();
-		mf.setVisible(true);
-		
-	}
-
-	public void checkLoginForEmployee(String username, String pwd) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		Employee signedIn = edp.takeEmployee(username, pwd);
-		if (signedIn != null) {
-			signedIn = fillEmployeeForLogin(signedIn);
-			if (signedIn.getRole() == EnumRole.Project_Manager)
-				openPMFrame(signedIn);
-			else
-				openUserFrame(signedIn);
-		}
-		return;
-	}
 	
+	// Metodo che recupera tutte le informazioni dell'utente appena loggato
 	private Employee fillEmployeeForLogin(Employee signedIn) throws Exception {
 		cdp = new CompanyDAOPG(this);
 		signedIn.setHiredBy(cdp.takeCompany(signedIn.getHiredBy().getVatNumber(), null));
@@ -647,19 +627,30 @@ public class Controller {
 		return signedIn;
 	}
 
-	private void openUserFrame(Employee signedIn) {
-		mf.setVisible(false);
-		UserFrame uf = new UserFrame(this, signedIn);
-		uf.setVisible(true);
-		
+	// Metodo che reindirizza ciascun utente a una homepage personalizzata, dopo aver recuperato le sue informazioni
+	public void checkLoginForEmployee(String username, String pwd) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		Employee signedIn = edp.takeEmployee(username, pwd);
+		if (signedIn != null) { // Se nel DB è presente l'utente, ovvero se si è registrato
+			signedIn = fillEmployeeForLogin(signedIn);
+			if (signedIn.getRole() == EnumRole.Project_Manager)
+				openPMFrame(signedIn); // Apre homepage per il project manager (che ha più funzionalità)
+			else
+				openUserFrame(signedIn); // Apre homepage per un progettista
+		}	
+		return;
+	}
+	
+	// Metodo che recupera tutte le informazioni dell'azienda appena loggata
+	private Company fillCompanyForLogin(Company signedInCompany) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		signedInCompany.setCompanyEmployees(edp.takeEmployeesForCompany(signedInCompany));
+		pdp = new ProjectDAOPG(this);
+		signedInCompany.setCompanyProjects(pdp.takeProjectsForCompany(signedInCompany));
+		return signedInCompany;
 	}
 
-	private void openPMFrame(Employee signedIn) {
-		mf.setVisible(false);
-		ProjectManagerFrame pmf = new ProjectManagerFrame(this, signedIn);
-		pmf.setVisible(true);
-	}
-
+	// Metodo che reindirizza ciascun azienda alla sua homepage personalizzata, dopo aver recuperato le sue informazioni
 	public void checkLoginForCompany(String username, String pwd) throws Exception {
 		cdp = new CompanyDAOPG(this);
 		Company signedInCompany = cdp.takeCompany(username, pwd);
@@ -669,14 +660,41 @@ public class Controller {
 		}
 	}
 	
-	private Company fillCompanyForLogin(Company signedInCompany) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		signedInCompany.setCompanyEmployees(edp.takeEmployeesForCompany(signedInCompany));
-		pdp = new ProjectDAOPG(this);
-		signedInCompany.setCompanyProjects(pdp.takeProjectsForCompany(signedInCompany));
-		return signedInCompany;
+	// Metodi finalizzati a regolare la visibilità dei diversi frame ad ogni occorrenza
+	
+	public void openSignUpForm() throws Exception {
+		mf.setVisible(false);
+		suf = new SignUpFrame(this);
+		suf.setVisible(true);
 	}
-
+	
+	public void backToLogin() {
+		mf.setVisible(true);
+		mf.setEnabled(true);
+	}
+	
+	public void endSignUp() {
+		sud.dispose();
+		suf.dispose();
+		mf.setVisible(true);
+	}
+	
+	// Metodo che reindirizza l'utente alla sua homepage personalizzata
+	private void openUserFrame(Employee signedIn) {
+		mf.setVisible(false);
+		UserFrame uf = new UserFrame(this, signedIn);
+		uf.setVisible(true);
+		
+	}
+	
+	// Metodo che reindirizza il project manager adalla sua homepage personalizzata
+	private void openPMFrame(Employee signedIn) {
+		mf.setVisible(false);
+		ProjectManagerFrame pmf = new ProjectManagerFrame(this, signedIn);
+		pmf.setVisible(true);
+	}
+	
+	// Metodo che reindirizza l'azienda alla sua homepage personalizzata
 	private void openCompanyFrame(Company signedInCompany) {
 		mf.setVisible(false);
 		cfr = new CompanyFrame(this, signedInCompany);
@@ -684,4 +702,27 @@ public class Controller {
 		
 	}
 	
+	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
+	public void openPopupDialog(String toPrintMessage) {
+		infoDialog = new PopupDialog(this, toPrintMessage);
+		infoDialog.setVisible(true);
+	}
+	
+	// Metodo che rende enabled il frame sottostante dopo il click del tasto ok di una dialog
+	public void backToBackgroundFrame() {
+		if (mf.isVisible()) {
+			c.backToLogin();
+		}
+		else if (suf.isVisible()) {
+			suf.isEnabled();
+		}
+	}
+	
+	/* Metodo che apre una finestra di dialogo di conferma di avvenuta registrazione; sarà presente anche il codice fiscale
+	dell'utente (copiabile) appena calcolato, così da poterlo incollare nella finestra di login alla quale si sarà reindirizzati */
+	public void openSuccessDialog(String cf) {
+		sud = new SignedUpDialog(this, cf);
+		sud.setVisible(true);
+		suf.setEnabled(false);
+	}
 }

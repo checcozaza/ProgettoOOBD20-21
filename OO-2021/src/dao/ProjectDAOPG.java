@@ -23,6 +23,7 @@ public class ProjectDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette il recupero del progetto attuale di un utente dal DB
 	public Project takeProject(Employee signedIn) throws SQLException {
 
 		conn = c.connect();
@@ -50,6 +51,7 @@ public class ProjectDAOPG {
 		return foundProject;
 	}
 
+	// Metodo che permette il recupero dei progetti dell'azienda loggata dal DB
 	public ArrayList<Project> takeProjectsForCompany(Company signedInCompany) throws SQLException {
 
 		conn = c.connect();

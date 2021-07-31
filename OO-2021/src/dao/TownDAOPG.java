@@ -19,6 +19,7 @@ public class TownDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette il recupero delle regioni dal DB
 	public Object[] retrieveRegions() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -36,6 +37,7 @@ public class TownDAOPG {
 		
 	}
 
+	// Metodo che permette il recupero delle province della regione selezionata dal DB
 	public Object[] retrieveProvinces(String selectedRegion) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -52,6 +54,7 @@ public class TownDAOPG {
 		return provinces.toArray();
 	}
 
+	// Metodo che permette il recupero delle città della provincia selezionata dal DB
 	public Object[] retrieveCity(String selectedProvince) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -70,6 +73,7 @@ public class TownDAOPG {
 		
 	}
 
+	// Metodo che permette il recupero del codice catastale del comune selezionato dal DB
 	public String retrieveCodeCat(String comune) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

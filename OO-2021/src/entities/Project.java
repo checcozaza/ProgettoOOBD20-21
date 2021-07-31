@@ -6,19 +6,20 @@ import enums.EnumTypology;
 
 public class Project {
 	
+	// Attributi
 	private int projectNumber;
 	private EnumTypology typology;
 	private int employees;
 	private double budget;
 	private boolean closed;
-	private ArrayList<Employee> projectEmployees;
-	private Company projectCompany;
-	private Customer projectCustomer;
-	private Society projectSociety;
-	private ArrayList<Topic> projectTopics;
-	private ArrayList<Meeting> projectMeetings;
+	private ArrayList<Employee> projectEmployees; // Codifica associazione
+	private Company projectCompany; // Codifica associazione
+	private Customer projectCustomer; // Codifica associazione
+	private Society projectSociety; // Codifica associazione
+	private ArrayList<Topic> projectTopics; // Codifica associazione
+	private ArrayList<Meeting> projectMeetings; // Codifica associazione
 	
-	
+	// Costruttore
 	public Project(int projectNumber, EnumTypology typology, int employees, double budget, boolean closed,
 				   ArrayList<Employee> projectEmployees, Company projectCompany, Customer projectCustomer,
 			       Society projectSociety, ArrayList<Topic> projectTopics, ArrayList<Meeting> projectMeetings) {
@@ -35,6 +36,7 @@ public class Project {
 		this.projectMeetings = projectMeetings;
 	}
 	
+	// Getters e setters
 	public int getProjectNumber() {
 		return projectNumber;
 	}

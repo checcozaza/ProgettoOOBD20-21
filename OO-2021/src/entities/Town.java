@@ -2,13 +2,14 @@ package entities;
 
 public class Town {
 	
+	// Attributi
 	private String codCat;
 	private String town;
 	private String region;
 	private String province;
 	private String shortProvince;
 	
-	
+	// Costruttore
 	public Town(String codCat, String town, String region, String province, String shortProvince) {
 		this.codCat = codCat;
 		this.town = town;
@@ -17,7 +18,7 @@ public class Town {
 		this.shortProvince = shortProvince;
 	}
 	
-
+	// Getters e setters
 	public String getCodCat() {
 		return codCat;
 	}

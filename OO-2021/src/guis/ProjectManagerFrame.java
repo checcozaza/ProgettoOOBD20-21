@@ -27,9 +27,7 @@ public class ProjectManagerFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller c;
 
-	/**
-	 * Create the frame.
-	 */
+	// Creazione frame
 	public ProjectManagerFrame(Controller co, Employee manager) {
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ProjectManagerFrame.class.getResource("/bulb.png")));
@@ -57,7 +55,7 @@ public class ProjectManagerFrame extends JFrame {
 		
 		JButton logoutButton = new JButton("Logout");
 		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogout) {
+			public void actionPerformed(ActionEvent clickLogout) { // Al click del tasto logout, si tornerà alla schermata principale
 				dispose();
 				c.backToLogin();
 			}

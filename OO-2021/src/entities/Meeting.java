@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Meeting {
 	
+	// Attributi
 	private int meetingNumber;
 	private LocalDate meetingDate;
 	private LocalTime startTime;
@@ -14,10 +15,10 @@ public class Meeting {
 	private String meetingRoom;
 	private boolean started;
 	private boolean ended;
-	private Project meetingProject;
-	private ArrayList<Employee> meetingEmployees;
+	private Project meetingProject; // Codifica associazione
+	private ArrayList<Employee> meetingEmployees; // Codifica associazione
 	
-	
+	//Costruttore
 	public Meeting(int meetingNumber, LocalDate meetingDate, LocalTime startTime, LocalTime endTime, String meetingPlatform,
 				   String meetingRoom, boolean started, boolean ended, Project meetingProject,
 				   ArrayList<Employee> meetingEmployees) {
@@ -33,12 +34,14 @@ public class Meeting {
 		this.meetingEmployees = meetingEmployees;
 	}
 	
+	// Getters e setters
 	public int getMeetingNumber() {
 		return meetingNumber;
 	}
-	public void setMeetingNumber() {
+	public void setMeetingNumber(int meetingNumber) {
 		this.meetingNumber = meetingNumber;
 	}
+	
 	
 	public LocalDate getMeetingDate() {
 		return meetingDate;

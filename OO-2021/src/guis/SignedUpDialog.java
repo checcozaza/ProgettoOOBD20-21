@@ -22,26 +22,26 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.Color;
 
-public class SignedUp extends JDialog {
+public class SignedUpDialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField credentialsTextField;
 	private Controller c;
 
 	/**
-	 * Create the dialog.
+	 * Creazione dialog
 	 * @param cf 
 	 * @param co 
 	 */
-	public SignedUp(Controller co, String cf) {
-		getContentPane().setBackground(Color.decode("#3B4252"));
+	public SignedUpDialog(Controller co, String cf) {
+		getContentPane().setBackground(Color.decode("#4C566A"));
 		setUndecorated(true);
 		setResizable(false);
 		c = co;
 		setBounds(100, 100, 409, 211);
 		getContentPane().setLayout(new BorderLayout());
-		getRootPane().setBorder(BorderFactory.createLineBorder(Color.decode("#81A1C1"), 3));
-		contentPanel.setBackground(Color.decode("#3B4252"));
+		getRootPane().setBorder(BorderFactory.createLineBorder(Color.decode("#8FBCBB"), 2));
+		contentPanel.setBackground(Color.decode("#4C566A"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
@@ -53,7 +53,7 @@ public class SignedUp extends JDialog {
 		{
 			JLabel successLabel = new JLabel("<HTML> <p> <center> Form compilato con successo! "
 											+ "<br> Credenziali per l'accesso: </center> </p> </HTML>");
-			successLabel.setForeground(Color.decode("#D8DEE9"));
+			successLabel.setForeground(Color.decode("#EBCB8B"));
 			successLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			successLabel.setVerticalAlignment(SwingConstants.TOP);
 			successLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
@@ -66,7 +66,7 @@ public class SignedUp extends JDialog {
 		}
 		
 		credentialsTextField = new JTextField(cf);
-		credentialsTextField.setForeground(Color.decode("#D8DEE9"));
+		credentialsTextField.setForeground(Color.decode("#8FBCBB"));
 		credentialsTextField.setHorizontalAlignment(SwingConstants.CENTER);
 		credentialsTextField.setFont(new Font("Roboto", Font.BOLD, 17));
 		credentialsTextField.setBorder(null);
@@ -80,21 +80,21 @@ public class SignedUp extends JDialog {
 		credentialsTextField.setColumns(10);
 		{
 			JPanel buttonPane = new JPanel();
-			buttonPane.setBackground(Color.decode("#3B4252"));
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			buttonPane.setBackground(Color.decode("#4C566A"));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
 				okButton.setForeground(Color.decode("#2E3440"));
 				okButton.setBorderPainted(false);
 				okButton.setFocusPainted(false);
-				okButton.setBackground(Color.decode("#81A1C1"));
+				okButton.setBackground(Color.decode("#EBCB8B"));
 				okButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent clickOk) {
 						c.endSignUp();
 					}
 				});
+				buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);

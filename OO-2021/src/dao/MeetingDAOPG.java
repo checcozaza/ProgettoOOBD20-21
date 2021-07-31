@@ -24,6 +24,7 @@ public class MeetingDAOPG {
 		c = co;
 	}
 
+	// Metodo che permette il recupero dei meeting dell'utente loggato dal DB
 	public ArrayList<Meeting> takeMeetings(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

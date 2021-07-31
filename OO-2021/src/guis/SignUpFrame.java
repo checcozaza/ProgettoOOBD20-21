@@ -19,13 +19,16 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+
 import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.optionalusertools.DateInterval;
 
 import controllers.Controller;
 import entities.Company;
 import entities.Employee;
 
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.awt.event.ActionEvent;
 import javax.swing.JSpinner;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -43,14 +46,14 @@ public class SignUpFrame extends JFrame {
 	JComboBox<Object> regionComboBox;
 	JComboBox<Object> provinceComboBox;
 	JComboBox<Object> cityComboBox;
-	DatePicker birthDatePicker;
+	JComboBox<Object> companyComboBox;
 	JComboBox<String> genderComboBox;
 	JSpinner wageSpinner;
-	JComboBox<Object> companyComboBox;
+	DatePicker birthDatePicker;
 	
 
 	/**
-	 * Create the frame.
+	 * Creazione frame.
 	 * @throws Exception 
 	 */
 	public SignUpFrame(Controller co) throws Exception {
@@ -87,7 +90,7 @@ public class SignUpFrame extends JFrame {
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
 				dispose();
-				c.backToLogin();
+				c.backToLogin(); // Al click del tasto indietro nella schermata di registrazione, reindirizza al login
 			}
 		});
 		goBackButton.setForeground(Color.decode("#2E3440"));
@@ -103,23 +106,40 @@ public class SignUpFrame extends JFrame {
 				boolean valid = c.checkCredentials(nameTextField.getText(), surnameTextField.getText(),
 								   				   new String (passwordTextField.getPassword()), 
 								   				   new String (confirmPasswordTextField.getPassword()),
-								   				   birthDatePicker.getDate());
-				if (valid) {
+								   				   birthDatePicker.getDate()); /*Al click del  tasto registrati, il metodo
+								   				   								controlla la validità dei dati inseriti */
+				
+				if (valid) { // Se i dati inseriti sono validi
 					try {
+						// Genera il codice fiscale a partire dai dati inseriti
 						String cf = c.cfGenerator(nameTextField.getText(), surnameTextField.getText(),
-									  birthDatePicker.getDate(), genderComboBox.getSelectedItem().toString().toCharArray() [0], 
-									  cityComboBox.getSelectedItem().toString());
-						Company hiringCompany = new Company(companyComboBox.getSelectedItem().toString(), null, null, null, null, null);
+									  			  birthDatePicker.getDate(), 
+									  			  genderComboBox.getSelectedItem().toString().toCharArray() [0], 
+									  			  cityComboBox.getSelectedItem().toString()); 
+						
+						// Prende l'azienda inserita													  
+						Company hiringCompany = new Company(companyComboBox.getSelectedItem().toString(), 
+															null, null, null, null, null); 
+						
+						
+						// Procede alla registrazione dell'utente inserendo nel DB i dati immessi e quelli calcolati
 						c.insertEmployee(new Employee(cf, nameTextField.getText(), surnameTextField.getText(),
 										 			  new String (passwordTextField.getPassword()), null, 
 										 			  Float.parseFloat(wageSpinner.getValue().toString()),
 										 			  hiringCompany, null, null, null));
+						
+						/* Apre una finestra di dialogo in cui sarà presente il codice fiscale appena calcolato (copiabile)
+						per facilitarne l'inserimento in fase di login */
 						c.openSuccessDialog(cf);
 						
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
+				else {
+					c.openPopupDialog("Si prega di compilare correttamente tutti i campi"); // Popup di errore
+				}
+					
 
 			}
 		});
@@ -173,6 +193,7 @@ public class SignUpFrame extends JFrame {
 		placeOfBirthLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		birthDatePicker = new DatePicker();
+		//birthDatePicker.getSettings().getDateRangeLimits().lastDate();
 		birthDatePicker.getComponentToggleCalendarButton().setBackground(Color.WHITE);
 		birthDatePicker.getComponentDateTextField().setBackground(Color.WHITE);
 		birthDatePicker.getComponentToggleCalendarButton().setForeground(Color.decode("#5E81AC"));

@@ -166,8 +166,13 @@ public class MainFrame extends JFrame {
 						e.printStackTrace();
 					}
 				}
+				else {
+					setEnabled(false);
+					c.openPopupDialog("Username o password non validi");
+				}
 			}
 		});
+		
 		loginButton.setForeground(Color.decode("#2E3440"));
 		loginButton.setFocusPainted(false);
 		loginButton.setBorderPainted(false);
