@@ -101,6 +101,7 @@ public class SignUpFrame extends JFrame {
 		buttonPanel.add(goBackButton);
 		
 		JButton signUpButton = new JButton("Registrati");
+		JFrame toClose = this;
 		signUpButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickSignUp) {
 				boolean valid = c.checkCredentials(nameTextField.getText(), surnameTextField.getText(),
@@ -137,7 +138,7 @@ public class SignUpFrame extends JFrame {
 					}
 				}
 				else {
-					c.openPopupDialog("Si prega di compilare correttamente tutti i campi"); // Popup di errore
+					c.openPopupDialog(toClose, "Si prega di compilare correttamente tutti i campi"); // Popup di errore
 				}
 					
 
@@ -193,7 +194,7 @@ public class SignUpFrame extends JFrame {
 		placeOfBirthLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		birthDatePicker = new DatePicker();
-		//birthDatePicker.getSettings().getDateRangeLimits().lastDate();
+		//birthDatePicker.getSettings().setDateRangeLimits(null, LocalDate.now().minusYears(18));
 		birthDatePicker.getComponentToggleCalendarButton().setBackground(Color.WHITE);
 		birthDatePicker.getComponentDateTextField().setBackground(Color.WHITE);
 		birthDatePicker.getComponentToggleCalendarButton().setForeground(Color.decode("#5E81AC"));

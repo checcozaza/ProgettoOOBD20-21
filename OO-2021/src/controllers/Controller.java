@@ -12,6 +12,7 @@ import dao.EmployeeDAOPG;
 import dao.MeetingDAOPG;
 import dao.ProjectDAOPG;
 import dao.RatingsDAOPG;
+import dao.TopicDAOPG;
 import dao.TownDAOPG;
 import entities.Company;
 import entities.Employee;
@@ -36,6 +37,7 @@ public class Controller {
 	private TownDAOPG tdp;
 	private EmployeeDAOPG edp;
 	private CompanyDAOPG cdp;
+	private TopicDAOPG todp;
 	private MainFrame mf;
 	private SignUpFrame suf;
 	private SignedUpDialog sud;
@@ -622,6 +624,8 @@ public class Controller {
 		signedIn.setEmployeeMeetings(mdp.takeMeetings(signedIn));
 		pdp = new ProjectDAOPG(this);
 		signedIn.setEmployeeProject(pdp.takeProject(signedIn));
+		todp = new TopicDAOPG(this);
+		signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
 		rdp = new RatingsDAOPG(this);
 		signedIn.setEmployeeRatings(rdp.takeRatings(signedIn));
 		return signedIn;
@@ -703,19 +707,16 @@ public class Controller {
 	}
 	
 	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
-	public void openPopupDialog(String toPrintMessage) {
-		infoDialog = new PopupDialog(this, toPrintMessage);
+	public void openPopupDialog(JFrame toClose, String toPrintMessage) {
+		infoDialog = new PopupDialog(this, toClose, toPrintMessage);
 		infoDialog.setVisible(true);
 	}
 	
 	// Metodo che rende enabled il frame sottostante dopo il click del tasto ok di una dialog
-	public void backToBackgroundFrame() {
-		if (mf.isVisible()) {
-			c.backToLogin();
-		}
-		else if (suf.isVisible()) {
-			suf.isEnabled();
-		}
+	public void backToBackgroundFrame(JFrame toClose) {
+		infoDialog.dispose();
+		toClose.setVisible(true);
+		toClose.setEnabled(true);
 	}
 	
 	/* Metodo che apre una finestra di dialogo di conferma di avvenuta registrazione; sarà presente anche il codice fiscale

@@ -12,6 +12,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
@@ -27,7 +28,7 @@ public class PopupDialog extends JDialog {
 	private JLabel lblNewLabel;
 	
 	// Creazione Dialog
-	public PopupDialog(Controller co, String popupMessage) {
+	public PopupDialog(Controller co, JFrame toClose, String popupMessage) {
 		getContentPane().setBackground(Color.decode("#3B4252"));
 		setUndecorated(true);
 		setResizable(true);
@@ -68,7 +69,7 @@ public class PopupDialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent clickOK) {
 						setVisible(false);
-						c.backToBackgroundFrame(); /* Al click del tasto ok, viene richiamato un metodo che rende e 
+						c.backToBackgroundFrame(toClose); /* Al click del tasto ok, viene richiamato un metodo che rende e 
 													enabled il frame sottostante */
 					}
 				});
@@ -80,5 +81,4 @@ public class PopupDialog extends JDialog {
 		}
 		setLocationRelativeTo(null);
 	}
-
 }

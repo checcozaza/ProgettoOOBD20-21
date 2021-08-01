@@ -148,10 +148,13 @@ public class MainFrame extends JFrame {
 		buttonPanel.add(signupButton);
 		
 		JButton loginButton = new JButton("Login");
+		JFrame toClose = this;
 		loginButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogin) {
 				String username = usernameTextField.getText();
 				String pwd = new String (passwordTextField.getPassword());
+				usernameTextField.setText("");
+				passwordTextField.setText("");
 				if (username.length() == 16 && !pwd.isBlank()) {
 					try {
 						c.checkLoginForEmployee(username, pwd);
@@ -168,7 +171,7 @@ public class MainFrame extends JFrame {
 				}
 				else {
 					setEnabled(false);
-					c.openPopupDialog("Username o password non validi");
+					c.openPopupDialog(toClose, "Username o password non validi");
 				}
 			}
 		});

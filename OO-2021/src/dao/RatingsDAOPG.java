@@ -15,6 +15,7 @@ import entities.EmployeeRating;
 import entities.Meeting;
 import entities.Project;
 import entities.ProjectHistory;
+import enums.EnumTypology;
 
 public class RatingsDAOPG {
 
@@ -32,9 +33,11 @@ public class RatingsDAOPG {
 		conn = c.connect();
 		if (conn == null) return null;
 		
-		query = conn.prepareStatement("SELECT Valutazione, CodProg FROM PartecipanteProg WHERE UserID = (SELECT UserID "
-																							  			  + "FROM Partecipante "
-																							  			  + "WHERE CF = ?)");
+		query = conn.prepareStatement("SELECT PP.Valutazione, PP.CodProg, PR.Tipologia "
+									+ "FROM PartecipanteProg AS PP JOIN ProgRealizzato AS PR ON PP.CodProg = PR.CodProg "
+									+ "WHERE PP.UserID = (SELECT UserID "
+													 + "FROM Partecipante "
+													 + "WHERE CF = ?)");
 		
 		query.setString(1, signedIn.getFiscalCode());
 		result = query.executeQuery();
@@ -44,7 +47,7 @@ public class RatingsDAOPG {
 			ratings.add(new EmployeeRating(result.getInt("valutazione"),
 										   signedIn,
 										   new ProjectHistory(result.getInt("CodProg"), 
-												   	   		  null, null)));
+										   EnumTypology.valueOf(result.getString("Tipologia").replace(' ', '_')) , null)));
 	
 		result.close();
 		conn.close();
