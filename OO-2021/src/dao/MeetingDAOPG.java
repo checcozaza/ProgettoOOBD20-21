@@ -39,9 +39,9 @@ public class MeetingDAOPG {
 		ArrayList<Meeting> meetings = new ArrayList<Meeting>();
 		while (result.next())
 			meetings.add(new Meeting(result.getInt("codmeeting"),
-									 LocalDate.ofInstant(result.getDate("datariunione").toInstant(), ZoneId.systemDefault()),
-									 LocalTime.ofInstant(result.getTime("orainizio").toInstant(), ZoneId.systemDefault()),
-									 LocalTime.ofInstant(result.getTime("orafine").toInstant(), ZoneId.systemDefault()),
+									 result.getDate("datariunione").toLocalDate(),
+									 result.getTime("orainizio").toLocalTime(),
+									 result.getTime("orafine").toLocalTime(),
 									 result.getString("piattaforma"),
 									 result.getString("luogo"),
 									 result.getBoolean("iniziato"),

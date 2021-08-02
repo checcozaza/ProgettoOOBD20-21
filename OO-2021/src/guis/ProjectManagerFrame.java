@@ -34,7 +34,7 @@ public class ProjectManagerFrame extends JFrame {
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 448);
+		setBounds(100, 100, 740, 497);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -53,11 +53,13 @@ public class ProjectManagerFrame extends JFrame {
 		managerIconLabel.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/laptop.png")));
 		
 		
-		JButton logoutButton = new JButton("Logout");
+		JButton logoutButton = new JButton("");
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/logout.png")));
+		JFrame loggingOut = this;
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) { // Al click del tasto logout, si tornerà alla schermata principale
-				dispose();
-				c.backToLogin();
+				c.backToLogin(loggingOut);
 			}
 		});
 		logoutButton.setForeground(new Color(46, 52, 64));
@@ -67,11 +69,11 @@ public class ProjectManagerFrame extends JFrame {
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addComponent(welcomeManagerPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+				.addComponent(welcomeManagerPanel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 342, Short.MAX_VALUE)
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 417, Short.MAX_VALUE)
 					.addComponent(managerIconLabel)
 					.addContainerGap())
 		);
@@ -79,11 +81,11 @@ public class ProjectManagerFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(welcomeManagerPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 215, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 328, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(managerIconLabel)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 							.addContainerGap())))
 		);
 		contentPane.setLayout(gl_contentPane);

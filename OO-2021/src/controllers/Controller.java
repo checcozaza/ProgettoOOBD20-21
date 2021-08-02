@@ -624,8 +624,10 @@ public class Controller {
 		signedIn.setEmployeeMeetings(mdp.takeMeetings(signedIn));
 		pdp = new ProjectDAOPG(this);
 		signedIn.setEmployeeProject(pdp.takeProject(signedIn));
-		todp = new TopicDAOPG(this);
-		signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
+		if (signedIn.getEmployeeProject() != null) {
+			todp = new TopicDAOPG(this);
+			signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
+		}
 		rdp = new RatingsDAOPG(this);
 		signedIn.setEmployeeRatings(rdp.takeRatings(signedIn));
 		return signedIn;
@@ -641,7 +643,9 @@ public class Controller {
 				openPMFrame(signedIn); // Apre homepage per il project manager (che ha più funzionalità)
 			else
 				openUserFrame(signedIn); // Apre homepage per un progettista
-		}	
+		}
+		else
+			openPopupDialog(mf, "Username o password non validi");
 		return;
 	}
 	
@@ -662,6 +666,8 @@ public class Controller {
 			signedInCompany = fillCompanyForLogin(signedInCompany);
 			openCompanyFrame(signedInCompany);
 		}
+		else
+			openPopupDialog(mf, "Username o password non validi");
 	}
 	
 	// Metodi finalizzati a regolare la visibilità dei diversi frame ad ogni occorrenza
@@ -672,7 +678,8 @@ public class Controller {
 		suf.setVisible(true);
 	}
 	
-	public void backToLogin() {
+	public void backToLogin(JFrame loggingOut) {
+		loggingOut.dispose();
 		mf.setVisible(true);
 		mf.setEnabled(true);
 	}

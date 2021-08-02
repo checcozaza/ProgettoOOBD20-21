@@ -39,7 +39,7 @@ public class CompanyFrame extends JFrame {
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 448);
+		setBounds(100, 100, 740, 497);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -54,39 +54,41 @@ public class CompanyFrame extends JFrame {
 		welcomeCompanyLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeCompanyPanel.add(welcomeCompanyLabel);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
+		JLabel companyIconLabel = new JLabel("");
+		companyIconLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
 		
-		JButton logoutButton = new JButton("Logout");
+		JButton logoutButton = new JButton("");
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setBorderPainted(false);
+		logoutButton.setIcon(new ImageIcon(CompanyFrame.class.getResource("/logout.png")));
+		JFrame loggingOut = this;
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				dispose();
-				c.backToLogin();
+				c.backToLogin(loggingOut);
 			}
 		});
 		logoutButton.setForeground(new Color(46, 52, 64));
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
-		logoutButton.setBorderPainted(false);
 		logoutButton.setBackground(new Color(235, 203, 139));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 345, Short.MAX_VALUE)
-					.addComponent(lblNewLabel)
+					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 606, Short.MAX_VALUE)
+					.addComponent(companyIconLabel)
 					.addContainerGap())
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(welcomeCompanyPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 317, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel)
-						.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+						.addComponent(companyIconLabel)
+						.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		contentPane.setLayout(gl_contentPane);

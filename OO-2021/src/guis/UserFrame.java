@@ -8,18 +8,26 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.plaf.ColorUIResource;
+import javax.swing.plaf.InsetsUIResource;
 
 import controllers.Controller;
 import entities.Employee;
 import entities.EmployeeRating;
+import entities.Meeting;
+import entities.Project;
 import entities.ProjectHistory;
 import entities.Topic;
 
 import java.awt.Font;
+import java.awt.Insets;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
 import javax.swing.JButton;
@@ -31,136 +39,167 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import com.privatejgoodies.common.base.Objects;
+import javax.swing.BoxLayout;
 
 public class UserFrame extends JFrame {
 
-	private JPanel contentPane;
+	// Attributi
 	private Controller c;
-	private JTable table;
-	JLabel lblNewLabel_2; 
-	private JTable table_1;
-	/**
-	 * Create the frame.
-	 */
+	private JPanel contentPane;
+	private JPanel welcomeUserPanel;
+	private JPanel meetingsPanel;
+	private JPanel historyPanel;
+	private JScrollPane meetingsScrollPane;
+	private JScrollPane historyScrollPanel;
+	private JTabbedPane userTabbedPane;
+	private JTable meetingsTable;
+	private JTable historyTable;
+	private JLabel projectInfoLabel;
+	private JButton logoutButton;
+	private DefaultTableModel meetingsTM;
+	private DefaultTableModel historyTM;
+
+	// Creazione frame
 	public UserFrame(Controller co, Employee user) {
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UserFrame.class.getResource("/bulb.png")));
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 740, 497);
+		setBounds(100, 100, 741, 523);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		
-		JPanel welcomeUserPanel = new JPanel();
+		// Panel utente
+		welcomeUserPanel = new JPanel();
 		welcomeUserPanel.setBackground(Color.decode("#434C5E"));
 		
-		JLabel welcomeUserLabel = new JLabel("<HTML> <center> Benvenuto, <br>"+ user.getName() 
+		// Label di benvenuto
+		JLabel welcomeUserLabel = new JLabel("<HTML> <center> Benvenuto, <br>" +user.getName()+ " " +user.getSurname()
 									+ "! </center> </HTML>");
 		welcomeUserLabel.setForeground(Color.decode("#EBCB8B"));
 		welcomeUserLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeUserPanel.add(welcomeUserLabel);
+		JFrame loggingOut = this;
+
+		UIManager.put("TabbedPane.contentAreaColor", Color.decode("#ECEFF4"));
+		UIManager.put("TabbedPane.selected", Color.decode("#5E81AC"));
 		
-		JLabel userIconLabel = new JLabel("");
-		userIconLabel.setIcon(new ImageIcon(UserFrame.class.getResource("/cv.png")));
+		userTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		userTabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
+		userTabbedPane.setFont(new Font("Roboto", Font.PLAIN, 12));
+		userTabbedPane.setForeground(Color.decode("#ECEFF4"));
+		userTabbedPane.setBackground(Color.decode("#B48EAD"));
 		
-		JButton logoutButton = new JButton("");
-		logoutButton.setFocusPainted(false);
-		logoutButton.setContentAreaFilled(false);
-		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
-		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogin) { // Al click del tasto logout, si tornerà alla schermata principale
-				dispose();
-				c.backToLogin();
+		meetingsPanel = new JPanel();
+		meetingsPanel.setBackground(Color.decode("#EBCB8B"));
+		userTabbedPane.addTab("Progetto attuale", null, meetingsPanel, null);
+		meetingsPanel.setLayout(null);
+		
+		
+		// Caratteristiche dello ScrollPane meetingsScrollPane
+		meetingsScrollPane = new JScrollPane();
+		meetingsScrollPane.setForeground(Color.decode("#434C5E"));
+		meetingsScrollPane.setBackground(Color.decode("#434C5E"));
+		meetingsScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
+		meetingsScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
+		meetingsScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
+		meetingsScrollPane.setBounds(0, 57, 611, 201);
+		meetingsPanel.add(meetingsScrollPane);
+		
+			
+		// Table model che contiene le informazioni sui meeting
+		meetingsTM = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+						"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma"
+				}
+			);
+		
+		
+		// Recupero informazioni sui meeting
+		for (Meeting m: user.getEmployeeMeetings()) {
+			String meetingPlace = "";
+			if (!m.isStarted() && !m.isEnded()) { // Impedisce la visualizzazione di meeting in corso o già finiti
+				if (m.getMeetingPlatform() == null) // Controlla se il meeting si tiene in un luogo fisico o su una piattaforma telematica
+					meetingPlace = m.getMeetingRoom();
+				else
+					meetingPlace = m.getMeetingPlatform();
+			
+				// Riempimento tabella con le informazioni utili
+				meetingsTM.addRow(new Object[] {m.getMeetingDate(),
+												m.getStartTime(),
+												m.getEndTime(),
+												meetingPlace});
 			}
-		});
-		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
-		logoutButton.setBorderPainted(false);
-		logoutButton.setBackground(Color.decode("#EBCB8B"));
-		logoutButton.setForeground(Color.decode("#2E3440"));
+		}
 		
-		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		// Rende la table non editabile
+		meetingsTable = new JTable(meetingsTM) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		
-		JLabel lblNewLabel = new JLabel(user.getHiredBy().getName());
+		// Caratteristiche estetiche della JTable
+		meetingsTable.setBackground(Color.decode("#ECEFF4"));
+		meetingsTable.setRowMargin(2);
+		meetingsTable.setRowHeight(24);
+		meetingsTable.setFont(new Font("Roboto", Font.PLAIN, 14));
+		meetingsTable.setForeground(Color.decode("#434C5E"));
+		meetingsTable.setGridColor(Color.decode("#B48EAD"));
+		meetingsTable.getTableHeader().setBackground(Color.decode("#B48EAD"));
+		meetingsTable.getTableHeader().setForeground(Color.decode("#ECEFF4"));
+		meetingsTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
+		meetingsTable.getTableHeader().setReorderingAllowed(false);
 		
-		JLabel lblNewLabel_1 = new JLabel(String.valueOf(user.getAvgWage()) + " €");
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addComponent(welcomeUserPanel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-						.addComponent(tabbedPane, GroupLayout.PREFERRED_SIZE, 572, GroupLayout.PREFERRED_SIZE))
-					.addGap(24)
-					.addComponent(userIconLabel))
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblNewLabel)
-					.addGap(48)
-					.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(550, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(welcomeUserPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel)
-						.addComponent(lblNewLabel_1))
-					.addGap(15)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(userIconLabel)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(tabbedPane, GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(logoutButton)))
-					.addContainerGap())
-		);
+		meetingsScrollPane.setViewportView(meetingsTable);
+		// Label con informazioni del progetto dell'utente (se esiste) con codice, tipologia e ambiti del progetto.
+		projectInfoLabel = new JLabel("NESSUN PROGETTO ATTIVO"); // Testo di default
+		projectInfoLabel.setForeground(Color.decode("#434C5E"));
+		projectInfoLabel.setVerticalAlignment(SwingConstants.TOP);
+		projectInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		projectInfoLabel.setFont(new Font("Roboto", Font.BOLD, 15));
+		projectInfoLabel.setBounds(0, 0, 566, 59);
+		meetingsPanel.add(projectInfoLabel);
 		
-		JPanel panel = new JPanel();
-		tabbedPane.addTab("Progetto attuale", null, panel, null);
-		panel.setLayout(null);
-		
-		
-		lblNewLabel_2 = new JLabel("NESSUN PROGETTO ATTIVO");
-		lblNewLabel_2.setBounds(10, 11, 547, 71);
-		panel.add(lblNewLabel_2);
-		if (user.getEmployeeProject() != null) {
+		// Recupero ambiti di un progetto e formattazione in stringa
+		if (user.getEmployeeProject() != null) { // Se l'utente ha progetti a carico
 			String topicToPrint = "";
 			for (Topic t: user.getEmployeeProject().getProjectTopics()) {
 				topicToPrint += t.getName() + ", ";
 			}
+			topicToPrint = topicToPrint.substring(0, (topicToPrint.length() - 2));
 			
-			lblNewLabel_2.setText("<HTML> <p> <center> Codice Progetto: " + String.valueOf(user.getEmployeeProject().getProjectNumber()) 
-								+ "<br> Tipologia: " + user.getEmployeeProject().getTypology()
-								+ "<br> Ambiti: " + topicToPrint
-								+ "</center> </p> </HTML>");
+			// Recupero informazioni da visualizzare
+			projectInfoLabel.setText("<HTML> <center> Codice Progetto: " + String.valueOf(user.getEmployeeProject().getProjectNumber()) 
+			+ "<br> Tipologia: " + user.getEmployeeProject().getTypology().toString().replace('_', ' ')
+			+ "<br> Ambiti: " + topicToPrint
+			+ "</center> </HTML>");
 		}
-		
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(0, 135, 567, 48);
-		panel.add(scrollPane_1);
-		
-		table_1 = new JTable();
-		scrollPane_1.setViewportView(table_1);
-			
+		else
+			meetingsScrollPane.setVisible(false);
 																
+		historyPanel = new JPanel();
+		userTabbedPane.addTab("Cronologia progetti", null, historyPanel, null);
+		historyPanel.setLayout(null);
 		
-		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Cronologia progetti", null, panel_1, null);
-		panel_1.setLayout(null);
+		// Caratteristiche dello ScrollPane historyPanel
+		historyScrollPanel = new JScrollPane();
+		historyScrollPanel.setForeground(Color.decode("#434C5E"));
+		historyScrollPanel.setBackground(Color.decode("#434C5E"));
+		historyScrollPanel.setFont(new Font("Roboto", Font.PLAIN, 15));
+		historyScrollPanel.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
+		historyScrollPanel.getViewport().setBackground(Color.decode("#D8DEE9"));
+		historyScrollPanel.setBounds(0, 0, 611, 258);
+		historyPanel.add(historyScrollPanel);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(0, 0, 567, 262);
-		panel_1.add(scrollPane);
-		
-		DefaultTableModel historyTM = new DefaultTableModel(
+		// Table model che contiene le informazioni sui progetti passati
+		historyTM = new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
@@ -168,21 +207,99 @@ public class UserFrame extends JFrame {
 			}
 		);
 		
+		// Riempimento della tabella con le informazioni utili
 		for (EmployeeRating er: user.getEmployeeRatings()) {
 			historyTM.addRow(new Object[] {er.getPastProject().getProjectNumber(),
 										   er.getPastProject().getTypology().toString().replace('_', ' '),
 										   er.getRating()});
 		}
 		
-		table = new JTable(historyTM) {
+		// Rende la table non editabile
+		historyTable = new JTable(historyTM) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
 			}
 		};
-		scrollPane.setViewportView(table);
+		
+		// Caratteristiche estetiche della JTable
+		historyTable.setBackground(Color.decode("#ECEFF4"));
+		historyTable.setRowMargin(2);
+		historyTable.setRowHeight(24);
+		historyTable.setFont(new Font("Roboto", Font.PLAIN, 14));
+		historyTable.setForeground(Color.decode("#434C5E"));
+		historyTable.setGridColor(Color.decode("#B48EAD"));
+		historyTable.getTableHeader().setBackground(Color.decode("#B48EAD"));
+		historyTable.getTableHeader().setForeground(Color.decode("#ECEFF4"));
+		historyTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
+		historyTable.getTableHeader().setReorderingAllowed(false);
+		
+		historyScrollPanel.setViewportView(historyTable);
+		
+		JPanel bottomPanel = new JPanel();
+		bottomPanel.setBackground(Color.decode("#4C566A"));
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(bottomPanel, GroupLayout.DEFAULT_SIZE, 735, Short.MAX_VALUE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				.addComponent(welcomeUserPanel, GroupLayout.DEFAULT_SIZE, 745, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(64)
+					.addComponent(userTabbedPane, GroupLayout.PREFERRED_SIZE, 616, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(65, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(welcomeUserPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(userTabbedPane, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
+		);
+		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
+		
+		// Tasto di logout
+		logoutButton = new JButton("");
+		bottomPanel.add(logoutButton);
+		logoutButton.setToolTipText("Logout");
+		logoutButton.setFocusPainted(false);
+		logoutButton.setContentAreaFilled(false);
+		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogin) { // Al click del tasto logout, si tornerà alla schermata principale
+				c.backToLogin(loggingOut);
+			}
+		});
+		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
+		logoutButton.setBorderPainted(false);
+		logoutButton.setBackground(Color.decode("#EBCB8B"));
+		logoutButton.setForeground(Color.decode("#2E3440"));
+		
+		// Label con nome dell'azienda che impiega l'utente
+		JLabel companyNameLabel = new JLabel("<HTML> <center> Azienda: <br>" +user.getHiredBy().getName()+  "<center> <HTML>");
+		bottomPanel.add(companyNameLabel);
+		companyNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		companyNameLabel.setVerticalAlignment(SwingConstants.TOP);
+		companyNameLabel.setForeground(Color.decode("#EBCB8B"));
+		companyNameLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
+		
+		// Label con salario medio dell'utente
+		JLabel wageLabel = new JLabel(String.valueOf("<HTML> <center> Salario medio: <br>" +(int)user.getAvgWage())+ " € <center> <HTML>");
+		bottomPanel.add(wageLabel);
+		wageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		wageLabel.setForeground(Color.decode("#EBCB8B"));
+		wageLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
+		
+		// Icona utente
+		JLabel userIconLabel = new JLabel("");
+		bottomPanel.add(userIconLabel);
+		userIconLabel.setIcon(new ImageIcon(UserFrame.class.getResource("/cv.png")));
 		contentPane.setLayout(gl_contentPane);
 		
+		pack();
 		setLocationRelativeTo(null);
 	}
 }

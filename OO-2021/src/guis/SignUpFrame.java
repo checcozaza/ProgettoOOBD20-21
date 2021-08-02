@@ -62,7 +62,7 @@ public class SignUpFrame extends JFrame {
 		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 580, 448);
+		setBounds(100, 100, 564, 428);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -87,10 +87,10 @@ public class SignUpFrame extends JFrame {
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JButton goBackButton = new JButton("Indietro");
+		JFrame toLogin = this;
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
-				dispose();
-				c.backToLogin(); // Al click del tasto indietro nella schermata di registrazione, reindirizza al login
+				c.backToLogin(toLogin); // Al click del tasto indietro nella schermata di registrazione, reindirizza al login
 			}
 		});
 		goBackButton.setForeground(Color.decode("#2E3440"));
@@ -227,6 +227,7 @@ public class SignUpFrame extends JFrame {
 		confirmPasswordLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
 		passwordTextField = new JPasswordField();
+		passwordTextField.setToolTipText("La password deve contenere almeno una lettera, un numero e un carattere speciale.");
 		passwordTextField.setBackground(Color.WHITE);
 		passwordTextField.setForeground(Color.decode("#5E81AC"));
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 14));
@@ -285,53 +286,52 @@ public class SignUpFrame extends JFrame {
 				.addGroup(gl_formsPanel.createSequentialGroup()
 					.addGap(30)
 					.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_formsPanel.createSequentialGroup()
+							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+								.addComponent(birthDateLabel)
+								.addComponent(birthDatePicker, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
+								.addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+								.addComponent(passwordTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
+							.addGap(23)
+							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(confirmPasswordLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+								.addComponent(confirmPasswordTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+								.addGroup(gl_formsPanel.createSequentialGroup()
+									.addGap(1)
+									.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(genderLabel))
+									.addGap(18)
+									.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(wageLabel)
+										.addComponent(wageSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addGroup(gl_formsPanel.createSequentialGroup()
+							.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
+							.addGap(35)
+							.addComponent(surnameTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_formsPanel.createSequentialGroup()
+							.addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+							.addGap(70)
+							.addComponent(surnameLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE))
 						.addComponent(placeOfBirthLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
 						.addGroup(gl_formsPanel.createSequentialGroup()
 							.addComponent(regionComboBox, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 							.addGap(23)
 							.addComponent(provinceComboBox, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
 							.addGap(23)
-							.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_formsPanel.createSequentialGroup()
-							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_formsPanel.createSequentialGroup()
-									.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-										.addComponent(birthDateLabel)
-										.addComponent(birthDatePicker, GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)
-										.addComponent(passwordLabel, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-										.addComponent(passwordTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-									.addGap(23)
-									.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(confirmPasswordLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-										.addComponent(confirmPasswordTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_formsPanel.createSequentialGroup()
-											.addGap(1)
-											.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-												.addComponent(genderLabel))
-											.addGap(18)
-											.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-												.addComponent(wageLabel)
-												.addComponent(wageSpinner, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
-								.addGroup(gl_formsPanel.createSequentialGroup()
-									.addComponent(nameTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-									.addGap(35)
-									.addComponent(surnameTextField, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_formsPanel.createSequentialGroup()
-									.addComponent(nameLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-									.addGap(70)
-									.addComponent(surnameLabel, GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)))
-							.addGap(37)
-							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-								.addComponent(iconLabel, GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-								.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
-								.addComponent(companyComboBox, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE))
-							.addContainerGap())))
+							.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)))
+					.addGap(37)
+					.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+						.addComponent(companyLabel, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_formsPanel.createParallelGroup(Alignment.TRAILING)
+							.addComponent(iconLabel)
+							.addComponent(companyComboBox, GroupLayout.PREFERRED_SIZE, 140, GroupLayout.PREFERRED_SIZE)))
+					.addGap(189))
 		);
 		gl_formsPanel.setVerticalGroup(
-			gl_formsPanel.createParallelGroup(Alignment.LEADING)
+			gl_formsPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_formsPanel.createSequentialGroup()
-					.addGap(30)
+					.addContainerGap(14, Short.MAX_VALUE)
 					.addGroup(gl_formsPanel.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
 							.addComponent(nameLabel)
@@ -349,37 +349,41 @@ public class SignUpFrame extends JFrame {
 							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
 								.addComponent(regionComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
 								.addComponent(provinceComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-								.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
+								.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+							.addGap(22)
+							.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_formsPanel.createSequentialGroup()
+									.addComponent(birthDateLabel)
+									.addGap(5)
+									.addComponent(birthDatePicker, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+									.addGap(22)
+									.addComponent(passwordLabel)
+									.addGap(5)
+									.addComponent(passwordTextField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_formsPanel.createSequentialGroup()
+									.addGap(3)
+									.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
+										.addComponent(iconLabel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+										.addGroup(gl_formsPanel.createSequentialGroup()
+											.addGroup(gl_formsPanel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(genderLabel)
+												.addComponent(wageLabel))
+											.addGap(4)
+											.addGroup(gl_formsPanel.createParallelGroup(Alignment.BASELINE)
+												.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+												.addComponent(wageSpinner, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
+											.addGap(23)
+											.addComponent(confirmPasswordLabel)
+											.addGap(5)
+											.addComponent(confirmPasswordTextField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))))
+							.addPreferredGap(ComponentPlacement.RELATED))
 						.addGroup(gl_formsPanel.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addComponent(companyComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
-					.addGap(22)
-					.addGroup(gl_formsPanel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_formsPanel.createSequentialGroup()
-							.addComponent(birthDateLabel)
-							.addGap(5)
-							.addComponent(birthDatePicker, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addGap(22)
-							.addComponent(passwordLabel)
-							.addGap(5)
-							.addComponent(passwordTextField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_formsPanel.createSequentialGroup()
-							.addGroup(gl_formsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(genderLabel)
-								.addComponent(wageLabel))
-							.addGap(4)
-							.addGroup(gl_formsPanel.createParallelGroup(Alignment.BASELINE)
-								.addComponent(genderComboBox, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-								.addComponent(wageSpinner, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-							.addGap(23)
-							.addComponent(confirmPasswordLabel)
-							.addGap(5)
-							.addComponent(confirmPasswordTextField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE))
-						.addComponent(iconLabel, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)))
+					.addGap(121))
 		);
 		formsPanel.setLayout(gl_formsPanel);
 		
-		//pack();
 		setLocationRelativeTo(null);
 	}
 }

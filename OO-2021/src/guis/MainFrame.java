@@ -92,6 +92,7 @@ public class MainFrame extends JFrame {
 		formsPanel.add(usernameLabel, gbc_usernameLabel);
 		
 		usernameTextField = new JTextField();
+		usernameTextField.setToolTipText("Se rappresenti un'azienda inserisci la partita iva, altrimenti inserisci il tuo codice fiscale.");
 		usernameTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
 		usernameTextField.setForeground(Color.decode("#5E81AC"));
 		GridBagConstraints gbc_usernameTextField = new GridBagConstraints();
@@ -162,7 +163,7 @@ public class MainFrame extends JFrame {
 						e.printStackTrace();
 					}
 				}
-				else if (username.length() == 11) {
+				else if (username.length() == 11 && !pwd.isBlank()){
 					try {
 						c.checkLoginForCompany(username, pwd);
 					} catch (Exception e) {
