@@ -61,9 +61,9 @@ public class UserFrame extends JFrame {
 
 	// Creazione frame
 	public UserFrame(Controller co, Employee user) {
+		c = co;
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UserFrame.class.getResource("/bulb.png")));
-		c = co;
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 741, 523);
@@ -82,7 +82,6 @@ public class UserFrame extends JFrame {
 		welcomeUserLabel.setForeground(Color.decode("#EBCB8B"));
 		welcomeUserLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeUserPanel.add(welcomeUserLabel);
-		JFrame loggingOut = this;
 
 		UIManager.put("TabbedPane.contentAreaColor", Color.decode("#ECEFF4"));
 		UIManager.put("TabbedPane.selected", Color.decode("#5E81AC"));
@@ -158,6 +157,7 @@ public class UserFrame extends JFrame {
 		meetingsTable.getTableHeader().setReorderingAllowed(false);
 		
 		meetingsScrollPane.setViewportView(meetingsTable);
+		
 		// Label con informazioni del progetto dell'utente (se esiste) con codice, tipologia e ambiti del progetto.
 		projectInfoLabel = new JLabel("NESSUN PROGETTO ATTIVO"); // Testo di default
 		projectInfoLabel.setForeground(Color.decode("#434C5E"));
@@ -262,6 +262,7 @@ public class UserFrame extends JFrame {
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 		
 		// Tasto di logout
+		JFrame loggingOut = this;
 		logoutButton = new JButton("");
 		bottomPanel.add(logoutButton);
 		logoutButton.setToolTipText("Logout");

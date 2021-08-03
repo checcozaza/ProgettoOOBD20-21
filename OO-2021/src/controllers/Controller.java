@@ -706,7 +706,7 @@ public class Controller {
 	}
 	
 	// Metodo che reindirizza l'azienda alla sua homepage personalizzata
-	private void openCompanyFrame(Company signedInCompany) {
+	private void openCompanyFrame(Company signedInCompany) throws Exception {
 		mf.setVisible(false);
 		cfr = new CompanyFrame(this, signedInCompany);
 		cfr.setVisible(true);
@@ -732,5 +732,9 @@ public class Controller {
 		sud = new SignedUpDialog(this, cf);
 		sud.setVisible(true);
 		suf.setEnabled(false);
+	}
+
+	public int takeRatingForEmployee(String fiscalCode) throws Exception {
+		return edp.retrieveAvgRating(fiscalCode);
 	}
 }

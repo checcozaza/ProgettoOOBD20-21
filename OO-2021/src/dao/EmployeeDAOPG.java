@@ -103,4 +103,23 @@ public class EmployeeDAOPG {
 		conn.close();
 		return employees;
 	}
+
+	public int retrieveAvgRating(String fiscalCode) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return 0;
+		
+		query = conn.prepareStatement("SELECT valutazionemedia FROM valutazionemediadipendente WHERE cf = ?");
+		
+		query.setString(1, fiscalCode);
+		result = query.executeQuery();
+		
+		int avg = 0;
+		if (result.next())
+			avg = result.getInt("valutazionemedia");
+		
+		result.close();
+		conn.close();
+		
+		return avg;
+	}
 }

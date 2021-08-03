@@ -8,8 +8,10 @@ import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Company;
+import entities.Customer;
 import entities.Employee;
 import entities.Project;
+import entities.Society;
 import enums.EnumRole;
 import enums.EnumTypology;
 
@@ -63,13 +65,16 @@ public class ProjectDAOPG {
 		
 		ArrayList<Project> projects = new ArrayList<Project>();
 		while (result.next())
+			
 			projects.add(new Project(result.getInt("codprogetto"),
 					 				 EnumTypology.valueOf(result.getString("tipologia").replace(' ', '_')),
 					 				 result.getInt("numeropartecipanti"),
 					 				 result.getFloat("budget"),
 					 				 result.getBoolean("terminato"),
 					 				 signedInCompany.getCompanyEmployees(), 
-					 				 null, null, null, null, null));
+					 				 signedInCompany, new Customer(result.getString("cf"), null, null), 
+					 				 new Society(result.getString("partitaiva"), null), 
+					 				 null, null));
 	
 		result.close();
 		conn.close();
