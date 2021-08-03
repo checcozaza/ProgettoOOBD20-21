@@ -8,10 +8,12 @@ import javax.swing.JFrame;
 
 import connections.PgConnection;
 import dao.CompanyDAOPG;
+import dao.CustomerDAOPG;
 import dao.EmployeeDAOPG;
 import dao.MeetingDAOPG;
 import dao.ProjectDAOPG;
 import dao.RatingsDAOPG;
+import dao.SocietyDAOPG;
 import dao.TopicDAOPG;
 import dao.TownDAOPG;
 import entities.Company;
@@ -20,6 +22,7 @@ import enums.EnumRole;
 import guis.CompanyFrame;
 import guis.PopupDialog;
 import guis.MainFrame;
+import guis.NewProjectFrame;
 import guis.ProjectManagerFrame;
 import guis.SignUpFrame;
 import guis.SignedUpDialog;
@@ -38,8 +41,11 @@ public class Controller {
 	private EmployeeDAOPG edp;
 	private CompanyDAOPG cdp;
 	private TopicDAOPG todp;
+	private CustomerDAOPG cudp;
+	private SocietyDAOPG sdpg;
 	private MainFrame mf;
 	private SignUpFrame suf;
+	private NewProjectFrame npf;
 	private SignedUpDialog sud;
 	private ProjectManagerFrame pmf;
 	private UserFrame uf;
@@ -736,5 +742,28 @@ public class Controller {
 
 	public int takeRatingForEmployee(String fiscalCode) throws Exception {
 		return edp.retrieveAvgRating(fiscalCode);
+	}
+
+	public void openNewProjectFrame(Company signedInCompany) {
+		cfr.setVisible(false);
+		npf = new NewProjectFrame(this, signedInCompany);
+		npf.setVisible(true);
+	}
+
+	public Object[] pickCustomers() throws Exception {
+		cudp = new CustomerDAOPG(this);
+		return cudp.retrieveCustomers();
+	}
+
+	public Object[] pickSocieties() throws Exception {
+		sdpg = new SocietyDAOPG(this);
+		return sdpg.retrieveSocieties();
+	}
+	
+	public void insertProject(String vatNumber, String typology, Float budget, String commissionedBy) throws Exception {
+		System.out.println(commissionedBy);
+		pdp = new ProjectDAOPG(this);
+		pdp.newProject(vatNumber, typology, budget, commissionedBy);
+		return; 
 	}
 }

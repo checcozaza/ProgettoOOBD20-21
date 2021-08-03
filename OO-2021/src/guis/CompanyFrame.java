@@ -53,6 +53,7 @@ public class CompanyFrame extends JFrame {
 	private JTable projectTable;
 	private JPanel bottomPanel;
 	private DefaultTableModel projectsTM;
+	private JLabel currentProjectLabel;
 
 	// Creazione frame
 	public CompanyFrame(Controller co, Company signedInCompany) throws Exception {
@@ -199,6 +200,11 @@ public class CompanyFrame extends JFrame {
 		logoutButton.setBackground(new Color(235, 203, 139));
 		
 		JButton newProjectButton = new JButton("Crea nuovo progetto");
+		newProjectButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent createNewProject) {
+				c.openNewProjectFrame(signedInCompany);
+			}
+		});
 		newProjectButton.setBorderPainted(false);
 		newProjectButton.setForeground(Color.decode("#EBCB8B"));
 		newProjectButton.setContentAreaFilled(false);
@@ -230,6 +236,7 @@ public class CompanyFrame extends JFrame {
 		employeesScrollPane.setViewportView(employeesTable);
 		
 		projectPanel = new JPanel();
+		projectPanel.setBackground(Color.decode("#EBCB8B"));
 		companyTabbedPane.addTab("Progetti attivi", null, projectPanel, null);
 		projectPanel.setLayout(null);
 		
@@ -252,14 +259,21 @@ public class CompanyFrame extends JFrame {
 				}
 			);
 		
+		currentProjectLabel = new JLabel("<HTML> <center> NESSUN PROGETTO ATTIVO <center> <HTML>");
+		currentProjectLabel.setForeground(Color.decode("#434C5E"));
+		currentProjectLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		currentProjectLabel.setFont(new Font("Roboto", Font.BOLD, 17));
+		currentProjectLabel.setBounds(0, 0, 678, 59);
+		projectPanel.add(currentProjectLabel);
+		
 		// Recupero informazioni sui progetti
-		if (signedInCompany.getCompanyProjects() != null) {
-			String commissionedBy= "";
+		if (signedInCompany.getCompanyProjects().size() != 0) {
+			String commissionedBy = "";
 			for (Project pro: signedInCompany.getCompanyProjects()) {
 				if (pro.getProjectCustomer().equals(null))
 					commissionedBy = pro.getProjectCustomer().getFiscalCode();
 				else
-					commissionedBy = pro.getProjectSociety().getName();
+					commissionedBy = pro.getProjectSociety().getVatNumber();
 				
 				// Riempimento tabella con le informazioni utili
 				projectsTM.addRow(new Object[] {pro.getProjectNumber(),
@@ -267,7 +281,11 @@ public class CompanyFrame extends JFrame {
 												(int)pro.getBudget() +" €",
 												commissionedBy});
 			}
+			
+			currentProjectLabel.setText("<HTML> <center> Progetti in corso: <center> <HTML>");
 		}
+		else
+			projectScrollPane.setVisible(false);
 
 		// Rende la table non editabile
 		employeesTable = new JTable(employeesTM) {
@@ -297,6 +315,8 @@ public class CompanyFrame extends JFrame {
 		projectTable.getTableHeader().setReorderingAllowed(false);
 		
 		projectScrollPane.setViewportView(projectTable);
+		
+		
 		contentPane.setLayout(gl_contentPane);
 		
 		pack();

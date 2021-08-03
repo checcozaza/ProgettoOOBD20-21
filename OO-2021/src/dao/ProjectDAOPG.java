@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 
 import controllers.Controller;
@@ -80,5 +81,29 @@ public class ProjectDAOPG {
 		conn.close();
 		
 		return projects;
+	}
+
+	public void newProject(String vatNumber, String typology, Float budget, String commissionedBy) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("INSERT INTO Progetto (partiva, tipologia, budget, cf, partitaiva) "
+									+ "VALUES (?, ?, ?, ?, ?)");
+		query.setString(1, vatNumber);
+		query.setString(2, typology);
+		query.setFloat(3, budget);
+		if (commissionedBy.length() == 16) {
+			query.setString(4, commissionedBy);
+			query.setNull(5, Types.VARCHAR);
+		}
+		else {
+			query.setString(5, commissionedBy);
+			query.setNull(4, Types.VARCHAR);
+		}
+
+		query.executeUpdate();
+		conn.close();
+
+		return;
 	}
 }
