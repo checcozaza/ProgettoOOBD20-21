@@ -106,4 +106,22 @@ public class ProjectDAOPG {
 
 		return;
 	}
+
+	public int retrieveNewestProject(String vatNumber) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return 0;
+
+		query = conn.prepareStatement("SELECT MAX(codProgetto) AS ultimoProgetto FROM Progetto WHERE PartIva = ?");
+		query.setString(1, vatNumber);
+		result = query.executeQuery();
+		
+		Project lastProject = null;
+		if (result.next())
+			lastProject = new Project(result.getInt("ultimoProgetto"), null, 0, 0, false, null, null, null, null, null, null);
+	
+		result.close();
+		conn.close();
+		
+		return lastProject.getProjectNumber();
+	}
 }

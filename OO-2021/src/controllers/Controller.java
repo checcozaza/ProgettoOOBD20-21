@@ -18,6 +18,7 @@ import dao.TopicDAOPG;
 import dao.TownDAOPG;
 import entities.Company;
 import entities.Employee;
+import entities.Project;
 import enums.EnumRole;
 import guis.CompanyFrame;
 import guis.PopupDialog;
@@ -744,9 +745,9 @@ public class Controller {
 		return edp.retrieveAvgRating(fiscalCode);
 	}
 
-	public void openNewProjectFrame(Company signedInCompany) {
+	public void openNewProjectFrame(Company signedInCompany, String managerCf) {
 		cfr.setVisible(false);
-		npf = new NewProjectFrame(this, signedInCompany);
+		npf = new NewProjectFrame(this, signedInCompany, managerCf);
 		npf.setVisible(true);
 	}
 
@@ -761,9 +762,19 @@ public class Controller {
 	}
 	
 	public void insertProject(String vatNumber, String typology, Float budget, String commissionedBy) throws Exception {
-		System.out.println(commissionedBy);
 		pdp = new ProjectDAOPG(this);
 		pdp.newProject(vatNumber, typology, budget, commissionedBy);
 		return; 
+	}
+
+	public void chooseProjectManager(int lastProject, String cf) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		edp.pickProjectManager(lastProject, cf);
+	}
+
+	public int pickNewestProject(String vatNumber) throws Exception {
+		pdp = new ProjectDAOPG(this);
+		int lastProject = pdp.retrieveNewestProject(vatNumber);
+		return lastProject;
 	}
 }

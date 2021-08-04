@@ -37,6 +37,7 @@ import javax.swing.table.TableModel;
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
+import javax.swing.ListSelectionModel;
 
 public class CompanyFrame extends JFrame {
 
@@ -54,6 +55,8 @@ public class CompanyFrame extends JFrame {
 	private JPanel bottomPanel;
 	private DefaultTableModel projectsTM;
 	private JLabel currentProjectLabel;
+	private JButton newProjectButton;
+	
 
 	// Creazione frame
 	public CompanyFrame(Controller co, Company signedInCompany) throws Exception {
@@ -108,23 +111,40 @@ public class CompanyFrame extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Codice Fiscale", "Nome", "Cognome", "Salario medio", "Valutazione media"
+					"Codice Fiscale", "Nome", "Cognome", "Salario medio", "Valutazione media", "Occupato"
 				}
 			);
 		
 		// Recupero informazioni sui dipendenti
 		for (Employee em: signedInCompany.getCompanyEmployees()) {
 			int avgRating = c.takeRatingForEmployee(em.getFiscalCode());
+			String isBusy = "";
+			if (em.getEmployeeProject().getProjectNumber() == 0)
+				isBusy = "No";
+			else
+				isBusy = "Sì";
+			
 			employeesTM.addRow(new Object[] {em.getFiscalCode(),
 											 em.getName(),
 											 em.getSurname(),
 											 (int)em.getAvgWage() +" €",
-											 avgRating == 0 ? "Non presente" : avgRating +"/5"});
+											 avgRating == 0 ? "Non presente" : avgRating +"/5",
+											 isBusy});
 		}
 		
 
 		// Rende la table non editabile
 		employeesTable = new JTable(employeesTM) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return column == 3;
+			}
+		};
+		
+		
+		// Rende la table non editabile
+		employeesTable = new JTable(employeesTM) {
+			
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column == 3;
@@ -148,17 +168,24 @@ public class CompanyFrame extends JFrame {
 		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
 		
+		JLabel lblNewLabel = new JLabel("Per la creazione di un nuovo progetto, scegli prima il project manager selezionandolo tra i dipendenti attualmente liberi.");
+		lblNewLabel.setForeground(Color.decode("#EBCB8B"));
+		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 13));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(65, Short.MAX_VALUE)
-					.addComponent(companyTabbedPane, GroupLayout.PREFERRED_SIZE, 683, GroupLayout.PREFERRED_SIZE)
-					.addGap(72))
-				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 810, Short.MAX_VALUE)
 					.addContainerGap())
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
+					.addContainerGap(65, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(companyTabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE))
+					.addGap(72))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -166,7 +193,9 @@ public class CompanyFrame extends JFrame {
 					.addComponent(welcomeCompanyPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(companyTabbedPane, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 		);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
@@ -199,10 +228,16 @@ public class CompanyFrame extends JFrame {
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		logoutButton.setBackground(new Color(235, 203, 139));
 		
-		JButton newProjectButton = new JButton("Crea nuovo progetto");
+		newProjectButton = new JButton("Crea nuovo progetto");
+		JFrame toEnable = this;
 		newProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent createNewProject) {
-				c.openNewProjectFrame(signedInCompany);
+				if (employeesTable.getSelectedRow() != -1 && 
+					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) {
+					c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
+				}
+				else
+					c.openPopupDialog(toEnable, "<HTML> <center> Per creare un nuovo progetto, seleziona prima il Project Manager (non deve essere occupato) <center> <HTML>");
 			}
 		});
 		newProjectButton.setBorderPainted(false);
@@ -270,7 +305,7 @@ public class CompanyFrame extends JFrame {
 		if (signedInCompany.getCompanyProjects().size() != 0) {
 			String commissionedBy = "";
 			for (Project pro: signedInCompany.getCompanyProjects()) {
-				if (pro.getProjectCustomer().equals(null))
+				if (pro.getProjectCustomer().getFiscalCode() != null)
 					commissionedBy = pro.getProjectCustomer().getFiscalCode();
 				else
 					commissionedBy = pro.getProjectSociety().getVatNumber();
@@ -287,13 +322,6 @@ public class CompanyFrame extends JFrame {
 		else
 			projectScrollPane.setVisible(false);
 
-		// Rende la table non editabile
-		employeesTable = new JTable(employeesTM) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return column == 3;
-			}
-		};
 		
 		
 		projectTable = new JTable(projectsTM) {

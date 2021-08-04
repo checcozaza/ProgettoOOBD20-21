@@ -41,8 +41,9 @@ public class PopupDialog extends JDialog {
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
 			lblNewLabel = new JLabel("<HTML> <p> <center> " +popupMessage+ "</center> </p> </HTML>");
+			lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 18));
+			lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
 			lblNewLabel.setForeground(Color.decode("#EBCB8B"));
 			lblNewLabel.setBackground(Color.decode("#4C566A"));
 		}

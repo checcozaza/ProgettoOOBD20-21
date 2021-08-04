@@ -23,7 +23,8 @@ public class EmployeeDAOPG {
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
-
+	private PreparedStatement query2;
+	
 	public EmployeeDAOPG(Controller co) {
 		c = co;
 	}
@@ -121,5 +122,24 @@ public class EmployeeDAOPG {
 		conn.close();
 		
 		return avg;
+	}
+
+	public void pickProjectManager(int lastProject, String cf) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE Partecipante "
+									+ "SET Ruolo = 'Project Manager', CodProgetto = ?"
+									+ "WHERE cf = ?");
+		
+		query.setInt(1, lastProject);
+		query.setString(2, cf);
+		query.executeUpdate();
+		
+
+		conn.close();
+		
+		return;
+		
 	}
 }
