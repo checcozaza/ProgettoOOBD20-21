@@ -53,6 +53,7 @@ public class CompanyDAOPG {
 		query.setString(1, username);
 		result = query.executeQuery();
 		
+
 		Company foundCompany;
 		if (result.next())
 			foundCompany = new Company(result.getString("partiva"),

@@ -124,4 +124,19 @@ public class ProjectDAOPG {
 		
 		return lastProject.getProjectNumber();
 	}
+
+	public void endProject(int projectNumber) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE Progetto "
+									+ "SET Terminato = true"
+									+ "WHERE CodProgetto = ?");
+		
+		query.setInt(1, projectNumber);
+		query.executeUpdate();
+
+		conn.close();
+		return;
+	}
 }

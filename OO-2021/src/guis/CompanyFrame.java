@@ -168,10 +168,10 @@ public class CompanyFrame extends JFrame {
 		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
 		
-		JLabel lblNewLabel = new JLabel("Per la creazione di un nuovo progetto, scegli prima il project manager selezionandolo tra i dipendenti attualmente liberi.");
-		lblNewLabel.setForeground(Color.decode("#EBCB8B"));
-		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 13));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		JLabel infoLabel = new JLabel("Per la creazione di un nuovo progetto, scegli prima il project manager selezionandolo tra i dipendenti attualmente liberi.");
+		infoLabel.setForeground(Color.decode("#EBCB8B"));
+		infoLabel.setFont(new Font("Roboto", Font.PLAIN, 13));
+		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
@@ -183,7 +183,7 @@ public class CompanyFrame extends JFrame {
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap(65, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(infoLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(companyTabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE))
 					.addGap(72))
 		);
@@ -194,7 +194,7 @@ public class CompanyFrame extends JFrame {
 					.addGap(18)
 					.addComponent(companyTabbedPane, GroupLayout.PREFERRED_SIZE, 286, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+					.addComponent(infoLabel, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE))
 		);

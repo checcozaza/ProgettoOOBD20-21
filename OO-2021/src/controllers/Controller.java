@@ -23,6 +23,7 @@ import enums.EnumRole;
 import guis.CompanyFrame;
 import guis.PopupDialog;
 import guis.MainFrame;
+import guis.NewMeetingFrame;
 import guis.NewProjectFrame;
 import guis.ProjectManagerFrame;
 import guis.SignUpFrame;
@@ -51,6 +52,7 @@ public class Controller {
 	private ProjectManagerFrame pmf;
 	private UserFrame uf;
 	private CompanyFrame cfr;
+	private NewMeetingFrame nmf;
 	private PopupDialog infoDialog;
 	
 	public static void main(String[] args) {
@@ -635,6 +637,8 @@ public class Controller {
 			todp = new TopicDAOPG(this);
 			signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
 		}
+		edp = new EmployeeDAOPG(this);
+		signedIn.getHiredBy().setCompanyEmployees(edp.takeEmployeesForCompany(signedIn.getHiredBy()));
 		rdp = new RatingsDAOPG(this);
 		signedIn.setEmployeeRatings(rdp.takeRatings(signedIn));
 		return signedIn;
@@ -706,9 +710,9 @@ public class Controller {
 	}
 	
 	// Metodo che reindirizza il project manager adalla sua homepage personalizzata
-	private void openPMFrame(Employee signedIn) {
+	private void openPMFrame(Employee signedIn) throws Exception {
 		mf.setVisible(false);
-		ProjectManagerFrame pmf = new ProjectManagerFrame(this, signedIn);
+		pmf = new ProjectManagerFrame(this, signedIn);
 		pmf.setVisible(true);
 	}
 	
@@ -776,5 +780,18 @@ public class Controller {
 		pdp = new ProjectDAOPG(this);
 		int lastProject = pdp.retrieveNewestProject(vatNumber);
 		return lastProject;
+	}
+
+	public void closeProject(int projectNumber) throws Exception {
+		pdp = new ProjectDAOPG(this);
+		pdp.endProject(projectNumber);
+		return;
+		
+	}
+
+	public void openNewMeetingFrame() {
+		pmf.setVisible(false);
+		nmf = new NewMeetingFrame(this);
+		nmf.setVisible(true);
 	}
 }

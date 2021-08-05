@@ -57,7 +57,7 @@ public class NewProjectFrame extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel formsPanel = new JPanel();
-		formsPanel.setBackground(Color.decode("#434C5E"));
+		formsPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(formsPanel, BorderLayout.CENTER);
 		formsPanel.setLayout(null);
 		
@@ -123,6 +123,7 @@ public class NewProjectFrame extends JFrame {
 		newProjectButton.setFocusPainted(false);
 		newProjectButton.setForeground(Color.decode("#2E3440"));
 		newProjectButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+		JFrame toEnable = this;
 		newProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent confirmNewProject) {
 				int lastProject;
@@ -135,13 +136,13 @@ public class NewProjectFrame extends JFrame {
 									commissionedByComboBox.getSelectedItem().toString().substring(0, 16));
 					lastProject = c.pickNewestProject(signedInCompany.getVatNumber());
 					c.chooseProjectManager(lastProject, managerCf);
-					
+					c.openPopupDialog(toEnable, "Progetto inserito con successo");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-		newProjectButton.setBounds(170, 351, 181, 24);
+		newProjectButton.setBounds(106, 351, 181, 24);
 		formsPanel.add(newProjectButton);
 		
 		JPanel titlePanel = new JPanel();
@@ -207,6 +208,15 @@ public class NewProjectFrame extends JFrame {
 		logoutButton.setBackground(new Color(235, 203, 139));
 		logoutButton.setBounds(0, 324, 64, 75);
 		formsPanel.add(logoutButton);
+		
+		JButton goBackButton = new JButton("Indietro");
+		goBackButton.setForeground(Color.decode("#2E3440"));
+		goBackButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+		goBackButton.setBackground(Color.decode("#EBCB8B"));
+		goBackButton.setBorderPainted(false);
+		goBackButton.setFocusPainted(false);
+		goBackButton.setBounds(304, 351, 89, 24);
+		formsPanel.add(goBackButton);
 		//pack();
 		setLocationRelativeTo(null);
 	}
