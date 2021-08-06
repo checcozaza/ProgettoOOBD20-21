@@ -1,7 +1,9 @@
 package controllers;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.LocalDate;
 
 import javax.swing.JFrame;
@@ -789,9 +791,15 @@ public class Controller {
 		
 	}
 
-	public void openNewMeetingFrame() {
+	public void openNewMeetingFrame(int projectNumber) {
 		pmf.setVisible(false);
-		nmf = new NewMeetingFrame(this);
+		nmf = new NewMeetingFrame(this, projectNumber);
 		nmf.setVisible(true);
+	}
+
+	public void confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
+		mdp = new MeetingDAOPG(this);
+		mdp.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
+		return;
 	}
 }

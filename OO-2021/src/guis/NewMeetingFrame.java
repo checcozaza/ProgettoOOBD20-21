@@ -24,17 +24,19 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
-
+import java.sql.Date;
+import java.sql.Time;
 public class NewMeetingFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller c;
-	private JTextField meetingLocationTextField;
+	private JTextField meetingPlaceTextField;
+	private JTextField onlineMeetingTextField;
 
 	/**
 	 * Create the frame.
 	 */
-	public NewMeetingFrame(Controller co) {
+	public NewMeetingFrame(Controller co, int projectNumber) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewMeetingFrame.class.getResource("/bulb.png")));
 		setTitle("Pianifica meeting - Projesting");
 		c = co;
@@ -143,17 +145,17 @@ public class NewMeetingFrame extends JFrame {
 		chooseWhereLabel.setBounds(361, 186, 404, 17);
 		panel.add(chooseWhereLabel);
 		
-		meetingLocationTextField = new JTextField();
-		meetingLocationTextField.setFont(new Font("Roboto", Font.PLAIN, 11));
-		meetingLocationTextField.setBounds(361, 334, 117, 20);
-		panel.add(meetingLocationTextField);
-		meetingLocationTextField.setColumns(10);
+		meetingPlaceTextField = new JTextField();
+		meetingPlaceTextField.setFont(new Font("Roboto", Font.PLAIN, 11));
+		meetingPlaceTextField.setBounds(591, 330, 117, 20);
+		panel.add(meetingPlaceTextField);
+		meetingPlaceTextField.setColumns(10);
 		
 		JLabel meetingLocationLabel = new JLabel("Luogo meeting");
 		meetingLocationLabel.setForeground(Color.decode("#EBCB8B"));
 		meetingLocationLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		meetingLocationLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
-		meetingLocationLabel.setBounds(361, 298, 127, 25);
+		meetingLocationLabel.setBounds(596, 297, 127, 25);
 		panel.add(meetingLocationLabel);
 		
 		JLabel iconLabel = new JLabel("");
@@ -202,6 +204,38 @@ public class NewMeetingFrame extends JFrame {
 		panel.add(logoutButton);
 		
 		JButton confirmButton = new JButton("Conferma meeting");
+		confirmButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickConfirmMeeting) {
+				
+			String place = "";
+			if (onlineMeetingRadioButton.isSelected()) {
+				place = onlineMeetingTextField.getText();
+			}
+			else if (physicalMeetingRadioButton.isSelected()) {
+				place = meetingPlaceTextField.getText();
+			}
+			
+				
+				
+			if (calendarPanel.getSelectedDate() != null && startTimePicker.getTimeStringOrEmptyString() != null &&
+				endTimePicker.getTimeStringOrEmptyString()	!= null && 
+				(onlineMeetingRadioButton.isSelected() || physicalMeetingRadioButton.isSelected()) &&
+				place != null) {
+				
+				try {
+					c.confirmMeeting(projectNumber, 
+									 Date.valueOf(calendarPanel.getSelectedDate()), 
+									 Time.valueOf(startTimePicker.getTime()),
+									 Time.valueOf(endTimePicker.getTime()),
+									 onlineMeetingRadioButton.isSelected(),
+									 place);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			}
+		});
 		confirmButton.setForeground(Color.decode("#2E3440"));
 		confirmButton.setBackground(Color.decode("#EBCB8B"));
 		confirmButton.setFocusPainted(false);
@@ -209,6 +243,17 @@ public class NewMeetingFrame extends JFrame {
 		confirmButton.setFont(new Font("Roboto", Font.PLAIN, 16));
 		confirmButton.setBounds(223, 444, 181, 24);
 		panel.add(confirmButton);
+		
+		JLabel onlineMeetingLabel = new JLabel("Piattaforma meeting");
+		onlineMeetingLabel.setForeground(Color.decode("#EBCB8B"));
+		onlineMeetingLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
+		onlineMeetingLabel.setBounds(361, 300, 152, 18);
+		panel.add(onlineMeetingLabel);
+		
+		onlineMeetingTextField = new JTextField();
+		onlineMeetingTextField.setBounds(361, 330, 152, 20);
+		panel.add(onlineMeetingTextField);
+		onlineMeetingTextField.setColumns(10);
 		
 		setLocationRelativeTo(null);
 	}

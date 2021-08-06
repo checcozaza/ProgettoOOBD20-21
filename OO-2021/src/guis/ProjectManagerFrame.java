@@ -121,7 +121,7 @@ public class ProjectManagerFrame extends JFrame {
 		JButton newMeetingButton = new JButton("Organizza un meeting");
 		newMeetingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickNewMeeting) {
-				c.openNewMeetingFrame();
+				c.openNewMeetingFrame(manager.getEmployeeProject().getProjectNumber());
 			}
 		});
 		newMeetingButton.setForeground(Color.decode("#2E3440"));

@@ -1,9 +1,12 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Types;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -52,5 +55,31 @@ public class MeetingDAOPG {
 		result.close();
 		conn.close();
 		return meetings;
+	}
+
+	public void insertNewMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("INSERT INTO Meeting (codprogetto, dataRiunione, oraInizio, oraFine, piattaforma, luogo) "
+									+ "VALUES (?, ?, ?, ?, ?, ?)");
+		query.setInt(1, projectNumber);
+		query.setDate(2, meetingDate);
+		query.setTime(3, startTime);
+		query.setTime(4, endTime);
+		
+		if (online == true) {
+			query.setString(5, place);
+			query.setNull(6, Types.VARCHAR);
+		}
+		else {
+			query.setString(6,  place);
+			query.setNull(5, Types.VARCHAR);
+		}
+
+		query.executeUpdate();
+		conn.close();
+		return;
+		
 	}
 }
