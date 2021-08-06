@@ -203,6 +203,7 @@ public class NewMeetingFrame extends JFrame {
 		logoutButton.setBounds(0, 417, 64, 75);
 		panel.add(logoutButton);
 		
+		JFrame toEnable = this;
 		JButton confirmButton = new JButton("Conferma meeting");
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickConfirmMeeting) {
@@ -229,6 +230,7 @@ public class NewMeetingFrame extends JFrame {
 									 Time.valueOf(endTimePicker.getTime()),
 									 onlineMeetingRadioButton.isSelected(),
 									 place);
+					c.openPopupDialog(toEnable, "Meeting programmato con successo!");
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

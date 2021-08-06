@@ -12,6 +12,9 @@ import javax.swing.table.DefaultTableModel;
 
 import controllers.Controller;
 import entities.Employee;
+import entities.Meeting;
+import enums.EnumRole;
+
 import java.awt.Color;
 import java.awt.GridBagLayout;
 import java.awt.Font;
@@ -22,6 +25,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Toolkit;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
@@ -34,10 +38,13 @@ public class ProjectManagerFrame extends JFrame {
 	private JPanel contentPane;
 	private Controller c;
 	private JTable teamTable;
+	private JTable meetingsTable;
 	private JTabbedPane teamTabbedPane;
 	private JPanel teamPanel;
 	private JScrollPane teamScrollPane;
+	private JScrollPane meetingsScrollPane;
 	private DefaultTableModel freeEmployeesTM;
+	private DefaultTableModel meetingsTM;
 	private JButton logoutButton;
 
 	// Creazione frame
@@ -58,7 +65,7 @@ public class ProjectManagerFrame extends JFrame {
 		welcomeManagerPanel.setBackground(Color.decode("#434C5E"));
 		
 		// Label di benvenuto
-		JLabel welcomeManagerLabel = new JLabel("<HTML> <center> Benvenuto, <br>"+ manager.getName() 
+		JLabel welcomeManagerLabel = new JLabel("<HTML> <center> Benvenuto, <br>"+ manager.getName()+ " " +manager.getSurname()
 									+ "! </center> </HTML>");
 		welcomeManagerLabel.setForeground(Color.decode("#EBCB8B"));
 		welcomeManagerLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
@@ -91,12 +98,7 @@ public class ProjectManagerFrame extends JFrame {
 		teamTabbedPane.setForeground(Color.decode("#ECEFF4"));
 		teamTabbedPane.setBackground(Color.decode("#B48EAD"));
 		
-		JButton addToTeamButton = new JButton("Aggiungi al team");
-		addToTeamButton.setForeground(Color.decode("#2E3440"));
-		addToTeamButton.setBackground(Color.decode("#EBCB8B"));
-		addToTeamButton.setBorderPainted(false);
-		addToTeamButton.setFocusPainted(false);
-		addToTeamButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		JFrame toEnable = this;
 		
 		JButton closeProjectButton = new JButton("Chiudi progetto");
 		closeProjectButton.addActionListener(new ActionListener() {
@@ -147,9 +149,7 @@ public class ProjectManagerFrame extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-					.addGap(38)
-					.addComponent(addToTeamButton)
-					.addPreferredGap(ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
 					.addComponent(newMeetingButton)
 					.addGap(50)
 					.addComponent(closeProjectButton)
@@ -180,8 +180,7 @@ public class ProjectManagerFrame extends JFrame {
 								.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 									.addComponent(closeProjectButton)
-									.addComponent(newMeetingButton, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-									.addComponent(addToTeamButton))))
+									.addComponent(newMeetingButton, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(managerIconLabel)))
@@ -200,7 +199,7 @@ public class ProjectManagerFrame extends JFrame {
 		teamScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		teamScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		teamScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		teamScrollPane.setBounds(0, 0, 631, 266);
+		teamScrollPane.setBounds(0, 0, 631, 229);
 		teamPanel.add(teamScrollPane);
 		
 		// Table model che contiene le informazioni sui dipendenti liberi
@@ -246,6 +245,107 @@ public class ProjectManagerFrame extends JFrame {
 		teamTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
 		teamTable.getTableHeader().setReorderingAllowed(false);
 		teamScrollPane.setViewportView(teamTable);
+		JButton addToTeamButton = new JButton("Aggiungi al team");
+		addToTeamButton.setBounds(240, 235, 136, 25);
+		teamPanel.add(addToTeamButton);
+		addToTeamButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickAddToTeam) {
+				ArrayList<Employee> toAdd = new ArrayList<Employee>();
+				try {
+					for (int i = 0; i < teamTable.getRowCount(); i++) {
+						if (teamTable.getValueAt(i, 5) != null) {
+							toAdd.add(new Employee(teamTable.getValueAt(i, 0).toString(),
+									  null, null, null, 
+									  EnumRole.valueOf(teamTable.getValueAt(i, 5).toString().replace(' ', '_')), 
+									  0, null, 
+									  manager.getEmployeeProject(), 
+									  null, null));
+							freeEmployeesTM.removeRow(i);
+						}
+						else
+							c.openPopupDialog(toEnable, "Nessun progettista selezionato");
+						
+					}
+					c.addToTeam(toAdd);
+				} catch (IllegalArgumentException invalidRole) {
+					c.openPopupDialog(toEnable, "Ruolo non valido, riprova");
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			
+			}
+		});
+		addToTeamButton.setForeground(Color.decode("#2E3440"));
+		addToTeamButton.setBackground(Color.decode("#8FBCBB"));
+		addToTeamButton.setBorderPainted(false);
+		addToTeamButton.setFocusPainted(false);
+		addToTeamButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
+		JPanel meetingPanel = new JPanel();
+		meetingPanel.setBackground(Color.decode("#EBCB8B"));
+		teamTabbedPane.addTab("Gestione meeting", null, meetingPanel, null);
+		meetingPanel.setLayout(null);
+		
+		//Caratteristiche dello ScrollPane 
+		meetingsScrollPane = new JScrollPane();
+		meetingsScrollPane.setForeground(Color.decode("#434C5E"));
+		meetingsScrollPane.setBackground(Color.decode("#434C5E"));
+		meetingsScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
+		meetingsScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
+		meetingsScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
+		meetingsScrollPane.setBounds(0, 0, 631, 229);
+		meetingPanel.add(meetingsScrollPane);
+				
+		// Table model che contiene le informazioni sui meeting
+		meetingsTM = new DefaultTableModel(
+				new Object[][] {
+				},
+				new String[] {
+					"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma", "Iniziato", "Finito"
+				}
+			);
+				
+		// Recupero informazioni sui meeting
+		
+		for (Meeting m: manager.getEmployeeMeetings()) {
+			String meetingPlace = "";
+			// Impedisce la visualizzazione di meeting in corso o già finiti
+			if (m.getMeetingPlatform() == null) // Controlla se il meeting si tiene in un luogo fisico o su una piattaforma telematica
+				meetingPlace = m.getMeetingRoom();
+			else
+				meetingPlace = m.getMeetingPlatform();
+		
+			// Riempimento tabella con le informazioni utili
+			meetingsTM.addRow(new Object[] {m.getMeetingDate(),
+											m.getStartTime(),
+											m.getEndTime(),
+											meetingPlace});
+			
+		}
+				
+				
+		// Rende la table non editabile, fatta eccezione per il ruolo
+		meetingsTable = new JTable(meetingsTM) {
+//			@Override
+//			public boolean isCellEditable(int row, int column) {
+//				if (meetingsTable.getValueAt(row, column) != null)
+//					return false;
+//				return column == 4 && column == 5;
+//			}
+		};
+		
+		meetingsTable.setBackground(Color.decode("#ECEFF4"));
+		meetingsTable.setRowMargin(2);
+		meetingsTable.setRowHeight(24);
+		meetingsTable.setFont(new Font("Roboto", Font.PLAIN, 14));
+		meetingsTable.setForeground(Color.decode("#434C5E"));
+		meetingsTable.setGridColor(Color.decode("#B48EAD"));
+		meetingsTable.getTableHeader().setBackground(Color.decode("#B48EAD"));
+		meetingsTable.getTableHeader().setForeground(Color.decode("#ECEFF4"));
+		meetingsTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
+		meetingsTable.getTableHeader().setReorderingAllowed(false);
+		meetingsScrollPane.setViewportView(meetingsTable);
+		
 		contentPane.setLayout(gl_contentPane);
 		
 		pack();

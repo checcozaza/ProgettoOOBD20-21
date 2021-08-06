@@ -142,4 +142,24 @@ public class EmployeeDAOPG {
 		return;
 		
 	}
+
+	public void addToProject(ArrayList<Employee> toAdd) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE Partecipante "
+									+ "SET CodProgetto = ?, Ruolo = ? "
+									+ "WHERE cf = ?");
+		
+		for (Employee em: toAdd) {
+			query.setInt(1, em.getEmployeeProject().getProjectNumber());
+			query.setString(2, em.getRole().toString().replace('_', ' '));
+			query.setString(3, em.getFiscalCode());
+			query.executeUpdate();
+		}
+
+		conn.close();
+		
+		return;
+	}
 }

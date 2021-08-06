@@ -95,17 +95,17 @@ public class UserFrame extends JFrame {
 		meetingsPanel = new JPanel();
 		meetingsPanel.setBackground(Color.decode("#EBCB8B"));
 		userTabbedPane.addTab("Progetto attuale", null, meetingsPanel, null);
-		meetingsPanel.setLayout(null);
 		
 		
 		// Caratteristiche dello ScrollPane meetingsScrollPane
 		meetingsScrollPane = new JScrollPane();
+		meetingsScrollPane.setBounds(0, 57, 611, 163);
 		meetingsScrollPane.setForeground(Color.decode("#434C5E"));
 		meetingsScrollPane.setBackground(Color.decode("#434C5E"));
 		meetingsScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		meetingsScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		meetingsScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		meetingsScrollPane.setBounds(0, 57, 611, 201);
+		meetingsPanel.setLayout(null);
 		meetingsPanel.add(meetingsScrollPane);
 		
 			
@@ -160,12 +160,25 @@ public class UserFrame extends JFrame {
 		
 		// Label con informazioni del progetto dell'utente (se esiste) con codice, tipologia e ambiti del progetto.
 		projectInfoLabel = new JLabel("NESSUN PROGETTO ATTIVO"); // Testo di default
+		projectInfoLabel.setBounds(0, 0, 566, 59);
 		projectInfoLabel.setForeground(Color.decode("#434C5E"));
 		projectInfoLabel.setVerticalAlignment(SwingConstants.TOP);
 		projectInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		projectInfoLabel.setFont(new Font("Roboto", Font.BOLD, 15));
-		projectInfoLabel.setBounds(0, 0, 566, 59);
 		meetingsPanel.add(projectInfoLabel);
+		
+		JButton btnNewButton = new JButton("Partecipa ad un meeting");
+		btnNewButton.setForeground(Color.decode("#2E3440"));
+		btnNewButton.setBackground(Color.decode("#8FBCBB"));
+		btnNewButton.setFocusPainted(false);
+		btnNewButton.setBorderPainted(false);
+		btnNewButton.setBounds(203, 227, 183, 23);
+		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		meetingsPanel.add(btnNewButton);
 		
 		// Recupero ambiti di un progetto e formattazione in stringa
 		if (user.getEmployeeProject() != null) { // Se l'utente ha progetti a carico

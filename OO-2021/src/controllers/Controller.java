@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
@@ -800,6 +801,12 @@ public class Controller {
 	public void confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
 		mdp = new MeetingDAOPG(this);
 		mdp.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
+		return;
+	}
+
+	public void addToTeam(ArrayList<Employee> toAdd) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		edp.addToProject(toAdd);
 		return;
 	}
 }
