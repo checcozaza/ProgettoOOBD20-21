@@ -114,7 +114,7 @@ public class UserFrame extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-						"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma"
+						"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma", "Codice Meeting"
 				}
 			);
 		
@@ -132,7 +132,8 @@ public class UserFrame extends JFrame {
 				meetingsTM.addRow(new Object[] {m.getMeetingDate(),
 												m.getStartTime(),
 												m.getEndTime(),
-												meetingPlace});
+												meetingPlace,
+												m.getMeetingNumber()});
 			}
 		}
 		
@@ -176,6 +177,7 @@ public class UserFrame extends JFrame {
 		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				c.openChooseMeetingFrame(user);
 			}
 		});
 		meetingsPanel.add(btnNewButton);

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import controllers.Controller;
 import entities.Employee;
 import entities.Meeting;
+import entities.Project;
 
 public class MeetingDAOPG {
 
@@ -57,12 +58,13 @@ public class MeetingDAOPG {
 		return meetings;
 	}
 
-	public void insertNewMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws SQLException {
+	public int insertNewMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws SQLException {
 		conn = c.connect();
-		if (conn == null) return;
+		if (conn == null) return 0;
 		
 		query = conn.prepareStatement("INSERT INTO Meeting (codprogetto, dataRiunione, oraInizio, oraFine, piattaforma, luogo) "
-									+ "VALUES (?, ?, ?, ?, ?, ?)");
+									+ "VALUES (?, ?, ?, ?, ?, ?) RETURNING CodMeeting");
+		
 		query.setInt(1, projectNumber);
 		query.setDate(2, meetingDate);
 		query.setTime(3, startTime);
@@ -77,9 +79,56 @@ public class MeetingDAOPG {
 			query.setNull(5, Types.VARCHAR);
 		}
 
+		result = query.executeQuery();
+		int meetingNum = 0;
+		if (result.next())
+			meetingNum = result.getInt("CodMeeting");
+		result.close();
+		conn.close();
+		return meetingNum;
+		
+	}
+
+	public void addEmployeeToMeeting(String cf, int newMeeting) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("CALL insertEmployeeInMeeting(?, ?);");
+		query.setInt(1, newMeeting);
+		query.setString(2, cf);
+		
 		query.executeUpdate();
 		conn.close();
 		return;
+	}
+
+	public ArrayList<Meeting> takeMeetingsForProject(Employee signedIn) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
 		
+		query = conn.prepareStatement("SELECT * FROM meeting WHERE CodProgetto = ? AND Iniziato = false AND finito = false "
+									+ "AND CodMeeting NOT IN (SELECT CodMeeting FROM CompMeeting WHERE UserID = (SELECT UserID "
+																												+"FROM Partecipante WHERE cf = ?))");
+		
+		query.setInt(1, signedIn.getEmployeeProject().getProjectNumber());
+		query.setString(2, signedIn.getFiscalCode());
+		result = query.executeQuery();
+		
+		ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+		while (result.next())
+			meetings.add(new Meeting(result.getInt("codmeeting"),
+									 result.getDate("datariunione").toLocalDate(),
+									 result.getTime("orainizio").toLocalTime(),
+									 result.getTime("orafine").toLocalTime(),
+									 result.getString("piattaforma"),
+									 result.getString("luogo"),
+									 result.getBoolean("iniziato"),
+									 result.getBoolean("finito"),
+									 signedIn.getEmployeeProject(), 
+									 null));
+	
+		result.close();
+		conn.close();
+		return meetings;
 	}
 }

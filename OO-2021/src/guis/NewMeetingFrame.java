@@ -36,7 +36,7 @@ public class NewMeetingFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NewMeetingFrame(Controller co, int projectNumber) {
+	public NewMeetingFrame(Controller co, int projectNumber, String manager) {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewMeetingFrame.class.getResource("/bulb.png")));
 		setTitle("Pianifica meeting - Projesting");
 		c = co;
@@ -224,15 +224,15 @@ public class NewMeetingFrame extends JFrame {
 				place != null) {
 				
 				try {
-					c.confirmMeeting(projectNumber, 
+					int newMeeting = c.confirmMeeting(projectNumber, 
 									 Date.valueOf(calendarPanel.getSelectedDate()), 
 									 Time.valueOf(startTimePicker.getTime()),
 									 Time.valueOf(endTimePicker.getTime()),
 									 onlineMeetingRadioButton.isSelected(),
 									 place);
+					c.addEmployeeToMeeting(manager, newMeeting);
 					c.openPopupDialog(toEnable, "Meeting programmato con successo!");
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

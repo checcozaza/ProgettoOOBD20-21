@@ -123,7 +123,7 @@ public class ProjectManagerFrame extends JFrame {
 		JButton newMeetingButton = new JButton("Organizza un meeting");
 		newMeetingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickNewMeeting) {
-				c.openNewMeetingFrame(manager.getEmployeeProject().getProjectNumber());
+				c.openNewMeetingFrame(manager.getEmployeeProject().getProjectNumber(), manager.getFiscalCode());
 			}
 		});
 		newMeetingButton.setForeground(Color.decode("#2E3440"));
@@ -301,7 +301,7 @@ public class ProjectManagerFrame extends JFrame {
 				new Object[][] {
 				},
 				new String[] {
-					"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma", "Iniziato", "Finito"
+					"Data riunione", "Ora inizio", "Ora fine", "Luogo/Piattaforma", "Iniziato", "Finito", "Codice Meeting"
 				}
 			);
 				
@@ -309,7 +309,7 @@ public class ProjectManagerFrame extends JFrame {
 		
 		for (Meeting m: manager.getEmployeeMeetings()) {
 			String meetingPlace = "";
-			// Impedisce la visualizzazione di meeting in corso o già finiti
+			
 			if (m.getMeetingPlatform() == null) // Controlla se il meeting si tiene in un luogo fisico o su una piattaforma telematica
 				meetingPlace = m.getMeetingRoom();
 			else
@@ -319,19 +319,20 @@ public class ProjectManagerFrame extends JFrame {
 			meetingsTM.addRow(new Object[] {m.getMeetingDate(),
 											m.getStartTime(),
 											m.getEndTime(),
-											meetingPlace});
+											meetingPlace,
+											m.isStarted() ? "Sì" : "No",
+											m.isEnded() ? "Sì" : "No",
+											m.getMeetingNumber()});
 			
 		}
 				
 				
 		// Rende la table non editabile, fatta eccezione per il ruolo
 		meetingsTable = new JTable(meetingsTM) {
-//			@Override
-//			public boolean isCellEditable(int row, int column) {
-//				if (meetingsTable.getValueAt(row, column) != null)
-//					return false;
-//				return column == 4 && column == 5;
-//			}
+			@Override
+			public boolean isCellEditable(int row, int column) {
+					return false;
+			}
 		};
 		
 		meetingsTable.setBackground(Color.decode("#ECEFF4"));

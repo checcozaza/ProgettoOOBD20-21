@@ -23,6 +23,7 @@ import entities.Company;
 import entities.Employee;
 import entities.Project;
 import enums.EnumRole;
+import guis.ChooseMeetingFrame;
 import guis.CompanyFrame;
 import guis.PopupDialog;
 import guis.MainFrame;
@@ -56,6 +57,7 @@ public class Controller {
 	private UserFrame uf;
 	private CompanyFrame cfr;
 	private NewMeetingFrame nmf;
+	private ChooseMeetingFrame cmf;
 	private PopupDialog infoDialog;
 	
 	public static void main(String[] args) {
@@ -639,6 +641,8 @@ public class Controller {
 		if (signedIn.getEmployeeProject() != null) {
 			todp = new TopicDAOPG(this);
 			signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
+			mdp = new MeetingDAOPG(this);
+			signedIn.getEmployeeProject().setProjectMeetings(mdp.takeMeetingsForProject(signedIn));
 		}
 		edp = new EmployeeDAOPG(this);
 		signedIn.getHiredBy().setCompanyEmployees(edp.takeEmployeesForCompany(signedIn.getHiredBy()));
@@ -707,7 +711,7 @@ public class Controller {
 	// Metodo che reindirizza l'utente alla sua homepage personalizzata
 	private void openUserFrame(Employee signedIn) {
 		mf.setVisible(false);
-		UserFrame uf = new UserFrame(this, signedIn);
+		uf = new UserFrame(this, signedIn);
 		uf.setVisible(true);
 		
 	}
@@ -792,21 +796,33 @@ public class Controller {
 		
 	}
 
-	public void openNewMeetingFrame(int projectNumber) {
+	public void openNewMeetingFrame(int projectNumber, String cf) {
 		pmf.setVisible(false);
-		nmf = new NewMeetingFrame(this, projectNumber);
+		nmf = new NewMeetingFrame(this, projectNumber, cf);
 		nmf.setVisible(true);
 	}
 
-	public void confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
+	public int confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
 		mdp = new MeetingDAOPG(this);
-		mdp.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
-		return;
+		return mdp.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
 	}
 
 	public void addToTeam(ArrayList<Employee> toAdd) throws Exception {
 		edp = new EmployeeDAOPG(this);
 		edp.addToProject(toAdd);
 		return;
+	}
+
+	public void addEmployeeToMeeting(String manager, int newMeeting) throws Exception {
+		mdp = new MeetingDAOPG(this);
+		mdp.addEmployeeToMeeting(manager, newMeeting);
+		return;
+	}
+
+	public void openChooseMeetingFrame(Employee user) {
+		uf.setVisible(false);
+		cmf = new ChooseMeetingFrame(this, user);
+		cmf.setVisible(true);
+		
 	}
 }
