@@ -173,7 +173,7 @@ public class UserFrame extends JFrame {
 		btnNewButton.setBackground(Color.decode("#8FBCBB"));
 		btnNewButton.setFocusPainted(false);
 		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBounds(203, 227, 183, 23);
+		btnNewButton.setBounds(203, 227, 214, 23);
 		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

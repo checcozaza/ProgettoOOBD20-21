@@ -130,7 +130,7 @@ public class EmployeeDAOPG {
 		
 		query = conn.prepareStatement("UPDATE Partecipante "
 									+ "SET Ruolo = 'Project Manager', CodProgetto = ?"
-									+ "WHERE cf = ?");
+									+ "WHERE cf = ? AND CodProgetto IS NULL");
 		
 		query.setInt(1, lastProject);
 		query.setString(2, cf);
@@ -161,5 +161,23 @@ public class EmployeeDAOPG {
 		conn.close();
 		
 		return;
+	}
+
+	public void modifiedWage(String cf, Float newWage) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE Partecipante "
+									+ "SET SalarioMedio = ? "
+									+ "WHERE cf = ?");
+		
+		query.setFloat(1, newWage);
+		query.setString(2, cf);
+		
+		query.executeUpdate();
+		
+		conn.close();
+		return;
+		
 	}
 }

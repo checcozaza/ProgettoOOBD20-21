@@ -45,5 +45,38 @@ public class TopicDAOPG {
 		return topics;
 	}
 
+	public ArrayList<Topic> takeTopics() throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
+		
+		query = conn.prepareStatement("SELECT Nome FROM Ambito");
+
+		result = query.executeQuery();
+		
+		ArrayList<Topic> topics = new ArrayList<Topic>();
+		while (result.next())
+			topics.add(new Topic(result.getString("Nome"), null));
+	
+		result.close();
+		conn.close();
+		return topics;
+	}
+
+	public void insertTopics(int lastProject, ArrayList<String> chosenTopics) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("INSERT INTO ProgAmbito VALUES (?, ?)");
+		query.setInt(1, lastProject);
+		
+		for (String s: chosenTopics) {
+			query.setString(2, s);
+			query.executeUpdate();
+		}
+		
+		conn.close();
+		return;
+	}
+
 
 }

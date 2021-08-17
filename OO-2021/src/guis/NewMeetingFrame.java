@@ -37,6 +37,7 @@ public class NewMeetingFrame extends JFrame {
 	 * Create the frame.
 	 */
 	public NewMeetingFrame(Controller co, int projectNumber, String manager) {
+		JFrame utility = this;
 		setIconImage(Toolkit.getDefaultToolkit().getImage(NewMeetingFrame.class.getResource("/bulb.png")));
 		setTitle("Pianifica meeting - Projesting");
 		c = co;
@@ -180,7 +181,8 @@ public class NewMeetingFrame extends JFrame {
 		
 		JButton goBackButton = new JButton("Indietro");
 		goBackButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent goBack) {
+					c.goBack(utility);
 			}
 		});
 		goBackButton.setForeground(Color.decode("#2E3440"));
@@ -192,6 +194,11 @@ public class NewMeetingFrame extends JFrame {
 		panel.add(goBackButton);
 		
 		JButton logoutButton = new JButton("");
+		logoutButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogout) {
+				c.backToLogin(utility);
+			}
+		});
 		logoutButton.setIcon(new ImageIcon(NewMeetingFrame.class.getResource("/logout.png")));
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setForeground(new Color(46, 52, 64));
@@ -203,7 +210,6 @@ public class NewMeetingFrame extends JFrame {
 		logoutButton.setBounds(0, 417, 64, 75);
 		panel.add(logoutButton);
 		
-		JFrame toEnable = this;
 		JButton confirmButton = new JButton("Conferma meeting");
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickConfirmMeeting) {
@@ -231,7 +237,7 @@ public class NewMeetingFrame extends JFrame {
 									 onlineMeetingRadioButton.isSelected(),
 									 place);
 					c.addEmployeeToMeeting(manager, newMeeting);
-					c.openPopupDialog(toEnable, "Meeting programmato con successo!");
+					c.openPopupDialog(utility, "Meeting programmato con successo!");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

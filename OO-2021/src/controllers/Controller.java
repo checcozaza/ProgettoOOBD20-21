@@ -21,7 +21,9 @@ import dao.TopicDAOPG;
 import dao.TownDAOPG;
 import entities.Company;
 import entities.Employee;
+import entities.Meeting;
 import entities.Project;
+import entities.Topic;
 import enums.EnumRole;
 import guis.ChooseMeetingFrame;
 import guis.CompanyFrame;
@@ -668,7 +670,7 @@ public class Controller {
 	}
 	
 	// Metodo che recupera tutte le informazioni dell'azienda appena loggata
-	private Company fillCompanyForLogin(Company signedInCompany) throws Exception {
+	public Company fillCompanyForLogin(Company signedInCompany) throws Exception {
 		edp = new EmployeeDAOPG(this);
 		signedInCompany.setCompanyEmployees(edp.takeEmployeesForCompany(signedInCompany));
 		pdp = new ProjectDAOPG(this);
@@ -756,9 +758,10 @@ public class Controller {
 		return edp.retrieveAvgRating(fiscalCode);
 	}
 
-	public void openNewProjectFrame(Company signedInCompany, String managerCf) {
+	public void openNewProjectFrame(Company signedInCompany, String managerCf) throws Exception {
 		cfr.setVisible(false);
-		npf = new NewProjectFrame(this, signedInCompany, managerCf);
+		todp = new TopicDAOPG(this);
+		npf = new NewProjectFrame(this, signedInCompany, managerCf, todp.takeTopics());
 		npf.setVisible(true);
 	}
 
@@ -825,4 +828,39 @@ public class Controller {
 		cmf.setVisible(true);
 		
 	}
+
+	public void goBack(JFrame utility) {
+		if (npf != null) {
+			utility.setVisible(false);
+			cfr.setVisible(true);
+		}
+		else if (cmf != null) {
+			utility.setVisible(false);
+			uf.setVisible(true);
+		}
+		else if (nmf != null) {
+			utility.setVisible(false);
+			pmf.setVisible(true);
+		}
+	}
+
+	public void insertProjectTopics(int lastProject, ArrayList<String> chosenTopics) throws Exception {
+		todp = new TopicDAOPG(this);
+		todp.insertTopics(lastProject, chosenTopics);
+		return;
+	}
+
+	public void updateWage(String cf, Float newWage) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		edp.modifiedWage(cf, newWage);
+		return;
+	}
+
+	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
+		mdp = new MeetingDAOPG(this);
+		mdp.updateMeetings(meetings);
+		return;
+	}
+
+	
 }

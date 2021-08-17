@@ -38,6 +38,8 @@ import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.ListSelectionModel;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeEvent;
 
 public class CompanyFrame extends JFrame {
 
@@ -56,7 +58,6 @@ public class CompanyFrame extends JFrame {
 	private DefaultTableModel projectsTM;
 	private JLabel currentProjectLabel;
 	private JButton newProjectButton;
-	
 
 	// Creazione frame
 	public CompanyFrame(Controller co, Company signedInCompany) throws Exception {
@@ -127,24 +128,14 @@ public class CompanyFrame extends JFrame {
 			employeesTM.addRow(new Object[] {em.getFiscalCode(),
 											 em.getName(),
 											 em.getSurname(),
-											 (int)em.getAvgWage() +" €",
+											 (int)em.getAvgWage(),
 											 avgRating == 0 ? "Non presente" : avgRating +"/5",
 											 isBusy});
 		}
 		
 
-		// Rende la table non editabile
+		// Rende la table editabile
 		employeesTable = new JTable(employeesTM) {
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return column == 3;
-			}
-		};
-		
-		
-		// Rende la table non editabile
-		employeesTable = new JTable(employeesTM) {
-			
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column == 3;
@@ -164,6 +155,19 @@ public class CompanyFrame extends JFrame {
 		employeesTable.getTableHeader().setReorderingAllowed(false);
 		
 		employeesScrollPane.setViewportView(employeesTable);
+		
+		employeesTable.addPropertyChangeListener(new PropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent changeWage) {
+				if (employeesTable.getSelectedRow() != -1) {
+					try {
+						c.updateWage(employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString(),
+								Float.valueOf(employeesTable.getValueAt(employeesTable.getSelectedRow(), 3).toString()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
 		
 		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
@@ -229,15 +233,19 @@ public class CompanyFrame extends JFrame {
 		logoutButton.setBackground(new Color(235, 203, 139));
 		
 		newProjectButton = new JButton("Crea nuovo progetto");
-		JFrame toEnable = this;
+		JFrame utility = this;
 		newProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent createNewProject) {
 				if (employeesTable.getSelectedRow() != -1 && 
 					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) {
-					c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
+					try {
+						c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 				else
-					c.openPopupDialog(toEnable, "<HTML> <center> Per creare un nuovo progetto, seleziona prima il Project Manager (non deve essere occupato) <center> <HTML>");
+					c.openPopupDialog(utility, "<HTML> <center> Per creare un nuovo progetto, seleziona prima il Project Manager (non deve essere occupato) <center> <HTML>");
 			}
 		});
 		newProjectButton.setBorderPainted(false);

@@ -131,4 +131,23 @@ public class MeetingDAOPG {
 		conn.close();
 		return meetings;
 	}
+
+	public void updateMeetings(ArrayList<Meeting> meetings) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE Meeting "
+									+ "SET Iniziato = ?, Finito = ? "
+									+ "WHERE CodMeeting = ?");
+		
+		for (Meeting mee: meetings) {
+			query.setBoolean(1, mee.isStarted());
+			query.setBoolean(2, mee.isEnded());
+			query.setInt(3, mee.getMeetingNumber());
+			query.executeUpdate();
+		}
+		
+		conn.close();
+		return;
+	}
 }

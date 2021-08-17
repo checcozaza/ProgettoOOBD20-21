@@ -53,6 +53,7 @@ public class ProjectManagerFrame extends JFrame {
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(ProjectManagerFrame.class.getResource("/bulb.png")));
 		c = co;
+		JFrame utility = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 740, 544);
 		contentPane = new JPanel();
@@ -81,10 +82,9 @@ public class ProjectManagerFrame extends JFrame {
 		logoutButton = new JButton("");
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/logout.png")));
-		JFrame loggingOut = this;
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) { // Al click del tasto logout, si tornerà alla schermata principale
-				c.backToLogin(loggingOut);
+				c.backToLogin(utility);
 			}
 		});
 		logoutButton.setForeground(new Color(46, 52, 64));
@@ -98,17 +98,13 @@ public class ProjectManagerFrame extends JFrame {
 		teamTabbedPane.setForeground(Color.decode("#ECEFF4"));
 		teamTabbedPane.setBackground(Color.decode("#B48EAD"));
 		
-		JFrame toEnable = this;
-		
 		JButton closeProjectButton = new JButton("Chiudi progetto");
 		closeProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickEndProject) {
 				try {
 					c.closeProject(manager.getEmployeeProject().getProjectNumber());
-					c.openPopupDialog(loggingOut, "Progetto terminato con successo!");
-					
-					//FA TORNARE ALLA PAGINA DI SOTTO, AGGIUSTA
-					//c.backToLogin???
+					c.openPopupDialog(utility, "Progetto terminato con successo!");
+					c.backToLogin(utility);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -149,19 +145,19 @@ public class ProjectManagerFrame extends JFrame {
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
 					.addComponent(newMeetingButton)
-					.addGap(50)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(closeProjectButton)
-					.addGap(33)
+					.addGap(153)
 					.addComponent(managerIconLabel)
 					.addContainerGap())
 				.addComponent(projectLabel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
 				.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(54, Short.MAX_VALUE)
+				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+					.addGap(54)
 					.addComponent(teamTabbedPane, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
-					.addGap(44))
+					.addContainerGap(44, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -179,8 +175,8 @@ public class ProjectManagerFrame extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-									.addComponent(closeProjectButton)
-									.addComponent(newMeetingButton, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(newMeetingButton, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+									.addComponent(closeProjectButton))))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addComponent(managerIconLabel)))
@@ -263,12 +259,12 @@ public class ProjectManagerFrame extends JFrame {
 							freeEmployeesTM.removeRow(i);
 						}
 						else
-							c.openPopupDialog(toEnable, "Nessun progettista selezionato");
+							c.openPopupDialog(utility, "Nessun progettista selezionato");
 						
 					}
 					c.addToTeam(toAdd);
 				} catch (IllegalArgumentException invalidRole) {
-					c.openPopupDialog(toEnable, "Ruolo non valido, riprova");
+					c.openPopupDialog(utility, "Ruolo non valido, riprova");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -331,7 +327,7 @@ public class ProjectManagerFrame extends JFrame {
 		meetingsTable = new JTable(meetingsTM) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
-					return false;
+					return column == 4 || column == 5;
 			}
 		};
 		
@@ -346,6 +342,39 @@ public class ProjectManagerFrame extends JFrame {
 		meetingsTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
 		meetingsTable.getTableHeader().setReorderingAllowed(false);
 		meetingsScrollPane.setViewportView(meetingsTable);
+		
+		JButton btnAggiornaStatoMeeting = new JButton("Aggiorna stato meeting");
+		btnAggiornaStatoMeeting.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent updateMeetingStatus) {
+				if (meetingsTable.getRowCount() != -1) {
+					ArrayList<Meeting> meetings = new ArrayList<Meeting>();
+					
+					for (int i = 0; i < meetingsTable.getRowCount(); i++) {
+						Meeting m = new Meeting(Integer.valueOf(meetingsTable.getValueAt(i, 6).toString()), 
+												null, null, null, null, null,
+												meetingsTable.getValueAt(i, 4).toString().equals("Sì") ? true : false,
+												meetingsTable.getValueAt(i, 5).toString().equals("Sì") ? true : false, 
+												null, null);
+						if (m.isStarted() && m.isEnded())
+							meetingsTM.removeRow(i);
+						meetings.add(m);
+					}
+					
+					try {
+						c.insertMeetingUpdates(meetings);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+		btnAggiornaStatoMeeting.setForeground(new Color(46, 52, 64));
+		btnAggiornaStatoMeeting.setFont(new Font("Roboto", Font.PLAIN, 14));
+		btnAggiornaStatoMeeting.setFocusPainted(false);
+		btnAggiornaStatoMeeting.setBorderPainted(false);
+		btnAggiornaStatoMeeting.setBackground(new Color(143, 188, 187));
+		btnAggiornaStatoMeeting.setBounds(206, 240, 214, 23);
+		meetingPanel.add(btnAggiornaStatoMeeting);
 		
 		contentPane.setLayout(gl_contentPane);
 		
