@@ -53,4 +53,25 @@ public class RatingsDAOPG {
 		conn.close();
 		return ratings;
 	}
+
+	public void insertRatingsForEmployees(String cf, int rating, int currentProject) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("UPDATE PartecipanteProg "
+									+ "SET Valutazione = ? "
+									+ "WHERE CodProg = ? AND UserID = (SELECT UserID "
+																	 + "FROM PARTECIPANTE "
+																	 + "WHERE CF = ?)");
+		
+		query.setInt(1, rating);
+		query.setInt(2, currentProject);
+		query.setString(3, cf);
+		
+		query.executeUpdate();
+		
+		conn.close();
+		return;
+		
+	}
 }

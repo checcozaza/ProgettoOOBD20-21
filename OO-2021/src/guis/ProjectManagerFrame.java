@@ -104,7 +104,8 @@ public class ProjectManagerFrame extends JFrame {
 				try {
 					c.closeProject(manager.getEmployeeProject().getProjectNumber());
 					c.openPopupDialog(utility, "Progetto terminato con successo!");
-					c.backToLogin(utility);
+					c.openRatingDialog(manager.getEmployeeProject().getProjectNumber(), manager.getEmployeeProject().getProjectEmployees());
+					//c.backToLogin(utility);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -256,12 +257,13 @@ public class ProjectManagerFrame extends JFrame {
 									  0, null, 
 									  manager.getEmployeeProject(), 
 									  null, null));
+							
 							freeEmployeesTM.removeRow(i);
 						}
 						else
 							c.openPopupDialog(utility, "Nessun progettista selezionato");
-						
 					}
+					manager.getEmployeeProject().setProjectEmployees(toAdd);
 					c.addToTeam(toAdd);
 				} catch (IllegalArgumentException invalidRole) {
 					c.openPopupDialog(utility, "Ruolo non valido, riprova");

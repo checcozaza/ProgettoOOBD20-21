@@ -180,4 +180,29 @@ public class EmployeeDAOPG {
 		return;
 		
 	}
+
+	public ArrayList<Employee> takeEmployeesForProject(Employee signedIn) throws SQLException {
+		conn = c.connect();
+		if (conn == null) return null;
+		
+		query = conn.prepareStatement("SELECT * FROM Partecipante WHERE CodProgetto = ?");
+		
+		query.setInt(1, signedIn.getEmployeeProject().getProjectNumber());
+		result = query.executeQuery();
+		
+		ArrayList<Employee> employees = new ArrayList<Employee>();
+		while (result.next())
+			employees.add(new Employee(result.getString("cf"),
+									   result.getString("nome"),
+									   result.getString("cognome"),
+									   result.getString("pw"),
+									   result.getString("ruolo") == null ? null : EnumRole.valueOf(result.getString("ruolo").replace(' ', '_')),
+									   result.getFloat("salariomedio"),
+									   signedIn.getHiredBy(),
+									   signedIn.getEmployeeProject(),
+									   null, null));
+		result.close();
+		conn.close();
+		return employees;
+	}
 }

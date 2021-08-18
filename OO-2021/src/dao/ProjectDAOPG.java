@@ -130,7 +130,7 @@ public class ProjectDAOPG {
 		if (conn == null) return;
 		
 		query = conn.prepareStatement("UPDATE Progetto "
-									+ "SET Terminato = true"
+									+ "SET Terminato = true "
 									+ "WHERE CodProgetto = ?");
 		
 		query.setInt(1, projectNumber);

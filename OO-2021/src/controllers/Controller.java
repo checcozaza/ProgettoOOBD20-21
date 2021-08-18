@@ -32,6 +32,7 @@ import guis.MainFrame;
 import guis.NewMeetingFrame;
 import guis.NewProjectFrame;
 import guis.ProjectManagerFrame;
+import guis.RatingDialog;
 import guis.SignUpFrame;
 import guis.SignedUpDialog;
 import guis.UserFrame;
@@ -61,6 +62,7 @@ public class Controller {
 	private NewMeetingFrame nmf;
 	private ChooseMeetingFrame cmf;
 	private PopupDialog infoDialog;
+	private RatingDialog ratingForEmployeesDialog;
 	
 	public static void main(String[] args) {
 		c = new Controller();
@@ -645,6 +647,8 @@ public class Controller {
 			signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
 			mdp = new MeetingDAOPG(this);
 			signedIn.getEmployeeProject().setProjectMeetings(mdp.takeMeetingsForProject(signedIn));
+			edp = new EmployeeDAOPG(this);
+			signedIn.getEmployeeProject().setProjectEmployees(edp.takeEmployeesForProject(signedIn));
 		}
 		edp = new EmployeeDAOPG(this);
 		signedIn.getHiredBy().setCompanyEmployees(edp.takeEmployeesForCompany(signedIn.getHiredBy()));
@@ -859,6 +863,17 @@ public class Controller {
 	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
 		mdp = new MeetingDAOPG(this);
 		mdp.updateMeetings(meetings);
+		return;
+	}
+
+	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate) {
+		ratingForEmployeesDialog = new RatingDialog(this, currentProject, employeesToRate);
+		ratingForEmployeesDialog.setVisible(true);
+	}
+
+	public void insertRating(String cf, Integer rating, int currentProject) throws Exception {
+		rdp = new RatingsDAOPG(this);
+		rdp.insertRatingsForEmployees(cf, rating, currentProject);
 		return;
 	}
 
