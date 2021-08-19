@@ -21,12 +21,14 @@ import dao.TopicDAOPG;
 import dao.TownDAOPG;
 import entities.Company;
 import entities.Employee;
+import entities.EmployeeRating;
 import entities.Meeting;
 import entities.Project;
 import entities.Topic;
 import enums.EnumRole;
 import guis.ChooseMeetingFrame;
 import guis.CompanyFrame;
+import guis.EmployeeInfoDialog;
 import guis.PopupDialog;
 import guis.MainFrame;
 import guis.NewMeetingFrame;
@@ -63,13 +65,16 @@ public class Controller {
 	private ChooseMeetingFrame cmf;
 	private PopupDialog infoDialog;
 	private RatingDialog ratingForEmployeesDialog;
+	private EmployeeInfoDialog employeeInfoDialog;
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		c = new Controller();
 	}
 	
 	// Costruttore
-	public Controller() {
+	public Controller() throws Exception {
+		mdp = new MeetingDAOPG(this);
+		mdp.cronMeeting();
 		mf = new MainFrame(this);
 		mf.setVisible(true);
 	}
@@ -89,30 +94,6 @@ public class Controller {
 			return null;
 		}
 	}
-
-	// Metodo per effettuare una query nel DB con lo scopo di recuperare le regioni
-	public Object[] pickRegions() throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveRegions();
-	}
-
-	// Metodo per effettuare una query nel DB con lo scopo di recuperare le province
-	public Object[] pickProvince(String selectedRegion) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveProvinces(selectedRegion);
-	}
-
-	// Metodo per effettuare una query nel DB con lo scopo di recuperare le città
-	public Object[] pickCity(String selectedProvince) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveCity(selectedProvince);
-	}
-	
-	// Metodo per effettuare una query nel DB con lo scopo di recuperare i codici catastali
-	private String pickCodeCat(String town) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveCodeCat(town);
-	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di inserire un utente appena registrato
 	public void insertEmployee(Employee employee) throws Exception {
@@ -127,6 +108,30 @@ public class Controller {
 		return cdp.retrieveCompanies();
 	}
 	
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le regioni, utile al calcolo del codice fiscale
+	public Object[] pickRegions() throws Exception {
+		tdp = new TownDAOPG(this);
+		return tdp.retrieveRegions();
+	}
+	
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le province, utile al calcolo del codice fiscale
+	public Object[] pickProvince(String selectedRegion) throws Exception {
+		tdp = new TownDAOPG(this);
+		return tdp.retrieveProvinces(selectedRegion);
+	}
+	
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare le città, utile al calcolo del codice fiscale
+	public Object[] pickCity(String selectedProvince) throws Exception {
+		tdp = new TownDAOPG(this);
+		return tdp.retrieveCity(selectedProvince);
+	}
+	
+	// Metodo per effettuare una query nel DB con lo scopo di recuperare i codici catastali, utile al calcolo del codice fiscale
+	private String pickCodeCat(String town) throws Exception {
+		tdp = new TownDAOPG(this);
+		return tdp.retrieveCodeCat(town);
+	}
+	
 	// Metodo utilizzato per il controllo delle vocali, necessario nel calcolo del codice fiscale
 	private boolean isVowel(char c) {
 		return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
@@ -135,7 +140,7 @@ public class Controller {
 	// Metodo per il calcolo del codice fiscale
 	public String cfGenerator(String name, String surname, LocalDate birthDate, char sex, String comune) throws Exception {
 		
-		 // Il metodo riceve come parametro l'intera data di nascita; è necessario quindi effettuare un parsing del dato
+		// Il metodo riceve come parametro l'intera data di nascita; è necessario quindi effettuare un parsing del dato
 		Integer year = birthDate.getYear();
 		String month = birthDate.getMonth().toString();
 		Integer day = birthDate.getDayOfMonth();
@@ -666,10 +671,10 @@ public class Controller {
 			if (signedIn.getRole() == EnumRole.Project_Manager)
 				openPMFrame(signedIn); // Apre homepage per il project manager (che ha più funzionalità)
 			else
-				openUserFrame(signedIn); // Apre homepage per un progettista
+				openUserFrame(signedIn); // Apre homepage per un progettista qualsiasi
 		}
 		else
-			openPopupDialog(mf, "Username o password non validi");
+			openPopupDialog(mf, "Username o password non validi"); // Messaggio di errore
 		return;
 	}
 	
@@ -866,8 +871,8 @@ public class Controller {
 		return;
 	}
 
-	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate) {
-		ratingForEmployeesDialog = new RatingDialog(this, currentProject, employeesToRate);
+	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
+		ratingForEmployeesDialog = new RatingDialog(this, currentProject, employeesToRate, utility);
 		ratingForEmployeesDialog.setVisible(true);
 	}
 
@@ -877,5 +882,18 @@ public class Controller {
 		return;
 	}
 
-	
+	public ArrayList<Employee> refillTeam(Employee manager) throws Exception {
+		edp = new EmployeeDAOPG(this);
+		return edp.takeEmployeesForProject(manager);
+	}
+
+	public void openEmployeeInfoDialog(String cf, JFrame utility) throws Exception {
+		employeeInfoDialog = new EmployeeInfoDialog(this, cf, utility);
+		employeeInfoDialog.setVisible(true);
+	}
+
+	public ArrayList<EmployeeRating> findUserHistory(String cf) throws Exception {
+		rdp = new RatingsDAOPG(this);
+		return rdp.takeRatingsFromFiscalCode(cf);
+	}
 }

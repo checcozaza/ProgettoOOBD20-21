@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -35,7 +36,7 @@ public class RatingDialog extends JDialog {
 	private DefaultTableModel employeesForRatingsTM;
 	private JTable employeesToRateTable;
 
-	public RatingDialog(Controller co, int currentProject, ArrayList<Employee> employeesToRate) {
+	public RatingDialog(Controller co, int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
 		c = co;
 		setBounds(100, 100, 792, 431);
 		getContentPane().setLayout(new BorderLayout());
@@ -74,13 +75,14 @@ public class RatingDialog extends JDialog {
 				return column == 1;
 			}
 		};
+		
 		employeesToRateTable.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (employeesToRateTable.getSelectedRow() != -1) {
 					try {
 						c.insertRating(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 0).toString(),
-								Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 3).toString()),
-								currentProject);
+									   Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()),
+									   currentProject);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -125,26 +127,20 @@ public class RatingDialog extends JDialog {
 			buttonPane.setBackground(Color.decode("#4C566A"));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						try {
-						} catch (Exception e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
-					}
-				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+			
+			JButton btnTerminaEdEsci = new JButton("Termina ed esci");
+			btnTerminaEdEsci.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent logout) {
+					c.backToLogin(utility);
+					dispose();
+				}
+			});
+			btnTerminaEdEsci.setForeground(new Color(46, 52, 64));
+			btnTerminaEdEsci.setFont(new Font("Roboto", Font.PLAIN, 14));
+			btnTerminaEdEsci.setFocusPainted(false);
+			btnTerminaEdEsci.setBorderPainted(false);
+			btnTerminaEdEsci.setBackground(new Color(235, 203, 139));
+			buttonPane.add(btnTerminaEdEsci);
 		}
 		setLocationRelativeTo(null);
 	}

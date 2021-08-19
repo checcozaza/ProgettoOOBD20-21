@@ -150,4 +150,18 @@ public class MeetingDAOPG {
 		conn.close();
 		return;
 	}
+
+	public void cronMeeting() throws SQLException {
+		conn = c.connect();
+		if (conn == null) return;
+		
+		query = conn.prepareStatement("CALL cronMeetingUpdate();");
+		query.executeUpdate();
+		
+		conn.close();
+		return;
+		
+		
+		
+	}
 }

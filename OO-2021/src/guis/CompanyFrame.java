@@ -240,6 +240,7 @@ public class CompanyFrame extends JFrame {
 					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) {
 					try {
 						c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
+						employeesTM.removeRow(employeesTable.getSelectedRow());
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

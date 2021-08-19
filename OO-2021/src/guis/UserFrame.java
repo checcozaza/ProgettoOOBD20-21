@@ -226,7 +226,7 @@ public class UserFrame extends JFrame {
 		for (EmployeeRating er: user.getEmployeeRatings()) {
 			historyTM.addRow(new Object[] {er.getPastProject().getProjectNumber(),
 										   er.getPastProject().getTypology().toString().replace('_', ' '),
-										   er.getRating()});
+										   er.getRating() == 0 ? "Non presente" : er.getRating()});
 		}
 		
 		// Rende la table non editabile

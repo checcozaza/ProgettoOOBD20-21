@@ -32,12 +32,14 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.UIManager;
 import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class ProjectManagerFrame extends JFrame {
 
 	private JPanel contentPane;
 	private Controller c;
-	private JTable teamTable;
+	private JTable freeEmployeesTable;
 	private JTable meetingsTable;
 	private JTabbedPane teamTabbedPane;
 	private JPanel teamPanel;
@@ -102,10 +104,10 @@ public class ProjectManagerFrame extends JFrame {
 		closeProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickEndProject) {
 				try {
+					manager.getEmployeeProject().setProjectEmployees(c.refillTeam(manager));
 					c.closeProject(manager.getEmployeeProject().getProjectNumber());
-					c.openPopupDialog(utility, "Progetto terminato con successo!");
-					c.openRatingDialog(manager.getEmployeeProject().getProjectNumber(), manager.getEmployeeProject().getProjectEmployees());
-					//c.backToLogin(utility);
+					//c.openPopupDialog(utility, "Progetto terminato con successo!");
+					c.openRatingDialog(manager.getEmployeeProject().getProjectNumber(), manager.getEmployeeProject().getProjectEmployees(), utility);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -224,53 +226,59 @@ public class ProjectManagerFrame extends JFrame {
 		
 		
 		// Rende la table non editabile, fatta eccezione per il ruolo
-		teamTable = new JTable(freeEmployeesTM) {
+		freeEmployeesTable = new JTable(freeEmployeesTM) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return column == 5;
 			}
 		};
+		freeEmployeesTable.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent clickOnEmployee) {
+		        if(clickOnEmployee.getClickCount() >= 2){
+		            try {
+						c.openEmployeeInfoDialog(freeEmployeesTable.getValueAt(freeEmployeesTable.getSelectedRow(), 0).toString(), utility);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+		        }
+			}
+		});
 		
-		teamTable.setBackground(Color.decode("#ECEFF4"));
-		teamTable.setRowMargin(2);
-		teamTable.setRowHeight(24);
-		teamTable.setFont(new Font("Roboto", Font.PLAIN, 14));
-		teamTable.setForeground(Color.decode("#434C5E"));
-		teamTable.setGridColor(Color.decode("#B48EAD"));
-		teamTable.getTableHeader().setBackground(Color.decode("#B48EAD"));
-		teamTable.getTableHeader().setForeground(Color.decode("#ECEFF4"));
-		teamTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
-		teamTable.getTableHeader().setReorderingAllowed(false);
-		teamScrollPane.setViewportView(teamTable);
+		freeEmployeesTable.setBackground(Color.decode("#ECEFF4"));
+		freeEmployeesTable.setRowMargin(2);
+		freeEmployeesTable.setRowHeight(24);
+		freeEmployeesTable.setFont(new Font("Roboto", Font.PLAIN, 14));
+		freeEmployeesTable.setForeground(Color.decode("#434C5E"));
+		freeEmployeesTable.setGridColor(Color.decode("#B48EAD"));
+		freeEmployeesTable.getTableHeader().setBackground(Color.decode("#B48EAD"));
+		freeEmployeesTable.getTableHeader().setForeground(Color.decode("#ECEFF4"));
+		freeEmployeesTable.getTableHeader().setFont(new Font("Roboto", Font.BOLD, 14));
+		freeEmployeesTable.getTableHeader().setReorderingAllowed(false);
+		teamScrollPane.setViewportView(freeEmployeesTable);
 		JButton addToTeamButton = new JButton("Aggiungi al team");
-		addToTeamButton.setBounds(240, 235, 136, 25);
+		addToTeamButton.setBounds(222, 235, 222, 25);
 		teamPanel.add(addToTeamButton);
 		addToTeamButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickAddToTeam) {
 				ArrayList<Employee> toAdd = new ArrayList<Employee>();
 				try {
-					for (int i = 0; i < teamTable.getRowCount(); i++) {
-						if (teamTable.getValueAt(i, 5) != null) {
-							toAdd.add(new Employee(teamTable.getValueAt(i, 0).toString(),
+					for (int i = 0; i < freeEmployeesTable.getRowCount(); i++) {
+						if (freeEmployeesTable.getValueAt(i, 5) != null) {
+							toAdd.add(new Employee(freeEmployeesTable.getValueAt(i, 0).toString(),
 									  null, null, null, 
-									  EnumRole.valueOf(teamTable.getValueAt(i, 5).toString().replace(' ', '_')), 
+									  EnumRole.valueOf(freeEmployeesTable.getValueAt(i, 5).toString().replace(' ', '_')), 
 									  0, null, 
 									  manager.getEmployeeProject(), 
 									  null, null));
-							
-							freeEmployeesTM.removeRow(i);
 						}
-						else
-							c.openPopupDialog(utility, "Nessun progettista selezionato");
 					}
-					manager.getEmployeeProject().setProjectEmployees(toAdd);
 					c.addToTeam(toAdd);
 				} catch (IllegalArgumentException invalidRole) {
 					c.openPopupDialog(utility, "Ruolo non valido, riprova");
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			
 			}
 		});
 		addToTeamButton.setForeground(Color.decode("#2E3440"));

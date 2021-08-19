@@ -124,6 +124,12 @@ public class NewMeetingFrame extends JFrame {
 		ButtonGroup G = new ButtonGroup();
 		
 		JRadioButton onlineMeetingRadioButton = new JRadioButton("Su piattaforma telematica");
+		onlineMeetingRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickOnlineMeeting) {
+				onlineMeetingTextField.setEnabled(true);
+				meetingPlaceTextField.setEnabled(false);
+			}
+		});
 		onlineMeetingRadioButton.setForeground(Color.decode("#ECEFF4"));
 		onlineMeetingRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		onlineMeetingRadioButton.setBackground(Color.decode("#4C566A"));
@@ -132,6 +138,12 @@ public class NewMeetingFrame extends JFrame {
 		G.add(onlineMeetingRadioButton);
 		
 		JRadioButton physicalMeetingRadioButton = new JRadioButton("In un luogo fisico");
+		physicalMeetingRadioButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickPhysicalMeeting) {
+				meetingPlaceTextField.setEnabled(true);
+				onlineMeetingTextField.setEnabled(false);
+			}
+		});
 		physicalMeetingRadioButton.setForeground(Color.decode("#ECEFF4"));
 		physicalMeetingRadioButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		physicalMeetingRadioButton.setBackground(Color.decode("#4C566A"));
