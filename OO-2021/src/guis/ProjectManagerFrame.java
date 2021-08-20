@@ -57,7 +57,7 @@ public class ProjectManagerFrame extends JFrame {
 		c = co;
 		JFrame utility = this;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 740, 544);
+		setBounds(100, 100, 750, 699);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -141,23 +141,28 @@ public class ProjectManagerFrame extends JFrame {
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
+		JLabel lblNewLabel_1 = new JLabel("");
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(welcomeManagerPanel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
-					.addComponent(newMeetingButton)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 147, Short.MAX_VALUE)
+							.addComponent(newMeetingButton))
+						.addComponent(lblNewLabel_1))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(closeProjectButton)
 					.addGap(153)
 					.addComponent(managerIconLabel)
 					.addContainerGap())
 				.addComponent(projectLabel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-				.addComponent(lblNewLabel, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
-				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
+				.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)
+				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(54)
 					.addComponent(teamTabbedPane, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(44, Short.MAX_VALUE))
@@ -174,7 +179,9 @@ public class ProjectManagerFrame extends JFrame {
 					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(29)
+							.addGap(4)
+							.addComponent(lblNewLabel_1)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(logoutButton, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -257,7 +264,7 @@ public class ProjectManagerFrame extends JFrame {
 		freeEmployeesTable.getTableHeader().setReorderingAllowed(false);
 		teamScrollPane.setViewportView(freeEmployeesTable);
 		JButton addToTeamButton = new JButton("Aggiungi al team");
-		addToTeamButton.setBounds(222, 235, 222, 25);
+		addToTeamButton.setBounds(222, 235, 182, 25);
 		teamPanel.add(addToTeamButton);
 		addToTeamButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickAddToTeam) {
@@ -285,7 +292,7 @@ public class ProjectManagerFrame extends JFrame {
 		addToTeamButton.setBackground(Color.decode("#8FBCBB"));
 		addToTeamButton.setBorderPainted(false);
 		addToTeamButton.setFocusPainted(false);
-		addToTeamButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		addToTeamButton.setFont(new Font("Roboto", Font.PLAIN, 15));
 		
 		JPanel meetingPanel = new JPanel();
 		meetingPanel.setBackground(Color.decode("#EBCB8B"));

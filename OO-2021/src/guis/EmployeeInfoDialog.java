@@ -24,6 +24,10 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 
 public class EmployeeInfoDialog extends JDialog {
 
@@ -32,10 +36,11 @@ public class EmployeeInfoDialog extends JDialog {
 	private JScrollPane employeesInfoScrollPane;
 	private DefaultTableModel employeeTM;
 	private JTable employeeTable;
+	private JLabel lblNewLabel;
 
 	public EmployeeInfoDialog(Controller co, String cf, JFrame utility) throws Exception {
+		setUndecorated(true);
 		c = co;
-		setTitle("Informazioni dipendente - Projesting");
 		setBounds(100, 100, 686, 408);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.decode("#4C566A"));
@@ -88,19 +93,32 @@ public class EmployeeInfoDialog extends JDialog {
 		
 		employeesInfoScrollPane.setViewportView(employeeTable);
 		
+		lblNewLabel = new JLabel("Progetti passati");
+		lblNewLabel.setIconTextGap(18);
+		lblNewLabel.setIcon(new ImageIcon(EmployeeInfoDialog.class.getResource("/paste.png")));
+		lblNewLabel.setForeground(Color.decode("#EBCB8B"));
+		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addGap(32)
-					.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 595, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(33, Short.MAX_VALUE))
+					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGap(32)
+							.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 595, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		gl_contentPanel.setVerticalGroup(
-			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_contentPanel.createSequentialGroup()
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+					.addGap(11)
 					.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 308, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
@@ -112,8 +130,13 @@ public class EmployeeInfoDialog extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton("OK");
+				okButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+				okButton.setForeground(Color.decode("#2E3440"));
+				okButton.setBackground(Color.decode("#EBCB8B"));
+				okButton.setBorderPainted(false);
+				okButton.setFocusPainted(false);
 				okButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
+					public void actionPerformed(ActionEvent clickOK) {
 						c.backToBackgroundFrame(utility);
 					}
 				});
