@@ -38,31 +38,41 @@ import java.awt.Toolkit;
 
 public class MainFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
+	// Dichiarazioni utili
+	private Controller c;
 	private JPanel contentPane;
+	private JPanel titlePanel;
+	private JPanel formsPanel;
+	private JPanel buttonPanel;
+	private JPanel iconPanel;
 	private JTextField usernameTextField;
 	private JPasswordField passwordTextField;
-	private Controller c;
+	private JButton signupButton;
+	private JButton loginButton;
 
-	/**
-	 * Create the frame.
-	 */
+	// Creazione frame
 	public MainFrame(Controller co) {
-		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/bulb.png")));
-		setTitle("Autenticazione - Projesting");
 		c = co;
+		JFrame utility = this;
 		setResizable(false);
+		setTitle("Autenticazione - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainFrame.class.getResource("/bulb.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 411, 289);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
-		JPanel titlePanel = new JPanel();
+		// Panel con il titolo del frame
+		titlePanel = new JPanel();
 		titlePanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(titlePanel, BorderLayout.NORTH);
 		
+		// Label con il titolo del frame
 		JLabel titleLabel = new JLabel("Autenticazione");
 		titleLabel.setIconTextGap(18);
 		titleLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/enter.png")));
@@ -70,7 +80,8 @@ public class MainFrame extends JFrame {
 		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		titlePanel.add(titleLabel);
 		
-		JPanel formsPanel = new JPanel();
+		// Panel contenente componenti necessarie all'accesso
+		formsPanel = new JPanel();
 		formsPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(formsPanel, BorderLayout.EAST);
 		GridBagLayout gbl_formsPanel = new GridBagLayout();
@@ -80,6 +91,7 @@ public class MainFrame extends JFrame {
 		gbl_formsPanel.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		formsPanel.setLayout(gbl_formsPanel);
 		
+		// Label informativa username
 		JLabel usernameLabel = new JLabel("Username");
 		usernameLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
 		usernameLabel.setForeground(Color.decode("#D8DEE9"));
@@ -91,6 +103,7 @@ public class MainFrame extends JFrame {
 		gbc_usernameLabel.gridy = 1;
 		formsPanel.add(usernameLabel, gbc_usernameLabel);
 		
+		// Textfield nel quale inserire lo username
 		usernameTextField = new JTextField();
 		usernameTextField.setToolTipText("Se rappresenti un'azienda inserisci la partita iva, altrimenti inserisci il tuo codice fiscale.");
 		usernameTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -104,6 +117,7 @@ public class MainFrame extends JFrame {
 		formsPanel.add(usernameTextField, gbc_usernameTextField);
 		usernameTextField.setColumns(10);
 		
+		// Label informativa password
 		JLabel passwordLabel = new JLabel("Password");
 		passwordLabel.setFont(new Font("Roboto", Font.PLAIN, 12));
 		passwordLabel.setForeground(Color.decode("#D8DEE9"));
@@ -115,6 +129,7 @@ public class MainFrame extends JFrame {
 		gbc_passwordLabel.gridy = 3;
 		formsPanel.add(passwordLabel, gbc_passwordLabel);
 		
+		// Textfield nel quale inserire la password
 		passwordTextField = new JPasswordField();
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
 		passwordTextField.setForeground(Color.decode("#5E81AC"));
@@ -126,57 +141,33 @@ public class MainFrame extends JFrame {
 		gbc_passwordTextField.gridy = 4;
 		formsPanel.add(passwordTextField, gbc_passwordTextField);
 		
-		JPanel buttonPanel = new JPanel();
+		// Panel contenente i bottoni
+		buttonPanel = new JPanel();
 		buttonPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(buttonPanel, BorderLayout.SOUTH);
 		buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton signupButton = new JButton("Registrati");
+		// Bottone per registrarsi
+		signupButton = new JButton("Registrati");
 		signupButton.setForeground(Color.decode("#2E3440"));
 		signupButton.setFocusPainted(false);
 		signupButton.setBorderPainted(false);
 		signupButton.setBackground(Color.decode("#EBCB8B"));
+		
 		signupButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickSignUp) {
 				try {
 					c.openSignUpForm();
-				} catch (Exception e) {
-					e.printStackTrace();
+				} catch (Exception genericError) {
+					c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 				}
 			}
 		});
 		signupButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(signupButton);
 		
-		JButton loginButton = new JButton("Login");
-		JFrame toClose = this;
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogin) {
-				String username = usernameTextField.getText();
-				String pwd = new String (passwordTextField.getPassword());
-				usernameTextField.setText("");
-				passwordTextField.setText("");
-				if (username.length() == 16 && !pwd.isBlank()) {
-					try {
-						c.checkLoginForEmployee(username, pwd);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else if (username.length() == 11 && !pwd.isBlank()){
-					try {
-						c.checkLoginForCompany(username, pwd);
-					} catch (Exception e) {
-						e.printStackTrace();
-					}
-				}
-				else {
-					setEnabled(false);
-					c.openPopupDialog(toClose, "Username o password non validi");
-				}
-			}
-		});
-		
+		// Bottone di login
+		loginButton = new JButton("Login");
 		loginButton.setForeground(Color.decode("#2E3440"));
 		loginButton.setFocusPainted(false);
 		loginButton.setBorderPainted(false);
@@ -184,13 +175,45 @@ public class MainFrame extends JFrame {
 		loginButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		buttonPanel.add(loginButton);
 		
-		JPanel iconPanel = new JPanel();
+		loginButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent clickLogin) {
+				String username = usernameTextField.getText();
+				String pwd = new String (passwordTextField.getPassword());
+				usernameTextField.setText("");
+				passwordTextField.setText("");
+				
+				if (username.length() == 16 && !pwd.isBlank()) {
+					try {
+						c.checkLoginForEmployee(username, pwd);
+					} catch (Exception loginError) {
+						c.openPopupDialog(utility, "Verifica utente non andata a buon fine");
+					}
+				}
+				else if (username.length() == 11 && !pwd.isBlank()){
+					try {
+						c.checkLoginForCompany(username, pwd);
+					} catch (Exception loginError) {
+						c.openPopupDialog(utility, "Verifica azienda non andata a buon fine");
+					}
+				}
+				else {
+					setEnabled(false);
+					c.openPopupDialog(utility, "Username o password non validi");
+				}
+			}
+		});
+		
+		// Panel con icona decorativa
+		iconPanel = new JPanel();
 		iconPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(iconPanel, BorderLayout.CENTER);
 		
+		// Label con icona decorativa
 		JLabel iconLabel = new JLabel("");
 		iconLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		iconLabel.setIcon(new ImageIcon(MainFrame.class.getResource("/worldwide.png")));
+		
+		// Layout utilizzato
 		GroupLayout gl_iconPanel = new GroupLayout(iconPanel);
 		gl_iconPanel.setHorizontalGroup(
 			gl_iconPanel.createParallelGroup(Alignment.LEADING)

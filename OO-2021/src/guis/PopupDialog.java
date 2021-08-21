@@ -22,56 +22,61 @@ import controllers.Controller;
 
 public class PopupDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	// Dichiarazioni utili
 	private Controller c;
+	private final JPanel contentPanel = new JPanel();
+	private JPanel buttonPane;
+	private JLabel messageLabel;
 	private JButton okButton;
-	private JLabel lblNewLabel;
 	
 	// Creazione Dialog
-	public PopupDialog(Controller co, JFrame toClose, String popupMessage) {
+	public PopupDialog(Controller co, JFrame utility, String popupMessage) {
+		c = co;
+		setResizable(false);
 		getContentPane().setBackground(Color.decode("#3B4252"));
 		setUndecorated(true);
-		setResizable(true);
-		c = co;
-		setBounds(100, 100, 315, 122);
+		setBounds(100, 100, 468, 144);
 		getContentPane().setLayout(new BorderLayout());
 		getRootPane().setBorder(BorderFactory.createLineBorder(Color.decode("#8FBCBB"), 2));
 		contentPanel.setBackground(Color.decode("#4C566A"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		{
-			lblNewLabel = new JLabel("<HTML> <p> <center> " +popupMessage+ "</center> </p> </HTML>");
-			lblNewLabel.setVerticalAlignment(SwingConstants.TOP);
-			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-			lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
-			lblNewLabel.setForeground(Color.decode("#EBCB8B"));
-			lblNewLabel.setBackground(Color.decode("#4C566A"));
+			messageLabel = new JLabel("<HTML> <p> <center> " +popupMessage+ "</center> </p> </HTML>");
+			messageLabel.setVerticalAlignment(SwingConstants.TOP);
+			messageLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			messageLabel.setFont(new Font("Roboto", Font.PLAIN, 16));
+			messageLabel.setForeground(Color.decode("#EBCB8B"));
+			messageLabel.setBackground(Color.decode("#4C566A"));
 		}
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
+				.addComponent(messageLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 305, Short.MAX_VALUE)
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
-				.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+				.addComponent(messageLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
-			JPanel buttonPane = new JPanel();
+			// Panel di fondo del frame contenente un bottone per chiudere la dialog e tornare al frame sottostante.
+			buttonPane = new JPanel();
 			buttonPane.setBackground(Color.decode("#4C566A"));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				okButton = new JButton("OK");
+				okButton.setFont(new Font("Roboto", Font.PLAIN, 11));
 				okButton.setFocusPainted(false);
 				okButton.setBorderPainted(false);
 				okButton.setBackground(Color.decode("#EBCB8B"));
 				okButton.setForeground(Color.decode("#2E3440"));
 				okButton.addActionListener(new ActionListener() {
+					
 					public void actionPerformed(ActionEvent clickOK) {
 						setVisible(false);
-						c.backToBackgroundFrame(toClose); /* Al click del tasto ok, viene richiamato un metodo che rende e 
-													enabled il frame sottostante */
+						c.backToBackgroundFrame(utility); /* Al click del tasto ok, viene richiamato un metodo che rende e 
+														  enabled il frame sottostante */
 					}
 				});
 				okButton.setActionCommand("OK");
@@ -80,6 +85,8 @@ public class PopupDialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 			buttonPane.add(okButton);
 		}
+		
+		//pack();
 		setLocationRelativeTo(null);
 	}
 }

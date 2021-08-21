@@ -12,6 +12,7 @@ import javax.swing.border.EmptyBorder;
 import controllers.Controller;
 import entities.EmployeeRating;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JScrollPane;
@@ -31,22 +32,28 @@ import javax.swing.ImageIcon;
 
 public class EmployeeInfoDialog extends JDialog {
 
-	private final JPanel contentPanel = new JPanel();
+	// Dichiarazioni utili
 	private Controller c;
+	private final JPanel contentPanel = new JPanel();
+	private JPanel buttonPane;
 	private JScrollPane employeesInfoScrollPane;
 	private DefaultTableModel employeeTM;
 	private JTable employeeTable;
-	private JLabel lblNewLabel;
+	private JLabel titleLabel;
+	private JButton okButton;
 
+	// Creazione dialog
 	public EmployeeInfoDialog(Controller co, String cf, JFrame utility) throws Exception {
-		setUndecorated(true);
 		c = co;
+		setUndecorated(true);
 		setBounds(100, 100, 686, 408);
 		getContentPane().setLayout(new BorderLayout());
+		getRootPane().setBorder(BorderFactory.createLineBorder(Color.decode("#8FBCBB"), 2));
 		contentPanel.setBackground(Color.decode("#4C566A"));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		
+		// ScrollPane che contiene la tabella con le informazioni sui progetti passati di un dipendente
 		employeesInfoScrollPane = new JScrollPane();
 		employeesInfoScrollPane.setForeground(Color.decode("#434C5E"));
 		employeesInfoScrollPane.setBackground(Color.decode("#434C5E"));
@@ -54,7 +61,7 @@ public class EmployeeInfoDialog extends JDialog {
 		employeesInfoScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		employeesInfoScrollPane.setBackground(new Color(67, 76, 94));
 		
-		// Table model che contiene le informazioni sui meeting
+		// Table model che contiene le informazioni sui progetti passati di un dipendente
 		employeeTM = new DefaultTableModel(
 				new Object[][] {
 				},
@@ -93,43 +100,44 @@ public class EmployeeInfoDialog extends JDialog {
 		
 		employeesInfoScrollPane.setViewportView(employeeTable);
 		
-		lblNewLabel = new JLabel("Progetti passati");
-		lblNewLabel.setIconTextGap(18);
-		lblNewLabel.setIcon(new ImageIcon(EmployeeInfoDialog.class.getResource("/paste.png")));
-		lblNewLabel.setForeground(Color.decode("#EBCB8B"));
-		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		// Label con il titolo del frame
+		titleLabel = new JLabel("Progetti passati");
+		titleLabel.setIconTextGap(18);
+		titleLabel.setIcon(new ImageIcon(EmployeeInfoDialog.class.getResource("/paste.png")));
+		titleLabel.setForeground(Color.decode("#EBCB8B"));
+		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		
+		// Layout utilizzato
 		GroupLayout gl_contentPanel = new GroupLayout(contentPanel);
 		gl_contentPanel.setHorizontalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
 					.addGroup(gl_contentPanel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPanel.createSequentialGroup()
-							.addGap(32)
-							.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 595, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.TRAILING, gl_contentPanel.createSequentialGroup()
 							.addContainerGap()
-							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE)))
+							.addComponent(titleLabel, GroupLayout.DEFAULT_SIZE, 676, Short.MAX_VALUE))
+						.addGroup(gl_contentPanel.createSequentialGroup()
+							.addGap(48)
+							.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 595, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap())
 		);
 		gl_contentPanel.setVerticalGroup(
 			gl_contentPanel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPanel.createSequentialGroup()
-					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-					.addGap(11)
+					.addComponent(titleLabel, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(employeesInfoScrollPane, GroupLayout.PREFERRED_SIZE, 308, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		contentPanel.setLayout(gl_contentPanel);
 		{
-			JPanel buttonPane = new JPanel();
+			buttonPane = new JPanel();
 			buttonPane.setBackground(Color.decode("#4C566A"));
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("OK");
 				okButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 				okButton.setForeground(Color.decode("#2E3440"));
 				okButton.setBackground(Color.decode("#EBCB8B"));
@@ -146,6 +154,7 @@ public class EmployeeInfoDialog extends JDialog {
 			}
 		}
 		
+		pack();
 		setLocationRelativeTo(null);
 	}
 }

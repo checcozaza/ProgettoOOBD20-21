@@ -1,8 +1,6 @@
 package guis;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
@@ -33,36 +31,34 @@ import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import javax.swing.BoxLayout;
 import java.awt.Component;
-import java.awt.GridLayout;
-import javax.swing.ListSelectionModel;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 
 public class CompanyFrame extends JFrame {
 
+	private Controller c;
 	private JPanel contentPane;
+	private JTabbedPane companyTabbedPane;
 	private JPanel welcomeCompanyPanel;
 	private JPanel employeesPanel;
-	private Controller c;
-	private JTable employeesTable;
-	private JTabbedPane companyTabbedPane;
-	private DefaultTableModel employeesTM;
-	private JScrollPane employeesScrollPane;
 	private JPanel projectPanel;
-	private JScrollPane projectScrollPane;
-	private JTable projectTable;
 	private JPanel bottomPanel;
+	private JScrollPane employeesScrollPane;
+	private JScrollPane projectScrollPane;
+	private DefaultTableModel employeesTM;
 	private DefaultTableModel projectsTM;
+	private JTable employeesTable;
+	private JTable projectTable;
 	private JLabel currentProjectLabel;
 	private JButton newProjectButton;
+	private JButton logoutButton;
 
 	// Creazione frame
 	public CompanyFrame(Controller co, Company signedInCompany) throws Exception {
-		setResizable(false);
 		c = co;
+		JFrame utility = this;
+		setResizable(false);
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(CompanyFrame.class.getResource("/bulb.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,11 +74,12 @@ public class CompanyFrame extends JFrame {
 		
 		// Label di benvenuto
 		JLabel welcomeCompanyLabel = new JLabel("<HTML> <center> Benvenuto, <br>"+ signedInCompany.getName() 
-									+ " (P. IVA " + signedInCompany.getVatNumber() + ") </center> </HTML>");
+											  + " (P. IVA " + signedInCompany.getVatNumber() + ") </center> </HTML>");
 		welcomeCompanyLabel.setForeground(Color.decode("#EBCB8B"));
 		welcomeCompanyLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeCompanyPanel.add(welcomeCompanyLabel);
 		
+		// Caratteristiche estetiche TabbedPane
 		UIManager.put("TabbedPane.contentAreaColor", Color.decode("#ECEFF4"));
 		UIManager.put("TabbedPane.selected", Color.decode("#5E81AC"));
 		
@@ -92,6 +89,7 @@ public class CompanyFrame extends JFrame {
 		companyTabbedPane.setForeground(Color.decode("#ECEFF4"));
 		companyTabbedPane.setBackground(Color.decode("#B48EAD"));
 		
+		// Panel che racchiude le informazioni sui dipendenti
 		employeesPanel = new JPanel();
 		employeesPanel.setBackground(Color.decode("#EBCB8B"));
 		companyTabbedPane.addTab("Gestione dipendenti", null, employeesPanel, null);
@@ -117,14 +115,15 @@ public class CompanyFrame extends JFrame {
 			);
 		
 		// Recupero informazioni sui dipendenti
-		for (Employee em: signedInCompany.getCompanyEmployees()) {
-			int avgRating = c.takeRatingForEmployee(em.getFiscalCode());
+		for (Employee em: signedInCompany.getCompanyEmployees()) { // Iterazione su ciascun dipendente dell'azienda
+			int avgRating = c.takeRatingForEmployee(em.getFiscalCode()); // Variabile per conservare l'eventuale valutazione di un dipendente
 			String isBusy = "";
-			if (em.getEmployeeProject().getProjectNumber() == 0)
+			if (em.getEmployeeProject().getProjectNumber() == 0) // Setta un dipendente a "occupato" o meno a seconda del codice progetto associato
 				isBusy = "No";
 			else
 				isBusy = "Sì";
 			
+			// Riempimento tabella con le informazioni utili
 			employeesTM.addRow(new Object[] {em.getFiscalCode(),
 											 em.getName(),
 											 em.getSurname(),
@@ -132,9 +131,8 @@ public class CompanyFrame extends JFrame {
 											 avgRating == 0 ? "Non presente" : avgRating +"/5",
 											 isBusy});
 		}
-		
 
-		// Rende la table editabile
+		// Rende la table editabile solo nella colonna relativa al salario di un dipendente, che l'azienda può modificare
 		employeesTable = new JTable(employeesTM) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -156,6 +154,7 @@ public class CompanyFrame extends JFrame {
 		
 		employeesScrollPane.setViewportView(employeesTable);
 		
+		// Property change listener che va ad aggiornare il valore del salario di un dipendente a quello appena inserito
 		employeesTable.addPropertyChangeListener(new PropertyChangeListener() {
 			public void propertyChange(PropertyChangeEvent changeWage) {
 				if (employeesTable.getSelectedRow() != -1) {
@@ -163,20 +162,23 @@ public class CompanyFrame extends JFrame {
 						c.updateWage(employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString(),
 								Float.valueOf(employeesTable.getValueAt(employeesTable.getSelectedRow(), 3).toString()));
 					} catch (Exception e) {
-						e.printStackTrace();
+						c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 					}
 				}
 			}
 		});
 		
+		// Panel di fondo del frame che contiene icone e bottoni
 		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
 		
+		// Label con informazioni per l'utilizzo ottimale dell'applicativo
 		JLabel infoLabel = new JLabel("Per la creazione di un nuovo progetto, scegli prima il project manager selezionandolo tra i dipendenti attualmente liberi.");
 		infoLabel.setForeground(Color.decode("#EBCB8B"));
 		infoLabel.setFont(new Font("Roboto", Font.PLAIN, 13));
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
+		// Layout utilizzato
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -209,8 +211,8 @@ public class CompanyFrame extends JFrame {
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 		
-		JButton logoutButton = new JButton("");
-		JFrame loggingOut = this;
+		// Bottone di logout
+		logoutButton = new JButton("");
 		GridBagConstraints gbc_logoutButton = new GridBagConstraints();
 		gbc_logoutButton.anchor = GridBagConstraints.WEST;
 		gbc_logoutButton.fill = GridBagConstraints.VERTICAL;
@@ -223,30 +225,32 @@ public class CompanyFrame extends JFrame {
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setIcon(new ImageIcon(CompanyFrame.class.getResource("/logout.png")));
+		
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				c.backToLogin(loggingOut);
+				c.backToLogin(utility);
 			}
 		});
 		logoutButton.setForeground(new Color(46, 52, 64));
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
 		logoutButton.setBackground(new Color(235, 203, 139));
 		
+		// Bottone per la creazione di un nuovo progetto
 		newProjectButton = new JButton("Crea nuovo progetto");
-		JFrame utility = this;
 		newProjectButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent createNewProject) {
 				if (employeesTable.getSelectedRow() != -1 && 
-					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) {
+					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) { // Se è stato selezionato almeno un dipendente occupato
 					try {
 						c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
-						employeesTM.removeRow(employeesTable.getSelectedRow());
+						employeesTM.removeRow(employeesTable.getSelectedRow()); // Apertura frame per la creazione di un progetto
 					} catch (Exception e) {
-						e.printStackTrace();
+						c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 					}
 				}
 				else
-					c.openPopupDialog(utility, "<HTML> <center> Per creare un nuovo progetto, seleziona prima il Project Manager (non deve essere occupato) <center> <HTML>");
+					c.openPopupDialog(utility, "<HTML> <center> Per creare un nuovo progetto, seleziona prima il Project Manager "
+											 + "(non deve essere occupato) <center> <HTML>");
 			}
 		});
 		newProjectButton.setBorderPainted(false);
@@ -263,7 +267,7 @@ public class CompanyFrame extends JFrame {
 		bottomPanel.add(newProjectButton, gbc_newProjectButton);
 		
 		
-		
+		// Label per icona decorativa
 		JLabel companyIconLabel = new JLabel("");
 		companyIconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 		GridBagConstraints gbc_companyIconLabel = new GridBagConstraints();
@@ -274,16 +278,16 @@ public class CompanyFrame extends JFrame {
 		bottomPanel.add(companyIconLabel, gbc_companyIconLabel);
 		companyIconLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
 		
-		
-		
 
 		employeesScrollPane.setViewportView(employeesTable);
 		
+		// Panel che racchiude le informazioni sui progetti attivi
 		projectPanel = new JPanel();
 		projectPanel.setBackground(Color.decode("#EBCB8B"));
 		companyTabbedPane.addTab("Progetti attivi", null, projectPanel, null);
 		projectPanel.setLayout(null);
 		
+		// ScrollPane che contiene la tabella sui progetti attivi
 		projectScrollPane = new JScrollPane();
 		projectScrollPane.setForeground(Color.decode("#434C5E"));
 		projectScrollPane.setBackground(Color.decode("#434C5E"));
@@ -292,7 +296,6 @@ public class CompanyFrame extends JFrame {
 		projectScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
 		projectScrollPane.setBounds(0, 57, 678, 201);
 		projectPanel.add(projectScrollPane);
-		
 		
 		// Table model che contiene le informazioni sui progetti attivi
 		projectsTM = new DefaultTableModel(
@@ -303,6 +306,7 @@ public class CompanyFrame extends JFrame {
 				}
 			);
 		
+		// Label con informazioni sui progetti attivi; il suo testo viene modificato a seconda delle situazioni
 		currentProjectLabel = new JLabel("<HTML> <center> NESSUN PROGETTO ATTIVO <center> <HTML>");
 		currentProjectLabel.setForeground(Color.decode("#434C5E"));
 		currentProjectLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -311,10 +315,10 @@ public class CompanyFrame extends JFrame {
 		projectPanel.add(currentProjectLabel);
 		
 		// Recupero informazioni sui progetti
-		if (signedInCompany.getCompanyProjects().size() != 0) {
+		if (signedInCompany.getCompanyProjects().size() != 0) { // Se l'azienda ha almeno un progetto attivo
 			String commissionedBy = "";
 			for (Project pro: signedInCompany.getCompanyProjects()) {
-				if (pro.getProjectCustomer().getFiscalCode() != null)
+				if (pro.getProjectCustomer().getFiscalCode() != null) // Controlla chi ha commissionato il progetto
 					commissionedBy = pro.getProjectCustomer().getFiscalCode();
 				else
 					commissionedBy = pro.getProjectSociety().getVatNumber();
@@ -325,14 +329,12 @@ public class CompanyFrame extends JFrame {
 												(int)pro.getBudget() +" €",
 												commissionedBy});
 			}
-			
-			currentProjectLabel.setText("<HTML> <center> Progetti in corso: <center> <HTML>");
+			currentProjectLabel.setText("<HTML> <center> Progetti in corso: <center> <HTML>"); // Cambia il testo della label informativa
 		}
 		else
-			projectScrollPane.setVisible(false);
-
+			projectScrollPane.setVisible(false); // Se non ci sono progetti attivi, invece di mostrare la JTable vuota si rende lo ScrollPane invisibile
 		
-		
+		// Rende la table non editabile
 		projectTable = new JTable(projectsTM) {
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -340,6 +342,7 @@ public class CompanyFrame extends JFrame {
 			}
 		};
 		
+		// Caratteristiche estetiche della JTable
 		projectTable.setBackground(Color.decode("#ECEFF4"));
 		projectTable.setRowMargin(2);
 		projectTable.setRowHeight(24);
@@ -352,8 +355,6 @@ public class CompanyFrame extends JFrame {
 		projectTable.getTableHeader().setReorderingAllowed(false);
 		
 		projectScrollPane.setViewportView(projectTable);
-		
-		
 		contentPane.setLayout(gl_contentPane);
 		
 		pack();

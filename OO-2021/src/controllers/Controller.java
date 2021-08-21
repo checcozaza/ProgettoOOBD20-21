@@ -23,8 +23,6 @@ import entities.Company;
 import entities.Employee;
 import entities.EmployeeRating;
 import entities.Meeting;
-import entities.Project;
-import entities.Topic;
 import enums.EnumRole;
 import guis.ChooseMeetingFrame;
 import guis.CompanyFrame;
@@ -45,27 +43,27 @@ public class Controller {
 	private static Controller c;
 	private Connection conn = null;
 	private PgConnection pgc = null;
-	private ProjectDAOPG pdp;
-	private MeetingDAOPG mdp;
-	private RatingsDAOPG rdp;
-	private TownDAOPG tdp;
-	private EmployeeDAOPG edp;
-	private CompanyDAOPG cdp;
-	private TopicDAOPG todp;
-	private CustomerDAOPG cudp;
-	private SocietyDAOPG sdpg;
-	private MainFrame mf;
-	private SignUpFrame suf;
-	private NewProjectFrame npf;
-	private SignedUpDialog sud;
-	private ProjectManagerFrame pmf;
-	private UserFrame uf;
-	private CompanyFrame cfr;
-	private NewMeetingFrame nmf;
-	private ChooseMeetingFrame cmf;
-	private PopupDialog infoDialog;
-	private RatingDialog ratingForEmployeesDialog;
-	private EmployeeInfoDialog employeeInfoDialog;
+	private ProjectDAOPG projectDAO;
+	private MeetingDAOPG meetingDAO;
+	private RatingsDAOPG ratingsDAO;
+	private TownDAOPG townDAO;
+	private EmployeeDAOPG employeeDAO;
+	private CompanyDAOPG companyDAO;
+	private TopicDAOPG topicDAO;
+	private CustomerDAOPG customerDAO;
+	private SocietyDAOPG societyDAO;
+	private MainFrame mainFr;
+	private SignUpFrame signUpFr;
+	private NewProjectFrame newProjectFr;
+	private ProjectManagerFrame projectManagerFr;
+	private UserFrame userFr;
+	private CompanyFrame companyFr;
+	private NewMeetingFrame newMeetingFr;
+	private ChooseMeetingFrame chooseMeetingFr;
+	private SignedUpDialog signedUpDl;
+	private PopupDialog infoDl;
+	private RatingDialog ratingForEmployeesDl;
+	private EmployeeInfoDialog employeeInfoDl;
 	
 	public static void main(String[] args) throws Exception {
 		c = new Controller();
@@ -73,10 +71,10 @@ public class Controller {
 	
 	// Costruttore
 	public Controller() throws Exception {
-		mdp = new MeetingDAOPG(this);
-		mdp.cronMeeting();
-		mf = new MainFrame(this);
-		mf.setVisible(true);
+		meetingDAO = new MeetingDAOPG(this);
+		meetingDAO.cronMeeting();
+		mainFr = new MainFrame(this);
+		mainFr.setVisible(true);
 	}
 	
 	/* Metodo che permette di effettuare connessioni alle classi DAO. 
@@ -97,39 +95,39 @@ public class Controller {
 	
 	// Metodo per effettuare una query nel DB con lo scopo di inserire un utente appena registrato
 	public void insertEmployee(Employee employee) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		edp.insertEmployeeProfile(employee);
+		employeeDAO = new EmployeeDAOPG(this);
+		employeeDAO.insertEmployeeProfile(employee);
 		return;
 	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di recuperare le aziende
 	public Object[] pickCompanies() throws Exception {
-		cdp = new CompanyDAOPG(this);
-		return cdp.retrieveCompanies();
+		companyDAO = new CompanyDAOPG(this);
+		return companyDAO.retrieveCompanies();
 	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di recuperare le regioni, utile al calcolo del codice fiscale
 	public Object[] pickRegions() throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveRegions();
+		townDAO = new TownDAOPG(this);
+		return townDAO.retrieveRegions();
 	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di recuperare le province, utile al calcolo del codice fiscale
 	public Object[] pickProvince(String selectedRegion) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveProvinces(selectedRegion);
+		townDAO = new TownDAOPG(this);
+		return townDAO.retrieveProvinces(selectedRegion);
 	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di recuperare le città, utile al calcolo del codice fiscale
 	public Object[] pickCity(String selectedProvince) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveCity(selectedProvince);
+		townDAO = new TownDAOPG(this);
+		return townDAO.retrieveCity(selectedProvince);
 	}
 	
 	// Metodo per effettuare una query nel DB con lo scopo di recuperare i codici catastali, utile al calcolo del codice fiscale
 	private String pickCodeCat(String town) throws Exception {
-		tdp = new TownDAOPG(this);
-		return tdp.retrieveCodeCat(town);
+		townDAO = new TownDAOPG(this);
+		return townDAO.retrieveCodeCat(town);
 	}
 	
 	// Metodo utilizzato per il controllo delle vocali, necessario nel calcolo del codice fiscale
@@ -641,31 +639,31 @@ public class Controller {
 	
 	// Metodo che recupera tutte le informazioni dell'utente appena loggato
 	private Employee fillEmployeeForLogin(Employee signedIn) throws Exception {
-		cdp = new CompanyDAOPG(this);
-		signedIn.setHiredBy(cdp.takeCompany(signedIn.getHiredBy().getVatNumber(), null));
-		mdp = new MeetingDAOPG(this);
-		signedIn.setEmployeeMeetings(mdp.takeMeetings(signedIn));
-		pdp = new ProjectDAOPG(this);
-		signedIn.setEmployeeProject(pdp.takeProject(signedIn));
+		companyDAO = new CompanyDAOPG(this);
+		signedIn.setHiredBy(companyDAO.takeCompany(signedIn.getHiredBy().getVatNumber(), null));
+		meetingDAO = new MeetingDAOPG(this);
+		signedIn.setEmployeeMeetings(meetingDAO.takeMeetings(signedIn));
+		projectDAO = new ProjectDAOPG(this);
+		signedIn.setEmployeeProject(projectDAO.takeProject(signedIn));
 		if (signedIn.getEmployeeProject() != null) {
-			todp = new TopicDAOPG(this);
-			signedIn.getEmployeeProject().setProjectTopics(todp.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
-			mdp = new MeetingDAOPG(this);
-			signedIn.getEmployeeProject().setProjectMeetings(mdp.takeMeetingsForProject(signedIn));
-			edp = new EmployeeDAOPG(this);
-			signedIn.getEmployeeProject().setProjectEmployees(edp.takeEmployeesForProject(signedIn));
+			topicDAO = new TopicDAOPG(this);
+			signedIn.getEmployeeProject().setProjectTopics(topicDAO.takeProjectTopics(signedIn.getEmployeeProject().getProjectNumber()));
+			meetingDAO = new MeetingDAOPG(this);
+			signedIn.getEmployeeProject().setProjectMeetings(meetingDAO.takeMeetingsForProject(signedIn));
+			employeeDAO = new EmployeeDAOPG(this);
+			signedIn.getEmployeeProject().setProjectEmployees(employeeDAO.takeEmployeesForProject(signedIn));
 		}
-		edp = new EmployeeDAOPG(this);
-		signedIn.getHiredBy().setCompanyEmployees(edp.takeEmployeesForCompany(signedIn.getHiredBy()));
-		rdp = new RatingsDAOPG(this);
-		signedIn.setEmployeeRatings(rdp.takeRatings(signedIn));
+		employeeDAO = new EmployeeDAOPG(this);
+		signedIn.getHiredBy().setCompanyEmployees(employeeDAO.takeEmployeesForCompany(signedIn.getHiredBy()));
+		ratingsDAO = new RatingsDAOPG(this);
+		signedIn.setEmployeeRatings(ratingsDAO.takeRatings(signedIn));
 		return signedIn;
 	}
 
 	// Metodo che reindirizza ciascun utente a una homepage personalizzata, dopo aver recuperato le sue informazioni
 	public void checkLoginForEmployee(String username, String pwd) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		Employee signedIn = edp.takeEmployee(username, pwd);
+		employeeDAO = new EmployeeDAOPG(this);
+		Employee signedIn = employeeDAO.takeEmployee(username, pwd);
 		if (signedIn != null) { // Se nel DB è presente l'utente, ovvero se si è registrato
 			signedIn = fillEmployeeForLogin(signedIn);
 			if (signedIn.getRole() == EnumRole.Project_Manager)
@@ -674,83 +672,83 @@ public class Controller {
 				openUserFrame(signedIn); // Apre homepage per un progettista qualsiasi
 		}
 		else
-			openPopupDialog(mf, "Username o password non validi"); // Messaggio di errore
+			openPopupDialog(mainFr, "Username o password non validi"); // Messaggio di errore
 		return;
 	}
 	
 	// Metodo che recupera tutte le informazioni dell'azienda appena loggata
 	public Company fillCompanyForLogin(Company signedInCompany) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		signedInCompany.setCompanyEmployees(edp.takeEmployeesForCompany(signedInCompany));
-		pdp = new ProjectDAOPG(this);
-		signedInCompany.setCompanyProjects(pdp.takeProjectsForCompany(signedInCompany));
+		employeeDAO = new EmployeeDAOPG(this);
+		signedInCompany.setCompanyEmployees(employeeDAO.takeEmployeesForCompany(signedInCompany));
+		projectDAO = new ProjectDAOPG(this);
+		signedInCompany.setCompanyProjects(projectDAO.takeProjectsForCompany(signedInCompany));
 		return signedInCompany;
 	}
 
 	// Metodo che reindirizza ciascun azienda alla sua homepage personalizzata, dopo aver recuperato le sue informazioni
 	public void checkLoginForCompany(String username, String pwd) throws Exception {
-		cdp = new CompanyDAOPG(this);
-		Company signedInCompany = cdp.takeCompany(username, pwd);
+		companyDAO = new CompanyDAOPG(this);
+		Company signedInCompany = companyDAO.takeCompany(username, pwd);
 		if (signedInCompany != null) {
 			signedInCompany = fillCompanyForLogin(signedInCompany);
 			openCompanyFrame(signedInCompany);
 		}
 		else
-			openPopupDialog(mf, "Username o password non validi");
+			openPopupDialog(mainFr, "Username o password non validi");
 	}
 	
 	// Metodi finalizzati a regolare la visibilità dei diversi frame ad ogni occorrenza
 	
 	public void openSignUpForm() throws Exception {
-		mf.setVisible(false);
-		suf = new SignUpFrame(this);
-		suf.setVisible(true);
+		mainFr.setVisible(false);
+		signUpFr = new SignUpFrame(this);
+		signUpFr.setVisible(true);
 	}
 	
 	public void backToLogin(JFrame loggingOut) {
 		loggingOut.dispose();
-		mf.setVisible(true);
-		mf.setEnabled(true);
+		mainFr.setVisible(true);
+		mainFr.setEnabled(true);
 	}
 	
 	public void endSignUp() {
-		sud.dispose();
-		suf.dispose();
-		mf.setVisible(true);
+		signedUpDl.dispose();
+		signUpFr.dispose();
+		mainFr.setVisible(true);
 	}
 	
 	// Metodo che reindirizza l'utente alla sua homepage personalizzata
 	private void openUserFrame(Employee signedIn) {
-		mf.setVisible(false);
-		uf = new UserFrame(this, signedIn);
-		uf.setVisible(true);
+		mainFr.setVisible(false);
+		userFr = new UserFrame(this, signedIn);
+		userFr.setVisible(true);
 		
 	}
 	
 	// Metodo che reindirizza il project manager adalla sua homepage personalizzata
 	private void openPMFrame(Employee signedIn) throws Exception {
-		mf.setVisible(false);
-		pmf = new ProjectManagerFrame(this, signedIn);
-		pmf.setVisible(true);
+		mainFr.setVisible(false);
+		projectManagerFr = new ProjectManagerFrame(this, signedIn);
+		projectManagerFr.setVisible(true);
 	}
 	
 	// Metodo che reindirizza l'azienda alla sua homepage personalizzata
 	private void openCompanyFrame(Company signedInCompany) throws Exception {
-		mf.setVisible(false);
-		cfr = new CompanyFrame(this, signedInCompany);
-		cfr.setVisible(true);
+		mainFr.setVisible(false);
+		companyFr = new CompanyFrame(this, signedInCompany);
+		companyFr.setVisible(true);
 		
 	}
 	
 	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
 	public void openPopupDialog(JFrame toClose, String toPrintMessage) {
-		infoDialog = new PopupDialog(this, toClose, toPrintMessage);
-		infoDialog.setVisible(true);
+		infoDl = new PopupDialog(this, toClose, toPrintMessage);
+		infoDl.setVisible(true);
 	}
 	
 	// Metodo che rende enabled il frame sottostante dopo il click del tasto ok di una dialog
 	public void backToBackgroundFrame(JFrame toClose) {
-		infoDialog.dispose();
+		infoDl.dispose();
 		toClose.setVisible(true);
 		toClose.setEnabled(true);
 	}
@@ -758,142 +756,142 @@ public class Controller {
 	/* Metodo che apre una finestra di dialogo di conferma di avvenuta registrazione; sarà presente anche il codice fiscale
 	dell'utente (copiabile) appena calcolato, così da poterlo incollare nella finestra di login alla quale si sarà reindirizzati */
 	public void openSuccessDialog(String cf) {
-		sud = new SignedUpDialog(this, cf);
-		sud.setVisible(true);
-		suf.setEnabled(false);
+		signedUpDl = new SignedUpDialog(this, cf);
+		signedUpDl.setVisible(true);
+		signUpFr.setEnabled(false);
 	}
 
 	public int takeRatingForEmployee(String fiscalCode) throws Exception {
-		return edp.retrieveAvgRating(fiscalCode);
+		return employeeDAO.retrieveAvgRating(fiscalCode);
 	}
 
 	public void openNewProjectFrame(Company signedInCompany, String managerCf) throws Exception {
-		cfr.setVisible(false);
-		todp = new TopicDAOPG(this);
-		npf = new NewProjectFrame(this, signedInCompany, managerCf, todp.takeTopics());
-		npf.setVisible(true);
+		companyFr.setVisible(false);
+		topicDAO = new TopicDAOPG(this);
+		newProjectFr = new NewProjectFrame(this, signedInCompany, managerCf, topicDAO.takeTopics());
+		newProjectFr.setVisible(true);
 	}
 
 	public Object[] pickCustomers() throws Exception {
-		cudp = new CustomerDAOPG(this);
-		return cudp.retrieveCustomers();
+		customerDAO = new CustomerDAOPG(this);
+		return customerDAO.retrieveCustomers();
 	}
 
 	public Object[] pickSocieties() throws Exception {
-		sdpg = new SocietyDAOPG(this);
-		return sdpg.retrieveSocieties();
+		societyDAO = new SocietyDAOPG(this);
+		return societyDAO.retrieveSocieties();
 	}
 	
 	public void insertProject(String vatNumber, String typology, Float budget, String commissionedBy) throws Exception {
-		pdp = new ProjectDAOPG(this);
-		pdp.newProject(vatNumber, typology, budget, commissionedBy);
+		projectDAO = new ProjectDAOPG(this);
+		projectDAO.newProject(vatNumber, typology, budget, commissionedBy);
 		return; 
 	}
 
 	public void chooseProjectManager(int lastProject, String cf) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		edp.pickProjectManager(lastProject, cf);
+		employeeDAO = new EmployeeDAOPG(this);
+		employeeDAO.pickProjectManager(lastProject, cf);
 	}
 
 	public int pickNewestProject(String vatNumber) throws Exception {
-		pdp = new ProjectDAOPG(this);
-		int lastProject = pdp.retrieveNewestProject(vatNumber);
+		projectDAO = new ProjectDAOPG(this);
+		int lastProject = projectDAO.retrieveNewestProject(vatNumber);
 		return lastProject;
 	}
 
 	public void closeProject(int projectNumber) throws Exception {
-		pdp = new ProjectDAOPG(this);
-		pdp.endProject(projectNumber);
+		projectDAO = new ProjectDAOPG(this);
+		projectDAO.endProject(projectNumber);
 		return;
 		
 	}
 
 	public void openNewMeetingFrame(int projectNumber, String cf) {
-		pmf.setVisible(false);
-		nmf = new NewMeetingFrame(this, projectNumber, cf);
-		nmf.setVisible(true);
+		projectManagerFr.setVisible(false);
+		newMeetingFr = new NewMeetingFrame(this, projectNumber, cf);
+		newMeetingFr.setVisible(true);
 	}
 
 	public int confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
-		mdp = new MeetingDAOPG(this);
-		return mdp.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
+		meetingDAO = new MeetingDAOPG(this);
+		return meetingDAO.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
 	}
 
 	public void addToTeam(ArrayList<Employee> toAdd) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		edp.addToProject(toAdd);
+		employeeDAO = new EmployeeDAOPG(this);
+		employeeDAO.addToProject(toAdd);
 		return;
 	}
 
 	public void addEmployeeToMeeting(String manager, int newMeeting) throws Exception {
-		mdp = new MeetingDAOPG(this);
-		mdp.addEmployeeToMeeting(manager, newMeeting);
+		meetingDAO = new MeetingDAOPG(this);
+		meetingDAO.addEmployeeToMeeting(manager, newMeeting);
 		return;
 	}
 
 	public void openChooseMeetingFrame(Employee user) {
-		uf.setVisible(false);
-		cmf = new ChooseMeetingFrame(this, user);
-		cmf.setVisible(true);
+		userFr.setVisible(false);
+		chooseMeetingFr = new ChooseMeetingFrame(this, user);
+		chooseMeetingFr.setVisible(true);
 		
 	}
 
 	public void goBack(JFrame utility) {
-		if (npf != null) {
+		if (newProjectFr != null) {
 			utility.setVisible(false);
-			cfr.setVisible(true);
+			companyFr.setVisible(true);
 		}
-		else if (cmf != null) {
+		else if (chooseMeetingFr != null) {
 			utility.setVisible(false);
-			uf.setVisible(true);
+			userFr.setVisible(true);
 		}
-		else if (nmf != null) {
+		else if (newMeetingFr != null) {
 			utility.setVisible(false);
-			pmf.setVisible(true);
+			projectManagerFr.setVisible(true);
 		}
 	}
 
 	public void insertProjectTopics(int lastProject, ArrayList<String> chosenTopics) throws Exception {
-		todp = new TopicDAOPG(this);
-		todp.insertTopics(lastProject, chosenTopics);
+		topicDAO = new TopicDAOPG(this);
+		topicDAO.insertTopics(lastProject, chosenTopics);
 		return;
 	}
 
 	public void updateWage(String cf, Float newWage) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		edp.modifiedWage(cf, newWage);
+		employeeDAO = new EmployeeDAOPG(this);
+		employeeDAO.modifiedWage(cf, newWage);
 		return;
 	}
 
 	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
-		mdp = new MeetingDAOPG(this);
-		mdp.updateMeetings(meetings);
+		meetingDAO = new MeetingDAOPG(this);
+		meetingDAO.updateMeetings(meetings);
 		return;
 	}
 
 	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
-		ratingForEmployeesDialog = new RatingDialog(this, currentProject, employeesToRate, utility);
-		ratingForEmployeesDialog.setVisible(true);
+		ratingForEmployeesDl = new RatingDialog(this, currentProject, employeesToRate, utility);
+		ratingForEmployeesDl.setVisible(true);
 	}
 
 	public void insertRating(String cf, Integer rating, int currentProject) throws Exception {
-		rdp = new RatingsDAOPG(this);
-		rdp.insertRatingsForEmployees(cf, rating, currentProject);
+		ratingsDAO = new RatingsDAOPG(this);
+		ratingsDAO.insertRatingsForEmployees(cf, rating, currentProject);
 		return;
 	}
 
 	public ArrayList<Employee> refillTeam(Employee manager) throws Exception {
-		edp = new EmployeeDAOPG(this);
-		return edp.takeEmployeesForProject(manager);
+		employeeDAO = new EmployeeDAOPG(this);
+		return employeeDAO.takeEmployeesForProject(manager);
 	}
 
 	public void openEmployeeInfoDialog(String cf, JFrame utility) throws Exception {
-		employeeInfoDialog = new EmployeeInfoDialog(this, cf, utility);
-		employeeInfoDialog.setVisible(true);
+		employeeInfoDl = new EmployeeInfoDialog(this, cf, utility);
+		employeeInfoDl.setVisible(true);
 	}
 
 	public ArrayList<EmployeeRating> findUserHistory(String cf) throws Exception {
-		rdp = new RatingsDAOPG(this);
-		return rdp.takeRatingsFromFiscalCode(cf);
+		ratingsDAO = new RatingsDAOPG(this);
+		return ratingsDAO.takeRatingsFromFiscalCode(cf);
 	}
 }

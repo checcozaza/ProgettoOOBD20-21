@@ -23,21 +23,22 @@ import java.awt.Insets;
 import java.awt.Color;
 
 public class SignedUpDialog extends JDialog {
-
-	private final JPanel contentPanel = new JPanel();
-	private JTextField credentialsTextField;
+	
+	private static final long serialVersionUID = 1L;
+	
+	// Dichiarazioni utili
 	private Controller c;
+	private final JPanel contentPanel = new JPanel();
+	private JPanel buttonPane;
+	private JTextField credentialsTextField;
+	private JButton okButton;
 
-	/**
-	 * Creazione dialog
-	 * @param cf 
-	 * @param co 
-	 */
+	// Creazione dialog
 	public SignedUpDialog(Controller co, String cf) {
+		c = co;
 		getContentPane().setBackground(Color.decode("#4C566A"));
 		setUndecorated(true);
 		setResizable(false);
-		c = co;
 		setBounds(100, 100, 409, 211);
 		getContentPane().setLayout(new BorderLayout());
 		getRootPane().setBorder(BorderFactory.createLineBorder(Color.decode("#8FBCBB"), 2));
@@ -65,6 +66,7 @@ public class SignedUpDialog extends JDialog {
 			contentPanel.add(successLabel, gbc_successLabel);
 		}
 		
+		// TextField che mostra il codice fiscale dell'utente
 		credentialsTextField = new JTextField(cf);
 		credentialsTextField.setForeground(Color.decode("#8FBCBB"));
 		credentialsTextField.setHorizontalAlignment(SwingConstants.CENTER);
@@ -79,16 +81,18 @@ public class SignedUpDialog extends JDialog {
 		contentPanel.add(credentialsTextField, gbc_credentialsTextField);
 		credentialsTextField.setColumns(10);
 		{
-			JPanel buttonPane = new JPanel();
+			buttonPane = new JPanel();
 			buttonPane.setBackground(Color.decode("#4C566A"));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				// Bottone per tornare al frame principale
+				okButton = new JButton("OK");
 				okButton.setForeground(Color.decode("#2E3440"));
 				okButton.setBorderPainted(false);
 				okButton.setFocusPainted(false);
 				okButton.setBackground(Color.decode("#EBCB8B"));
 				okButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+				
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent clickOk) {
 						c.endSignUp();
@@ -100,7 +104,7 @@ public class SignedUpDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 		}
-		
+		pack();
 		setLocationRelativeTo(null);
 	}
 }

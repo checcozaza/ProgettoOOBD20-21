@@ -1,28 +1,18 @@
 package guis;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.plaf.ColorUIResource;
-import javax.swing.plaf.InsetsUIResource;
-
 import controllers.Controller;
 import entities.Employee;
 import entities.EmployeeRating;
 import entities.Meeting;
-import entities.Project;
-import entities.ProjectHistory;
 import entities.Topic;
 
 import java.awt.Font;
-import java.awt.Insets;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
@@ -38,33 +28,37 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import com.privatejgoodies.common.base.Objects;
 import javax.swing.BoxLayout;
 
 public class UserFrame extends JFrame {
 
-	// Attributi
+	private static final long serialVersionUID = 1L;
+	
+	// Dichiarazioni utili
 	private Controller c;
 	private JPanel contentPane;
 	private JPanel welcomeUserPanel;
 	private JPanel meetingsPanel;
 	private JPanel historyPanel;
+	private JPanel bottomPanel;
 	private JScrollPane meetingsScrollPane;
 	private JScrollPane historyScrollPanel;
 	private JTabbedPane userTabbedPane;
+	private DefaultTableModel meetingsTM;
+	private DefaultTableModel historyTM;
 	private JTable meetingsTable;
 	private JTable historyTable;
 	private JLabel projectInfoLabel;
 	private JButton logoutButton;
-	private DefaultTableModel meetingsTM;
-	private DefaultTableModel historyTM;
+	private JButton signUoToMeetingButton;
 
 	// Creazione frame
 	public UserFrame(Controller co, Employee user) {
 		c = co;
+		JFrame utility = this;
+		setResizable(false);
 		setTitle("Homepage - Projesting");
 		setIconImage(Toolkit.getDefaultToolkit().getImage(UserFrame.class.getResource("/bulb.png")));
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 741, 523);
 		contentPane = new JPanel();
@@ -72,17 +66,18 @@ public class UserFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
 		setContentPane(contentPane);
 		
-		// Panel utente
+		// Panel contenente il titolo del frame
 		welcomeUserPanel = new JPanel();
 		welcomeUserPanel.setBackground(Color.decode("#434C5E"));
 		
-		// Label di benvenuto
+		// Label informativa
 		JLabel welcomeUserLabel = new JLabel("<HTML> <center> Benvenuto, <br>" +user.getName()+ " " +user.getSurname()
 									+ "! </center> </HTML>");
 		welcomeUserLabel.setForeground(Color.decode("#EBCB8B"));
 		welcomeUserLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		welcomeUserPanel.add(welcomeUserLabel);
 
+		// Caratteristiche estetiche TabbedPane
 		UIManager.put("TabbedPane.contentAreaColor", Color.decode("#ECEFF4"));
 		UIManager.put("TabbedPane.selected", Color.decode("#5E81AC"));
 		
@@ -92,12 +87,12 @@ public class UserFrame extends JFrame {
 		userTabbedPane.setForeground(Color.decode("#ECEFF4"));
 		userTabbedPane.setBackground(Color.decode("#B48EAD"));
 		
+		// Panel che racchiude le informazioni sui meeting
 		meetingsPanel = new JPanel();
 		meetingsPanel.setBackground(Color.decode("#EBCB8B"));
 		userTabbedPane.addTab("Progetto attuale", null, meetingsPanel, null);
 		
-		
-		// Caratteristiche dello ScrollPane meetingsScrollPane
+		// ScrollPane contenente la tabella dei meeting
 		meetingsScrollPane = new JScrollPane();
 		meetingsScrollPane.setBounds(0, 57, 611, 163);
 		meetingsScrollPane.setForeground(Color.decode("#434C5E"));
@@ -108,7 +103,6 @@ public class UserFrame extends JFrame {
 		meetingsPanel.setLayout(null);
 		meetingsPanel.add(meetingsScrollPane);
 		
-			
 		// Table model che contiene le informazioni sui meeting
 		meetingsTM = new DefaultTableModel(
 				new Object[][] {
@@ -168,19 +162,21 @@ public class UserFrame extends JFrame {
 		projectInfoLabel.setFont(new Font("Roboto", Font.BOLD, 15));
 		meetingsPanel.add(projectInfoLabel);
 		
-		JButton btnNewButton = new JButton("Partecipa ad un meeting");
-		btnNewButton.setForeground(Color.decode("#2E3440"));
-		btnNewButton.setBackground(Color.decode("#8FBCBB"));
-		btnNewButton.setFocusPainted(false);
-		btnNewButton.setBorderPainted(false);
-		btnNewButton.setBounds(203, 227, 214, 23);
-		btnNewButton.setFont(new Font("Roboto", Font.PLAIN, 14));
-		btnNewButton.addActionListener(new ActionListener() {
+		// Bottone per prenotarsi ad un meeting
+		signUoToMeetingButton = new JButton("Partecipa ad un meeting");
+		signUoToMeetingButton.setForeground(Color.decode("#2E3440"));
+		signUoToMeetingButton.setBackground(Color.decode("#8FBCBB"));
+		signUoToMeetingButton.setFocusPainted(false);
+		signUoToMeetingButton.setBorderPainted(false);
+		signUoToMeetingButton.setBounds(203, 227, 214, 23);
+		signUoToMeetingButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		
+		signUoToMeetingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.openChooseMeetingFrame(user);
+				c.openChooseMeetingFrame(user); // Apre frame con tutti i meeting ai quali è possibile partecipare
 			}
 		});
-		meetingsPanel.add(btnNewButton);
+		meetingsPanel.add(signUoToMeetingButton);
 		
 		// Recupero ambiti di un progetto e formattazione in stringa
 		if (user.getEmployeeProject() != null) { // Se l'utente ha progetti a carico
@@ -198,12 +194,13 @@ public class UserFrame extends JFrame {
 		}
 		else
 			meetingsScrollPane.setVisible(false);
-																
+													
+		// Panel che racchiude le informazioni sui progetti precedenti
 		historyPanel = new JPanel();
 		userTabbedPane.addTab("Cronologia progetti", null, historyPanel, null);
 		historyPanel.setLayout(null);
 		
-		// Caratteristiche dello ScrollPane historyPanel
+		// ScrollPane contenente la tabella sui progetti passati
 		historyScrollPanel = new JScrollPane();
 		historyScrollPanel.setForeground(Color.decode("#434C5E"));
 		historyScrollPanel.setBackground(Color.decode("#434C5E"));
@@ -251,8 +248,11 @@ public class UserFrame extends JFrame {
 		
 		historyScrollPanel.setViewportView(historyTable);
 		
-		JPanel bottomPanel = new JPanel();
+		// Panel di fondo del frame contenente icone e bottoni
+		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
+		
+		// Layout utilizzato
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -276,17 +276,17 @@ public class UserFrame extends JFrame {
 		);
 		bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 		
-		// Tasto di logout
-		JFrame loggingOut = this;
+		// Bottone logout
 		logoutButton = new JButton("");
 		bottomPanel.add(logoutButton);
 		logoutButton.setToolTipText("Logout");
 		logoutButton.setFocusPainted(false);
 		logoutButton.setContentAreaFilled(false);
 		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
+		
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogin) { // Al click del tasto logout, si tornerà alla schermata principale
-				c.backToLogin(loggingOut);
+				c.backToLogin(utility);
 			}
 		});
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));

@@ -1,27 +1,21 @@
 package guis;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JTabbedPane;
 import javax.swing.JScrollPane;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import controllers.Controller;
 import entities.Employee;
 import entities.Meeting;
 
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,52 +29,60 @@ import java.awt.Insets;
 
 public class ChooseMeetingFrame extends JFrame {
 
+	// Dichiarazioni utili
+	private Controller c;
 	private JPanel contentPane;
-	private JTable openMeetingsTable;
 	private JPanel titlePanel;
 	private JPanel bottomPanel;
 	private JPanel meetingsInformationPanel;
-	private Controller c;
+	private JScrollPane openMeetingsScrollPane;
 	private DefaultTableModel openMeetingsTM;
+	private JTable openMeetingsTable;
 	private JButton goBackButton;
+	private JButton logoutButton;
+	private JButton signUpToMeetingButton;
 
-	/**
-	 * Create the frame.
-	 */
+	// Creazione frame
 	public ChooseMeetingFrame(Controller co, Employee user) {
-		setResizable(false);
-		JFrame utility = this;
-		setIconImage(Toolkit.getDefaultToolkit().getImage(ChooseMeetingFrame.class.getResource("/bulb.png")));
 		c = co;
+		JFrame utility = this;
+		setResizable(false);
 		setTitle("Partecipa a un meeting - Projesting");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ChooseMeetingFrame.class.getResource("/bulb.png")));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 845, 614);
+		setBounds(100, 100, 743, 481);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.decode("#4C566A"));
 		contentPane.setBorder(new EmptyBorder(0, 0, 0, 0));
-		setContentPane(contentPane);
 		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 
+		// Panel che contiene il titolo del frame
 		titlePanel = new JPanel();
 		titlePanel.setBackground(Color.decode("#434C5E"));
-		contentPane.add(titlePanel, BorderLayout.NORTH);
 		titlePanel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		contentPane.add(titlePanel, BorderLayout.NORTH);
 		
-		JLabel lblNewLabel = new JLabel("Scegli a quale meeting partecipare");
-		lblNewLabel.setForeground(Color.decode("#EBCB8B"));
-		lblNewLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
-		titlePanel.add(lblNewLabel);
+		// Label per il titolo del frame
+		JLabel titleLabel = new JLabel("Scegli a quale meeting partecipare");
+		titleLabel.setIconTextGap(18);
+		titleLabel.setIcon(new ImageIcon(ChooseMeetingFrame.class.getResource("/list.png")));
+		titleLabel.setForeground(Color.decode("#EBCB8B"));
+		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
+		titlePanel.add(titleLabel);
 		
+		// Panel di fondo del frame che contiene icone e bottoni
 		bottomPanel = new JPanel();
 		bottomPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
-		gbl_bottomPanel.columnWidths = new int[]{108, 236, 98, 92, 225, 84};
+		gbl_bottomPanel.columnWidths = new int[]{108, 170, 89, 92, 188, 84};
 		gbl_bottomPanel.rowHeights = new int[]{27, 0};
 		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
 		gbl_bottomPanel.rowWeights = new double[]{1.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 		
+		// Bottone per tornare al frame precedente
 		goBackButton = new JButton("Indietro");
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
@@ -88,12 +90,14 @@ public class ChooseMeetingFrame extends JFrame {
 			}
 		});
 		
-		JButton logoutButton = new JButton("");
+		// Bottone di logout
+		logoutButton = new JButton("");
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
 				c.backToLogin(utility);
 			}
 		});
+		
 		logoutButton.setIcon(new ImageIcon(ChooseMeetingFrame.class.getResource("/logout.png")));
 		GridBagConstraints gbc_logoutButton = new GridBagConstraints();
 		gbc_logoutButton.anchor = GridBagConstraints.WEST;
@@ -114,16 +118,15 @@ public class ChooseMeetingFrame extends JFrame {
 		goBackButton.setBorderPainted(false);
 		goBackButton.setBackground(new Color(235, 203, 139));
 		GridBagConstraints gbc_goBackButton = new GridBagConstraints();
-		gbc_goBackButton.anchor = GridBagConstraints.WEST;
 		gbc_goBackButton.insets = new Insets(0, 0, 0, 5);
 		gbc_goBackButton.gridx = 2;
 		gbc_goBackButton.gridy = 0;
 		bottomPanel.add(goBackButton, gbc_goBackButton);
 		
-		JButton signUpToMeetingButton = new JButton("Partecipa");
+		// Bottone che iscrive l'utente al meeting selezionato
+		signUpToMeetingButton = new JButton("Partecipa");
 		GridBagConstraints gbc_signUpToMeetingButton = new GridBagConstraints();
 		gbc_signUpToMeetingButton.insets = new Insets(0, 0, 0, 5);
-		gbc_signUpToMeetingButton.anchor = GridBagConstraints.WEST;
 		gbc_signUpToMeetingButton.gridx = 3;
 		gbc_signUpToMeetingButton.gridy = 0;
 		bottomPanel.add(signUpToMeetingButton, gbc_signUpToMeetingButton);
@@ -133,29 +136,32 @@ public class ChooseMeetingFrame extends JFrame {
 		signUpToMeetingButton.setBorderPainted(false);
 		signUpToMeetingButton.setBackground(Color.decode("#EBCB8B"));
 		
-		JLabel iconLabel = new JLabel("");
-		GridBagConstraints gbc_iconLabel = new GridBagConstraints();
-		gbc_iconLabel.fill = GridBagConstraints.HORIZONTAL;
-		gbc_iconLabel.gridx = 5;
-		gbc_iconLabel.gridy = 0;
-		bottomPanel.add(iconLabel, gbc_iconLabel);
-		iconLabel.setIcon(new ImageIcon(ChooseMeetingFrame.class.getResource("/meeting.png")));
 		signUpToMeetingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickAttend) {
 				try {
 					c.addEmployeeToMeeting(user.getFiscalCode(), Integer.valueOf(openMeetingsTable.getValueAt(openMeetingsTable.getSelectedRow(), 4).toString()));
 					openMeetingsTM.removeRow(openMeetingsTable.getSelectedRow());
 				} catch (Exception e) {
-					e.printStackTrace();
+					c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 				}
 			}
 		});
 		
+		// Label per icona decorativa
+		JLabel iconLabel = new JLabel("");
+		GridBagConstraints gbc_iconLabel = new GridBagConstraints();
+		gbc_iconLabel.gridx = 5;
+		gbc_iconLabel.gridy = 0;
+		bottomPanel.add(iconLabel, gbc_iconLabel);
+		iconLabel.setIcon(new ImageIcon(ChooseMeetingFrame.class.getResource("/meeting.png")));
+		
+		// Panel che racchiude le informazioni su ciascun meeting
 		meetingsInformationPanel = new JPanel();
 		meetingsInformationPanel.setBackground(Color.decode("#4C566A"));
 		contentPane.add(meetingsInformationPanel, BorderLayout.CENTER);
 		
-		JScrollPane openMeetingsScrollPane = new JScrollPane();
+		// ScrollPane che contiene la tabella sui meeting
+		openMeetingsScrollPane = new JScrollPane();
 		openMeetingsScrollPane.setForeground(Color.decode("#434C5E"));
 		openMeetingsScrollPane.setBackground(Color.decode("#434C5E"));
 		openMeetingsScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
@@ -209,23 +215,26 @@ public class ChooseMeetingFrame extends JFrame {
 		openMeetingsTable.getTableHeader().setReorderingAllowed(false);
 		
 		openMeetingsScrollPane.setViewportView(openMeetingsTable);
+		
+		// Layout utilizzato
 		GroupLayout gl_meetingsInformationPanel = new GroupLayout(meetingsInformationPanel);
 		gl_meetingsInformationPanel.setHorizontalGroup(
-			gl_meetingsInformationPanel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_meetingsInformationPanel.createSequentialGroup()
-					.addGap(82)
+			gl_meetingsInformationPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_meetingsInformationPanel.createSequentialGroup()
+					.addContainerGap(50, Short.MAX_VALUE)
 					.addComponent(openMeetingsScrollPane, GroupLayout.PREFERRED_SIZE, 638, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(93, Short.MAX_VALUE))
+					.addGap(49))
 		);
 		gl_meetingsInformationPanel.setVerticalGroup(
 			gl_meetingsInformationPanel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_meetingsInformationPanel.createSequentialGroup()
-					.addGap(58)
-					.addComponent(openMeetingsScrollPane, GroupLayout.PREFERRED_SIZE, 363, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(76, Short.MAX_VALUE))
+					.addGap(24)
+					.addComponent(openMeetingsScrollPane, GroupLayout.PREFERRED_SIZE, 291, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(30, Short.MAX_VALUE))
 		);
 		meetingsInformationPanel.setLayout(gl_meetingsInformationPanel);
 		
+		pack();
 		setLocationRelativeTo(null);
 	}
 }
