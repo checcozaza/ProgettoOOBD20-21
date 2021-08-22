@@ -45,6 +45,7 @@ public class EmployeeInfoDialog extends JDialog {
 	// Creazione dialog
 	public EmployeeInfoDialog(Controller co, String cf, JFrame utility) throws Exception {
 		c = co;
+		JDialog toDispose = this;
 		setUndecorated(true);
 		setBounds(100, 100, 686, 408);
 		getContentPane().setLayout(new BorderLayout());
@@ -145,7 +146,7 @@ public class EmployeeInfoDialog extends JDialog {
 				okButton.setFocusPainted(false);
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent clickOK) {
-						c.backToBackgroundFrame(utility);
+						c.backToBackgroundFrame(utility, toDispose);
 					}
 				});
 				okButton.setActionCommand("OK");

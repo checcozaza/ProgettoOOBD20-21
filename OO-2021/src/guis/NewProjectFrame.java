@@ -65,7 +65,7 @@ public class NewProjectFrame extends JFrame {
 	private JButton newProjectButton;
 
 	// Creazione frame
-	public NewProjectFrame(Controller co, Company signedInCompany, String managerCf, ArrayList<Topic> topics) {
+	public NewProjectFrame(Controller co, Company signedInCompany, String managerCf, ArrayList<Topic> topics, DefaultTableModel employeesTM, JTable employeesTable) {
 		c = co;
 		JFrame utility = this;
 		setResizable(false);
@@ -89,7 +89,7 @@ public class NewProjectFrame extends JFrame {
 		typologyComboBox.setFocusable(false);
 		typologyComboBox.setFont(new Font("Roboto", Font.PLAIN, 14));
 		typologyComboBox.setForeground(Color.decode("#5E81AC"));
-		typologyComboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ricerca Di Base", "Ricerca Industriale ", "Ricerca Sperimentale", "Sviluppo Sperimentale"}));
+		typologyComboBox.setModel(new DefaultComboBoxModel(new String[] {"Ricerca Di Base", "Ricerca Industriale", "Ricerca Sperimentale", "Sviluppo Sperimentale"}));
 		
 		// JSpinner per inserire un budget per il nuovo progetto
 		budgetSpinner = new JSpinner();
@@ -490,6 +490,8 @@ public class NewProjectFrame extends JFrame {
 						lastProject = c.pickNewestProject(signedInCompany.getVatNumber()); // Prende il codice del nuovo progetto
 						c.insertProjectTopics(lastProject, chosenTopics); // Inserisce gli ambiti per il progetto
 						c.chooseProjectManager(lastProject, managerCf); // Inserisce il project manager del progetto
+						employeesTM.removeRow(employeesTable.getSelectedRow());
+						c.setNewEmployeesTableForCompany(employeesTM);
 						c.goBack(utility);
 					} catch (Exception projectNotCreated) {
 						c.openPopupDialog(utility, "Recupero delle informazioni necessarie fallito: riprova.");

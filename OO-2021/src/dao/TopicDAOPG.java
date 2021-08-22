@@ -15,18 +15,18 @@ import entities.Topic;
 
 public class TopicDAOPG {
 
-
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public TopicDAOPG(Controller co) {
 		c = co;
-		
-		
 	}
 
+	// Metodo che recupera gli ambiti di un progetto
 	public ArrayList<Topic> takeProjectTopics(int projectNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -42,9 +42,11 @@ public class TopicDAOPG {
 	
 		result.close();
 		conn.close();
+		
 		return topics;
 	}
 
+	// Metodo che recupera tutti gli ambiti possibili per i progetti
 	public ArrayList<Topic> takeTopics() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -59,14 +61,17 @@ public class TopicDAOPG {
 	
 		result.close();
 		conn.close();
+		
 		return topics;
 	}
 
+	// Metodo per assegnare uno o più ambiti a un progetto
 	public void insertTopics(int lastProject, ArrayList<String> chosenTopics) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
 		
 		query = conn.prepareStatement("INSERT INTO ProgAmbito VALUES (?, ?)");
+		
 		query.setInt(1, lastProject);
 		
 		for (String s: chosenTopics) {
@@ -77,6 +82,4 @@ public class TopicDAOPG {
 		conn.close();
 		return;
 	}
-
-
 }

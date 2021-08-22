@@ -7,23 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.sql.Types;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Employee;
 import entities.Meeting;
-import entities.Project;
 
 public class MeetingDAOPG {
 
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public MeetingDAOPG(Controller co) {
 		c = co;
 	}
@@ -55,9 +53,11 @@ public class MeetingDAOPG {
 	
 		result.close();
 		conn.close();
+		
 		return meetings;
 	}
 
+	// Metodo che permette la crezione di un nuovo meeting
 	public int insertNewMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
@@ -89,6 +89,7 @@ public class MeetingDAOPG {
 		
 	}
 
+	// Metodo per iscrivere un dipendente ad un meeting
 	public void addEmployeeToMeeting(String cf, int newMeeting) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -102,6 +103,7 @@ public class MeetingDAOPG {
 		return;
 	}
 
+	// Metodo per recuperare tutti i meeting programmati per un determinato progetto
 	public ArrayList<Meeting> takeMeetingsForProject(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -129,9 +131,11 @@ public class MeetingDAOPG {
 	
 		result.close();
 		conn.close();
+		
 		return meetings;
 	}
 
+	// Metodo per aggiornare lo stato di un meeting
 	public void updateMeetings(ArrayList<Meeting> meetings) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -151,6 +155,7 @@ public class MeetingDAOPG {
 		return;
 	}
 
+	// Metodo per assicurare la consistenza dei meeting
 	public void cronMeeting() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;

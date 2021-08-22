@@ -8,15 +8,16 @@ import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Company;
-import entities.Employee;
-import enums.EnumRole;
 
 public class CompanyDAOPG {
+	
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public CompanyDAOPG(Controller co) {
 		c = co;
 	}
@@ -28,12 +29,14 @@ public class CompanyDAOPG {
 		
 		query = conn.prepareStatement("SELECT partiva FROM Azienda");
 		result = query.executeQuery();
+		
 		ArrayList<String> companies = new ArrayList<String>();
 		while (result.next())
 			companies.add(result.getString("partiva"));
 	
 		result.close();
 		conn.close();
+		
 		return companies.toArray();
 	}
 
@@ -53,7 +56,6 @@ public class CompanyDAOPG {
 		query.setString(1, username);
 		result = query.executeQuery();
 		
-
 		Company foundCompany;
 		if (result.next())
 			foundCompany = new Company(result.getString("partiva"),

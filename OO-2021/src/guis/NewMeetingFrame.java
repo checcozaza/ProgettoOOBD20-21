@@ -287,9 +287,9 @@ public class NewMeetingFrame extends JFrame {
 		bottomPanel.setBounds(0, 414, 803, 57);
 		contentPane.add(bottomPanel, BorderLayout.SOUTH);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
-		gbl_bottomPanel.columnWidths = new int[]{0, 204, 0, 0, 201, 70, 0};
+		gbl_bottomPanel.columnWidths = new int[]{0, 204, 0, 0, 0, 201, 70, 0};
 		gbl_bottomPanel.rowHeights = new int[]{70, 0};
-		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 		
@@ -315,6 +315,25 @@ public class NewMeetingFrame extends JFrame {
 			}
 		});
 		
+		// Bottone per tornare indietro
+		goBackButton = new JButton("Indietro");
+		goBackButton.setFont(new Font("Roboto", Font.PLAIN, 16));
+		goBackButton.setFocusPainted(false);
+		goBackButton.setBorderPainted(false);
+		goBackButton.setBackground(new Color(235, 203, 139));
+		goBackButton.setForeground(Color.decode("#2E3440"));
+		GridBagConstraints gbc_goBackButton = new GridBagConstraints();
+		gbc_goBackButton.insets = new Insets(0, 0, 0, 5);
+		gbc_goBackButton.gridx = 3;
+		gbc_goBackButton.gridy = 0;
+		bottomPanel.add(goBackButton, gbc_goBackButton);
+		
+		goBackButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent goBack) {
+					c.goBack(utility);
+			}
+		});
+		
 		// Bottone per inserire il nuovo meeting
 		confirmButton = new JButton("Conferma meeting");
 		confirmButton.setForeground(Color.decode("#2E3440"));
@@ -324,7 +343,7 @@ public class NewMeetingFrame extends JFrame {
 		confirmButton.setFont(new Font("Roboto", Font.PLAIN, 16));
 		GridBagConstraints gbc_confirmButton = new GridBagConstraints();
 		gbc_confirmButton.insets = new Insets(0, 0, 0, 5);
-		gbc_confirmButton.gridx = 2;
+		gbc_confirmButton.gridx = 4;
 		gbc_confirmButton.gridy = 0;
 		bottomPanel.add(confirmButton, gbc_confirmButton);
 		
@@ -363,29 +382,10 @@ public class NewMeetingFrame extends JFrame {
 			}
 		});
 		
-		// Bottone per tornare indietro
-		goBackButton = new JButton("Indietro");
-		goBackButton.setFont(new Font("Roboto", Font.PLAIN, 16));
-		goBackButton.setFocusPainted(false);
-		goBackButton.setBorderPainted(false);
-		goBackButton.setBackground(new Color(235, 203, 139));
-		goBackButton.setForeground(Color.decode("#2E3440"));
-		GridBagConstraints gbc_goBackButton = new GridBagConstraints();
-		gbc_goBackButton.insets = new Insets(0, 0, 0, 5);
-		gbc_goBackButton.gridx = 3;
-		gbc_goBackButton.gridy = 0;
-		bottomPanel.add(goBackButton, gbc_goBackButton);
-		
-		goBackButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent goBack) {
-					c.goBack(utility);
-			}
-		});
-		
 		// Label icona decorativa
 		JLabel iconLabel = new JLabel("");
 		GridBagConstraints gbc_iconLabel = new GridBagConstraints();
-		gbc_iconLabel.gridx = 5;
+		gbc_iconLabel.gridx = 6;
 		gbc_iconLabel.gridy = 0;
 		bottomPanel.add(iconLabel, gbc_iconLabel);
 		iconLabel.setIcon(new ImageIcon(NewMeetingFrame.class.getResource("/schedule.png")));

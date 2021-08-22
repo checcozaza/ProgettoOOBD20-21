@@ -9,15 +9,19 @@ import java.util.ArrayList;
 import controllers.Controller;
 
 public class SocietyDAOPG {
+	
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public SocietyDAOPG(Controller co) {
 		c = co;
 	}
 
+	// Metodo che recupera le informazioni sulle società che commissionano progetti
 	public Object[] retrieveSocieties() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

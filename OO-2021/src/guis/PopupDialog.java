@@ -32,6 +32,7 @@ public class PopupDialog extends JDialog {
 	// Creazione Dialog
 	public PopupDialog(Controller co, JFrame utility, String popupMessage) {
 		c = co;
+		JDialog toDispose = this;
 		setResizable(false);
 		getContentPane().setBackground(Color.decode("#3B4252"));
 		setUndecorated(true);
@@ -75,7 +76,7 @@ public class PopupDialog extends JDialog {
 					
 					public void actionPerformed(ActionEvent clickOK) {
 						setVisible(false);
-						c.backToBackgroundFrame(utility); /* Al click del tasto ok, viene richiamato un metodo che rende e 
+						c.backToBackgroundFrame(utility, toDispose); /* Al click del tasto ok, viene richiamato un metodo che rende e 
 														  enabled il frame sottostante */
 					}
 				});

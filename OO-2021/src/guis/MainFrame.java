@@ -35,6 +35,8 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Toolkit;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class MainFrame extends JFrame {
 
@@ -105,7 +107,7 @@ public class MainFrame extends JFrame {
 		
 		// Textfield nel quale inserire lo username
 		usernameTextField = new JTextField();
-		usernameTextField.setToolTipText("Se rappresenti un'azienda inserisci la partita iva, altrimenti inserisci il tuo codice fiscale.");
+		usernameTextField.setToolTipText("Se rappresenti un'azienda inserisci la part. IVA, altrimenti inserisci il tuo codice fiscale.");
 		usernameTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
 		usernameTextField.setForeground(Color.decode("#5E81AC"));
 		GridBagConstraints gbc_usernameTextField = new GridBagConstraints();
@@ -131,6 +133,14 @@ public class MainFrame extends JFrame {
 		
 		// Textfield nel quale inserire la password
 		passwordTextField = new JPasswordField();
+//		passwordTextField.addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+//					
+//				}
+//			}
+//		});
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
 		passwordTextField.setForeground(Color.decode("#5E81AC"));
 		GridBagConstraints gbc_passwordTextField = new GridBagConstraints();

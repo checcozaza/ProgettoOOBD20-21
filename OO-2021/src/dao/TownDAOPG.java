@@ -10,11 +10,13 @@ import controllers.Controller;
 
 public class TownDAOPG {
 	
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public TownDAOPG(Controller co) {
 		c = co;
 	}
@@ -32,9 +34,8 @@ public class TownDAOPG {
 		
 		result.close();
 		conn.close();
+		
 		return regions.toArray();
-		
-		
 	}
 
 	// Metodo che permette il recupero delle province della regione selezionata dal DB
@@ -43,14 +44,17 @@ public class TownDAOPG {
 		if (conn == null) return null;
 		
 		query = conn.prepareStatement("SELECT DISTINCT provincia FROM comuneitaliano WHERE regione = ? ORDER BY provincia");
+		
 		query.setString(1, selectedRegion);
 		result = query.executeQuery();
+		
 		ArrayList<String> provinces = new ArrayList<String>();
 		while (result.next())
 			provinces.add(result.getString("provincia"));
 	
 		result.close();
 		conn.close();
+		
 		return provinces.toArray();
 	}
 
@@ -60,17 +64,18 @@ public class TownDAOPG {
 		if (conn == null) return null;
 		
 		query = conn.prepareStatement("SELECT comune FROM comuneitaliano WHERE provincia = ? ORDER BY comune");
+		
 		query.setString(1, selectedProvince);
 		result = query.executeQuery();
+		
 		ArrayList<String> cities = new ArrayList<String>();
 		while (result.next())
 			cities.add(result.getString("comune"));
 	
 		result.close();
 		conn.close();
-		return cities.toArray();
-
 		
+		return cities.toArray();
 	}
 
 	// Metodo che permette il recupero del codice catastale del comune selezionato dal DB
@@ -79,16 +84,15 @@ public class TownDAOPG {
 		if (conn == null) return null;
 		
 		query = conn.prepareStatement("SELECT cod_comune FROM comuneitaliano WHERE comune = ?");
+		
 		query.setString(1, comune);
 		result = query.executeQuery();
 		result.next();
 		String code = result.getString("cod_comune");
 
-	
 		result.close();
 		conn.close();
+		
 		return code;
 	}
-
-	
 }

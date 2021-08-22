@@ -7,7 +7,10 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import connections.PgConnection;
 import dao.CompanyDAOPG;
@@ -39,7 +42,7 @@ import guis.UserFrame;
 
 public class Controller {
 	
-	// Attributi
+	// Dichiarazioni utili
 	private static Controller c;
 	private Connection conn = null;
 	private PgConnection pgc = null;
@@ -72,7 +75,7 @@ public class Controller {
 	// Costruttore
 	public Controller() throws Exception {
 		meetingDAO = new MeetingDAOPG(this);
-		meetingDAO.cronMeeting();
+		meetingDAO.cronMeeting(); // Assicura la consistenza dei meeting ad ogni avvio
 		mainFr = new MainFrame(this);
 		mainFr.setVisible(true);
 	}
@@ -623,7 +626,6 @@ public class Controller {
 			cf += 'Z';
 			break;
 		}
-		
 		return cf;
 	}
 	
@@ -699,22 +701,11 @@ public class Controller {
 	
 	// Metodi finalizzati a regolare la visibilità dei diversi frame ad ogni occorrenza
 	
+	// Metodo che apre il frame per la registrazione di un utente
 	public void openSignUpForm() throws Exception {
 		mainFr.setVisible(false);
 		signUpFr = new SignUpFrame(this);
 		signUpFr.setVisible(true);
-	}
-	
-	public void backToLogin(JFrame loggingOut) {
-		loggingOut.dispose();
-		mainFr.setVisible(true);
-		mainFr.setEnabled(true);
-	}
-	
-	public void endSignUp() {
-		signedUpDl.dispose();
-		signUpFr.dispose();
-		mainFr.setVisible(true);
 	}
 	
 	// Metodo che reindirizza l'utente alla sua homepage personalizzata
@@ -722,7 +713,6 @@ public class Controller {
 		mainFr.setVisible(false);
 		userFr = new UserFrame(this, signedIn);
 		userFr.setVisible(true);
-		
 	}
 	
 	// Metodo che reindirizza il project manager adalla sua homepage personalizzata
@@ -737,20 +727,55 @@ public class Controller {
 		mainFr.setVisible(false);
 		companyFr = new CompanyFrame(this, signedInCompany);
 		companyFr.setVisible(true);
-		
+	}
+	
+	// Metodo che apre il frame per la programmazione di un nuovo meeting
+	public void openNewMeetingFrame(int projectNumber, String cf) {
+		projectManagerFr.setVisible(false);
+		newMeetingFr = new NewMeetingFrame(this, projectNumber, cf);
+		newMeetingFr.setVisible(true);
+	}
+	
+	// Metodo che apre il frame per la creazione di un nuovo progetto
+	public void openNewProjectFrame(Company signedInCompany, String managerCf, DefaultTableModel employeesTM, JTable employeesTable) throws Exception {
+		companyFr.setVisible(false);
+		topicDAO = new TopicDAOPG(this);
+		newProjectFr = new NewProjectFrame(this, signedInCompany, managerCf, topicDAO.takeTopics(), employeesTM, employeesTable);
+		newProjectFr.setVisible(true);
+	}
+	
+	// Metodo per aprire il frame per scegliere a quale meeting partecipare per un utente
+	public void openChooseMeetingFrame(Employee user) {
+		userFr.setVisible(false);
+		chooseMeetingFr = new ChooseMeetingFrame(this, user);
+		chooseMeetingFr.setVisible(true);
+	}
+	
+	// Metodo che fa ritornare alla schermata di login
+	public void backToLogin(JFrame utility) {
+		utility.dispose();
+		mainFr.setVisible(true);
+		mainFr.setEnabled(true);
+	}
+	
+	// Metodo che fa ritornare alla schermata di login dopo la registrazione
+	public void endSignUp() {
+		signedUpDl.dispose();
+		signUpFr.dispose();
+		mainFr.setVisible(true);
+	}
+	
+	// Metodo che rende visibile ed enabled il frame sottostante dopo il click del tasto ok di una dialog
+	public void backToBackgroundFrame(JFrame utility, JDialog toDispose) {
+		toDispose.dispose();
+		utility.setVisible(true);
+		utility.setEnabled(true);
 	}
 	
 	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
-	public void openPopupDialog(JFrame toClose, String toPrintMessage) {
-		infoDl = new PopupDialog(this, toClose, toPrintMessage);
+	public void openPopupDialog(JFrame utility, String toPrintMessage) {
+		infoDl = new PopupDialog(this, utility, toPrintMessage);
 		infoDl.setVisible(true);
-	}
-	
-	// Metodo che rende enabled il frame sottostante dopo il click del tasto ok di una dialog
-	public void backToBackgroundFrame(JFrame toClose) {
-		infoDl.dispose();
-		toClose.setVisible(true);
-		toClose.setEnabled(true);
 	}
 	
 	/* Metodo che apre una finestra di dialogo di conferma di avvenuta registrazione; sarà presente anche il codice fiscale
@@ -760,82 +785,124 @@ public class Controller {
 		signedUpDl.setVisible(true);
 		signUpFr.setEnabled(false);
 	}
-
+	
+	// Metodo che apre la dialog per la valutazione dei progettisti
+	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
+		ratingForEmployeesDl = new RatingDialog(this, currentProject, employeesToRate, utility);
+		ratingForEmployeesDl.setVisible(true);
+	}
+	
+	// Metodo per aprire la dialog con le informazioni sui progetti passati di un dipendente
+	public void openEmployeeInfoDialog(String cf, JFrame utility) throws Exception {
+		employeeInfoDl = new EmployeeInfoDialog(this, cf, utility);
+		employeeInfoDl.setVisible(true);
+	}
+	
+	// Metodo per recuperare la valutazione per un utente
 	public int takeRatingForEmployee(String fiscalCode) throws Exception {
 		return employeeDAO.retrieveAvgRating(fiscalCode);
 	}
 
-	public void openNewProjectFrame(Company signedInCompany, String managerCf) throws Exception {
-		companyFr.setVisible(false);
-		topicDAO = new TopicDAOPG(this);
-		newProjectFr = new NewProjectFrame(this, signedInCompany, managerCf, topicDAO.takeTopics());
-		newProjectFr.setVisible(true);
-	}
-
+	// Metodo che restituisce i privati che commissionano un progetto
 	public Object[] pickCustomers() throws Exception {
 		customerDAO = new CustomerDAOPG(this);
 		return customerDAO.retrieveCustomers();
 	}
 
+	// Metodo che restituisce le società commissionanti per un progetto
 	public Object[] pickSocieties() throws Exception {
 		societyDAO = new SocietyDAOPG(this);
 		return societyDAO.retrieveSocieties();
 	}
 	
+	// Metodo che permette la creazione di un nuovo progetto
 	public void insertProject(String vatNumber, String typology, Float budget, String commissionedBy) throws Exception {
 		projectDAO = new ProjectDAOPG(this);
 		projectDAO.newProject(vatNumber, typology, budget, commissionedBy);
 		return; 
 	}
 
+	// Metodo che associa il project manager scelto al progetto appena creato
 	public void chooseProjectManager(int lastProject, String cf) throws Exception {
 		employeeDAO = new EmployeeDAOPG(this);
 		employeeDAO.pickProjectManager(lastProject, cf);
 	}
 
+	// Metodo che recupera il codice del progetto appena creato
 	public int pickNewestProject(String vatNumber) throws Exception {
 		projectDAO = new ProjectDAOPG(this);
 		int lastProject = projectDAO.retrieveNewestProject(vatNumber);
 		return lastProject;
 	}
 
+	// Metodo per la chiusura di un progetto
 	public void closeProject(int projectNumber) throws Exception {
 		projectDAO = new ProjectDAOPG(this);
 		projectDAO.endProject(projectNumber);
 		return;
-		
 	}
 
-	public void openNewMeetingFrame(int projectNumber, String cf) {
-		projectManagerFr.setVisible(false);
-		newMeetingFr = new NewMeetingFrame(this, projectNumber, cf);
-		newMeetingFr.setVisible(true);
-	}
-
+	// Meeting che permette la creazione di un nuovo meeting
 	public int confirmMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws Exception {
 		meetingDAO = new MeetingDAOPG(this);
 		return meetingDAO.insertNewMeeting(projectNumber, meetingDate, startTime, endTime, online, place);
 	}
 
+	// Metodo per aggiungere un dipendente a un meeting
+	public void addEmployeeToMeeting(String manager, int newMeeting) throws Exception {
+		meetingDAO = new MeetingDAOPG(this);
+		meetingDAO.addEmployeeToMeeting(manager, newMeeting);
+		return;
+	}
+	
+	// Metodo per aggiungere un dipendente al team
 	public void addToTeam(ArrayList<Employee> toAdd) throws Exception {
 		employeeDAO = new EmployeeDAOPG(this);
 		employeeDAO.addToProject(toAdd);
 		return;
 	}
 
-	public void addEmployeeToMeeting(String manager, int newMeeting) throws Exception {
-		meetingDAO = new MeetingDAOPG(this);
-		meetingDAO.addEmployeeToMeeting(manager, newMeeting);
+	// Metodo per inserire uno o più ambiti per il progetto creato
+	public void insertProjectTopics(int lastProject, ArrayList<String> chosenTopics) throws Exception {
+		topicDAO = new TopicDAOPG(this);
+		topicDAO.insertTopics(lastProject, chosenTopics);
 		return;
 	}
 
-	public void openChooseMeetingFrame(Employee user) {
-		userFr.setVisible(false);
-		chooseMeetingFr = new ChooseMeetingFrame(this, user);
-		chooseMeetingFr.setVisible(true);
-		
+	// Metodo che aggiorna il salario di un dipendente quando esso viene modificato dall'azienda
+	public void updateWage(String cf, Float newWage) throws Exception {
+		employeeDAO = new EmployeeDAOPG(this);
+		employeeDAO.modifiedWage(cf, newWage);
+		return;
 	}
 
+	// Metodo per aggiornare lo stato di un meeting
+	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
+		meetingDAO = new MeetingDAOPG(this);
+		meetingDAO.updateMeetings(meetings);
+		return;
+	}
+
+	// Metodo che permette l'inserimento della valutazione per i dipendenti
+	public void insertRating(String cf, Integer rating, int currentProject) throws Exception {
+		ratingsDAO = new RatingsDAOPG(this);
+		ratingsDAO.insertRatingsForEmployees(cf, rating, currentProject);
+		return;
+	}
+
+	// Metodo che aggiorna la composizione di un team di lavoro
+	public ArrayList<Employee> refillTeam(Employee manager) throws Exception {
+		employeeDAO = new EmployeeDAOPG(this);
+		return employeeDAO.takeEmployeesForProject(manager);
+	}
+
+	// Metodo che restituisce le valutazioni di un dipendente
+	public ArrayList<EmployeeRating> findUserHistory(String cf) throws Exception {
+		ratingsDAO = new RatingsDAOPG(this);
+		return ratingsDAO.takeRatingsFromFiscalCode(cf);
+	}
+	
+	// Metodo che gestisce i tasti per tornare ai frame precedenti
 	public void goBack(JFrame utility) {
 		if (newProjectFr != null) {
 			utility.setVisible(false);
@@ -851,47 +918,8 @@ public class Controller {
 		}
 	}
 
-	public void insertProjectTopics(int lastProject, ArrayList<String> chosenTopics) throws Exception {
-		topicDAO = new TopicDAOPG(this);
-		topicDAO.insertTopics(lastProject, chosenTopics);
+	public void setNewEmployeesTableForCompany(DefaultTableModel employeesTM) {
+		companyFr.updateEmployeesTable(employeesTM);
 		return;
-	}
-
-	public void updateWage(String cf, Float newWage) throws Exception {
-		employeeDAO = new EmployeeDAOPG(this);
-		employeeDAO.modifiedWage(cf, newWage);
-		return;
-	}
-
-	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
-		meetingDAO = new MeetingDAOPG(this);
-		meetingDAO.updateMeetings(meetings);
-		return;
-	}
-
-	public void openRatingDialog(int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
-		ratingForEmployeesDl = new RatingDialog(this, currentProject, employeesToRate, utility);
-		ratingForEmployeesDl.setVisible(true);
-	}
-
-	public void insertRating(String cf, Integer rating, int currentProject) throws Exception {
-		ratingsDAO = new RatingsDAOPG(this);
-		ratingsDAO.insertRatingsForEmployees(cf, rating, currentProject);
-		return;
-	}
-
-	public ArrayList<Employee> refillTeam(Employee manager) throws Exception {
-		employeeDAO = new EmployeeDAOPG(this);
-		return employeeDAO.takeEmployeesForProject(manager);
-	}
-
-	public void openEmployeeInfoDialog(String cf, JFrame utility) throws Exception {
-		employeeInfoDl = new EmployeeInfoDialog(this, cf, utility);
-		employeeInfoDl.setVisible(true);
-	}
-
-	public ArrayList<EmployeeRating> findUserHistory(String cf) throws Exception {
-		ratingsDAO = new RatingsDAOPG(this);
-		return ratingsDAO.takeRatingsFromFiscalCode(cf);
 	}
 }

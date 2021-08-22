@@ -121,15 +121,15 @@ public class ProjectManagerFrame extends JFrame {
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addComponent(titlePanel, GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
 				.addComponent(projectLabel, GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
-				.addComponent(bottomPanel, GroupLayout.DEFAULT_SIZE, 750, Short.MAX_VALUE)
+				.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 750, GroupLayout.PREFERRED_SIZE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(infoLabel, GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
 					.addContainerGap())
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(54)
-					.addComponent(teamTabbedPane, GroupLayout.PREFERRED_SIZE, 636, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(60, Short.MAX_VALUE))
+					.addGap(37)
+					.addComponent(teamTabbedPane, GroupLayout.PREFERRED_SIZE, 675, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(38, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -145,9 +145,9 @@ public class ProjectManagerFrame extends JFrame {
 					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 		);
 		GridBagLayout gbl_bottomPanel = new GridBagLayout();
-		gbl_bottomPanel.columnWidths = new int[]{86, 64, 0, 0, 0, 0, 0, 0, 0, 0, 0, 83, 0};
+		gbl_bottomPanel.columnWidths = new int[]{86, 152, 0, 0, 125, 83, 0};
 		gbl_bottomPanel.rowHeights = new int[]{64, 0};
-		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gbl_bottomPanel.columnWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
 		gbl_bottomPanel.rowWeights = new double[]{0.0, Double.MIN_VALUE};
 		bottomPanel.setLayout(gbl_bottomPanel);
 		
@@ -181,7 +181,7 @@ public class ProjectManagerFrame extends JFrame {
 		newMeetingButton.setBorderPainted(false);
 		GridBagConstraints gbc_newMeetingButton = new GridBagConstraints();
 		gbc_newMeetingButton.insets = new Insets(0, 0, 0, 5);
-		gbc_newMeetingButton.gridx = 4;
+		gbc_newMeetingButton.gridx = 2;
 		gbc_newMeetingButton.gridy = 0;
 		bottomPanel.add(newMeetingButton, gbc_newMeetingButton);
 		
@@ -200,7 +200,7 @@ public class ProjectManagerFrame extends JFrame {
 		closeProjectButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		GridBagConstraints gbc_closeProjectButton = new GridBagConstraints();
 		gbc_closeProjectButton.insets = new Insets(0, 0, 0, 5);
-		gbc_closeProjectButton.gridx = 5;
+		gbc_closeProjectButton.gridx = 3;
 		gbc_closeProjectButton.gridy = 0;
 		bottomPanel.add(closeProjectButton, gbc_closeProjectButton);
 		
@@ -220,7 +220,7 @@ public class ProjectManagerFrame extends JFrame {
 		JLabel managerIconLabel = new JLabel("");
 		GridBagConstraints gbc_managerIconLabel = new GridBagConstraints();
 		gbc_managerIconLabel.anchor = GridBagConstraints.NORTH;
-		gbc_managerIconLabel.gridx = 11;
+		gbc_managerIconLabel.gridx = 5;
 		gbc_managerIconLabel.gridy = 0;
 		bottomPanel.add(managerIconLabel, gbc_managerIconLabel);
 		managerIconLabel.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/laptop.png")));
@@ -238,7 +238,7 @@ public class ProjectManagerFrame extends JFrame {
 		freeEmployeesScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		freeEmployeesScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		freeEmployeesScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		freeEmployeesScrollPane.setBounds(0, 0, 631, 229);
+		freeEmployeesScrollPane.setBounds(0, 0, 670, 229);
 		teamPanel.add(freeEmployeesScrollPane);
 		
 		// Table model che contiene le informazioni sui dipendenti liberi
@@ -279,13 +279,15 @@ public class ProjectManagerFrame extends JFrame {
 		freeEmployeesTable.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent clickOnEmployee) {
-		        if(clickOnEmployee.getClickCount() >= 2){
-		            try {
-						c.openEmployeeInfoDialog(freeEmployeesTable.getValueAt(freeEmployeesTable.getSelectedRow(), 0).toString(), utility);
-					} catch (Exception historyNotFound) {
-						c.openPopupDialog(utility, "Recupero informazioni fallito; riprova.");
-					}
-		        }
+				if (freeEmployeesTable.getSelectedColumn() != 5) {
+			        if(clickOnEmployee.getClickCount() >= 2){
+			            try {
+							c.openEmployeeInfoDialog(freeEmployeesTable.getValueAt(freeEmployeesTable.getSelectedRow(), 0).toString(), utility);
+						} catch (Exception historyNotFound) {
+							c.openPopupDialog(utility, "Recupero informazioni fallito; riprova.");
+						}
+			        }
+				}
 			}
 		});
 		
@@ -304,7 +306,7 @@ public class ProjectManagerFrame extends JFrame {
 		
 		// Bottone per aggiungere un dipendente al team
 		addToTeamButton = new JButton("Aggiungi al team");
-		addToTeamButton.setBounds(226, 240, 195, 32);
+		addToTeamButton.setBounds(241, 240, 195, 32);
 		addToTeamButton.setForeground(Color.decode("#2E3440"));
 		addToTeamButton.setBackground(Color.decode("#8FBCBB"));
 		addToTeamButton.setBorderPainted(false);
@@ -348,7 +350,7 @@ public class ProjectManagerFrame extends JFrame {
 		meetingsScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		meetingsScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		meetingsScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		meetingsScrollPane.setBounds(0, 0, 631, 229);
+		meetingsScrollPane.setBounds(0, 0, 670, 229);
 		meetingPanel.add(meetingsScrollPane);
 				
 		// Table model che contiene le informazioni sui meeting
@@ -409,7 +411,7 @@ public class ProjectManagerFrame extends JFrame {
 		updateMeetingStatusButton.setFocusPainted(false);
 		updateMeetingStatusButton.setBorderPainted(false);
 		updateMeetingStatusButton.setBackground(new Color(143, 188, 187));
-		updateMeetingStatusButton.setBounds(206, 240, 214, 23);
+		updateMeetingStatusButton.setBounds(226, 240, 214, 32);
 		
 		updateMeetingStatusButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent updateMeetingStatus) {

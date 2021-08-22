@@ -10,21 +10,25 @@ import controllers.Controller;
 
 public class CustomerDAOPG {
 
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public CustomerDAOPG(Controller co) {
 		c = co;
 	}
 
+	// Metodo che permette il recupero dei privati che commissionano progetti
 	public Object[] retrieveCustomers() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
 		
 		query = conn.prepareStatement("SELECT * FROM privato");
 		result = query.executeQuery();
+		
 		ArrayList<String> customers = new ArrayList<String>();
 		while (result.next())
 			customers.add(result.getString("cf") + " (" +
@@ -33,6 +37,7 @@ public class CustomerDAOPG {
 		
 		result.close();
 		conn.close();
+		
 		return customers.toArray();
 	}
 }

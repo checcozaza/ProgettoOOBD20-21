@@ -19,6 +19,7 @@ import enums.EnumTypology;
 
 public class RatingsDAOPG {
 
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
@@ -54,6 +55,7 @@ public class RatingsDAOPG {
 		return ratings;
 	}
 
+	// Metodo che permette l'inserimento di una valutazione per i progettisti alla chiusura di un progetto
 	public void insertRatingsForEmployees(String cf, int rating, int currentProject) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -75,6 +77,7 @@ public class RatingsDAOPG {
 		
 	}
 
+	// Metodo che recupera le valutazioni dei dipendenti
 	public ArrayList<EmployeeRating> takeRatingsFromFiscalCode(String cf) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -97,7 +100,7 @@ public class RatingsDAOPG {
 	
 		result.close();
 		conn.close();
+		
 		return ratings;
-
 	}
 }

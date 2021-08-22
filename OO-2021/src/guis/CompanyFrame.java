@@ -37,6 +37,9 @@ import java.beans.PropertyChangeEvent;
 
 public class CompanyFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
+	// Dichiarazioni utili
 	private Controller c;
 	private JPanel contentPane;
 	private JTabbedPane companyTabbedPane;
@@ -102,7 +105,7 @@ public class CompanyFrame extends JFrame {
 		employeesScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		employeesScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		employeesScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		employeesScrollPane.setBounds(0, 0, 678, 258);
+		employeesScrollPane.setBounds(0, 0, 748, 258);
 		employeesPanel.add(employeesScrollPane);
 		
 		// Table model che contiene le informazioni sui dipendenti
@@ -175,23 +178,22 @@ public class CompanyFrame extends JFrame {
 		// Label con informazioni per l'utilizzo ottimale dell'applicativo
 		JLabel infoLabel = new JLabel("Per la creazione di un nuovo progetto, scegli prima il project manager selezionandolo tra i dipendenti attualmente liberi.");
 		infoLabel.setForeground(Color.decode("#EBCB8B"));
-		infoLabel.setFont(new Font("Roboto", Font.PLAIN, 13));
+		infoLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		// Layout utilizzato
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
+			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addComponent(welcomeCompanyPanel, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(bottomPanel, GroupLayout.PREFERRED_SIZE, 810, Short.MAX_VALUE)
 					.addContainerGap())
-				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addContainerGap(65, Short.MAX_VALUE)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(infoLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(companyTabbedPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 683, Short.MAX_VALUE))
-					.addGap(72))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addContainerGap(33, Short.MAX_VALUE)
+					.addComponent(companyTabbedPane, GroupLayout.PREFERRED_SIZE, 753, GroupLayout.PREFERRED_SIZE)
+					.addGap(34))
+				.addComponent(infoLabel, GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -242,8 +244,7 @@ public class CompanyFrame extends JFrame {
 				if (employeesTable.getSelectedRow() != -1 && 
 					employeesTable.getValueAt(employeesTable.getSelectedRow(), 5).equals("No")) { // Se è stato selezionato almeno un dipendente occupato
 					try {
-						c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString());
-						employeesTM.removeRow(employeesTable.getSelectedRow()); // Apertura frame per la creazione di un progetto
+						c.openNewProjectFrame(signedInCompany, employeesTable.getValueAt(employeesTable.getSelectedRow(), 0).toString(), employeesTM, employeesTable); // Apertura frame per la creazione di un progetto
 					} catch (Exception e) {
 						c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 					}
@@ -294,7 +295,7 @@ public class CompanyFrame extends JFrame {
 		projectScrollPane.setFont(new Font("Roboto", Font.PLAIN, 15));
 		projectScrollPane.setBorder(new LineBorder(Color.decode("#434C5E"), 2, true));
 		projectScrollPane.getViewport().setBackground(Color.decode("#D8DEE9"));
-		projectScrollPane.setBounds(0, 57, 678, 201);
+		projectScrollPane.setBounds(0, 57, 748, 201);
 		projectPanel.add(projectScrollPane);
 		
 		// Table model che contiene le informazioni sui progetti attivi
@@ -307,11 +308,11 @@ public class CompanyFrame extends JFrame {
 			);
 		
 		// Label con informazioni sui progetti attivi; il suo testo viene modificato a seconda delle situazioni
-		currentProjectLabel = new JLabel("<HTML> <center> NESSUN PROGETTO ATTIVO <center> <HTML>");
+		currentProjectLabel = new JLabel("<HTML> <center> NESSUN PROGETTO ATTIVO <br> Le informazioni sui progetti appena inseriti saranno disponibili a breve. <center> <HTML>");
 		currentProjectLabel.setForeground(Color.decode("#434C5E"));
 		currentProjectLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		currentProjectLabel.setFont(new Font("Roboto", Font.BOLD, 17));
-		currentProjectLabel.setBounds(0, 0, 678, 59);
+		currentProjectLabel.setBounds(0, 0, 748, 59);
 		projectPanel.add(currentProjectLabel);
 		
 		// Recupero informazioni sui progetti
@@ -359,5 +360,9 @@ public class CompanyFrame extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+	}
+
+	public void updateEmployeesTable(DefaultTableModel employeesTM2) {
+		employeesTable.setModel(employeesTM2);
 	}
 }

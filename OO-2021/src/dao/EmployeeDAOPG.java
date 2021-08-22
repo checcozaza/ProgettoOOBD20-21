@@ -18,13 +18,13 @@ import enums.EnumRole;
 
 public class EmployeeDAOPG {
 	
-	// Attributi
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
-	private PreparedStatement query2;
 	
+	// Costruttore
 	public EmployeeDAOPG(Controller co) {
 		c = co;
 	}
@@ -36,6 +36,7 @@ public class EmployeeDAOPG {
 		
 		query = conn.prepareStatement("INSERT INTO Partecipante (cf, nome, cognome, pw, salariomedio, partiva) "
 									+ "VALUES (?, ?, ?, ?, ?, ?)");
+		
 		query.setString(1, employee.getFiscalCode());
 		query.setString(2, employee.getName());
 		query.setString(3, employee.getSurname());
@@ -45,6 +46,7 @@ public class EmployeeDAOPG {
 
 		query.executeUpdate();
 		conn.close();
+		
 		return;
 	}
 
@@ -54,6 +56,7 @@ public class EmployeeDAOPG {
 		if (conn == null) return null;
 		
 		query = conn.prepareStatement("SELECT * FROM Partecipante WHERE cf = ? AND pw = ?");
+		
 		query.setString(1, username);
 		query.setString(2, pwd);
 		result = query.executeQuery();
@@ -72,7 +75,6 @@ public class EmployeeDAOPG {
 		else
 			found = null;
 	
-		
 		result.close();
 		conn.close();
 		
@@ -100,11 +102,14 @@ public class EmployeeDAOPG {
 									   signedIn,
 									   new Project(result.getInt("codprogetto"), null, 0, 0, false, null, null, null, null, null, null),
 									   null, null));
+		
 		result.close();
 		conn.close();
+		
 		return employees;
 	}
 
+	// Metodo che permette il recupero della valutazione media di ciascun dipendente
 	public int retrieveAvgRating(String fiscalCode) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
@@ -124,6 +129,7 @@ public class EmployeeDAOPG {
 		return avg;
 	}
 
+	// Metodo per aggiornare il ruolo di un project manager appena assegnato
 	public void pickProjectManager(int lastProject, String cf) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -136,13 +142,12 @@ public class EmployeeDAOPG {
 		query.setString(2, cf);
 		query.executeUpdate();
 		
-
 		conn.close();
 		
 		return;
-		
 	}
 
+	// Metodo che associa un progetto a un dipendente scelto
 	public void addToProject(ArrayList<Employee> toAdd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -163,6 +168,7 @@ public class EmployeeDAOPG {
 		return;
 	}
 
+	// Metodo che aggiorna il salario medio di un dipendente in seguito ad un'eventuale modifica da parte dell'azienda
 	public void modifiedWage(String cf, Float newWage) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -177,10 +183,11 @@ public class EmployeeDAOPG {
 		query.executeUpdate();
 		
 		conn.close();
-		return;
 		
+		return;
 	}
 
+	// Metodo che recupera i dipendenti per un progetto
 	public ArrayList<Employee> takeEmployeesForProject(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -201,8 +208,10 @@ public class EmployeeDAOPG {
 									   signedIn.getHiredBy(),
 									   signedIn.getEmployeeProject(),
 									   null, null));
+		
 		result.close();
 		conn.close();
+		
 		return employees;
 	}
 }

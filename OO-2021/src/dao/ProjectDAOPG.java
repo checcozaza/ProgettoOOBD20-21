@@ -13,15 +13,17 @@ import entities.Customer;
 import entities.Employee;
 import entities.Project;
 import entities.Society;
-import enums.EnumRole;
 import enums.EnumTypology;
 
 public class ProjectDAOPG {
+	
+	// Dichiarazioni utili
 	private Controller c;
 	private Connection conn = null;
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public ProjectDAOPG(Controller co) {
 		c = co;
 	}
@@ -83,6 +85,7 @@ public class ProjectDAOPG {
 		return projects;
 	}
 
+	// Metodo che permette la creazione di un nuovo progetto
 	public void newProject(String vatNumber, String typology, Float budget, String commissionedBy) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -107,11 +110,13 @@ public class ProjectDAOPG {
 		return;
 	}
 
+	// Metodo per recuperare il codice dell'ultimo progetto creato
 	public int retrieveNewestProject(String vatNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
 
 		query = conn.prepareStatement("SELECT MAX(codProgetto) AS ultimoProgetto FROM Progetto WHERE PartIva = ?");
+		
 		query.setString(1, vatNumber);
 		result = query.executeQuery();
 		
@@ -125,6 +130,7 @@ public class ProjectDAOPG {
 		return lastProject.getProjectNumber();
 	}
 
+	// Metodo per chiudere un progetto
 	public void endProject(int projectNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -137,6 +143,7 @@ public class ProjectDAOPG {
 		query.executeUpdate();
 
 		conn.close();
+		
 		return;
 	}
 }

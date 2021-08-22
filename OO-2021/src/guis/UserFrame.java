@@ -155,9 +155,8 @@ public class UserFrame extends JFrame {
 		
 		// Label con informazioni del progetto dell'utente (se esiste) con codice, tipologia e ambiti del progetto.
 		projectInfoLabel = new JLabel("NESSUN PROGETTO ATTIVO"); // Testo di default
-		projectInfoLabel.setBounds(0, 0, 566, 59);
+		projectInfoLabel.setBounds(0, 0, 611, 59);
 		projectInfoLabel.setForeground(Color.decode("#434C5E"));
-		projectInfoLabel.setVerticalAlignment(SwingConstants.TOP);
 		projectInfoLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		projectInfoLabel.setFont(new Font("Roboto", Font.BOLD, 15));
 		meetingsPanel.add(projectInfoLabel);
