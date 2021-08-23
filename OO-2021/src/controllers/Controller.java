@@ -745,9 +745,9 @@ public class Controller {
 	}
 	
 	// Metodo per aprire il frame per scegliere a quale meeting partecipare per un utente
-	public void openChooseMeetingFrame(Employee user) {
+	public void openChooseMeetingFrame(Employee user, DefaultTableModel meetingsTM) {
 		userFr.setVisible(false);
-		chooseMeetingFr = new ChooseMeetingFrame(this, user);
+		chooseMeetingFr = new ChooseMeetingFrame(this, user, meetingsTM);
 		chooseMeetingFr.setVisible(true);
 	}
 	
@@ -920,6 +920,11 @@ public class Controller {
 
 	public void setNewEmployeesTableForCompany(DefaultTableModel employeesTM) {
 		companyFr.updateEmployeesTable(employeesTM);
+		return;
+	}
+
+	public void updateChosenMeetings(DefaultTableModel meetingsTM) {
+		userFr.updateMeetingsTable(meetingsTM);
 		return;
 	}
 }

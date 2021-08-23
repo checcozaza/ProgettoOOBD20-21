@@ -101,6 +101,7 @@ public class RatingDialog extends JDialog {
 									   Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()),
 									   currentProject);
 					} catch (Exception ratingFailed) {
+						ratingFailed.printStackTrace(); 
 						c.openPopupDialog(utility, "La valutazione inserita non è valida.");
 					}
 				}

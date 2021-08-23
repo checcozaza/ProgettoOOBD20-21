@@ -43,7 +43,7 @@ public class ChooseMeetingFrame extends JFrame {
 	private JButton signUpToMeetingButton;
 
 	// Creazione frame
-	public ChooseMeetingFrame(Controller co, Employee user) {
+	public ChooseMeetingFrame(Controller co, Employee user, DefaultTableModel meetingsTM) {
 		c = co;
 		JFrame utility = this;
 		setResizable(false);
@@ -86,6 +86,7 @@ public class ChooseMeetingFrame extends JFrame {
 		goBackButton = new JButton("Indietro");
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
+					c.updateChosenMeetings(meetingsTM);
 					c.goBack(utility);
 			}
 		});
@@ -140,7 +141,21 @@ public class ChooseMeetingFrame extends JFrame {
 			public void actionPerformed(ActionEvent clickAttend) {
 				try {
 					c.addEmployeeToMeeting(user.getFiscalCode(), Integer.valueOf(openMeetingsTable.getValueAt(openMeetingsTable.getSelectedRow(), 4).toString()));
+					Meeting m = user.getEmployeeProject().getProjectMeetings().get(openMeetingsTable.getSelectedRow());
+					String meetingPlace = "";
+					if (!m.isStarted() && !m.isEnded()) { // Impedisce la visualizzazione di meeting in corso o già finiti
+						if (m.getMeetingPlatform() == null) // Controlla se il meeting si tiene in un luogo fisico o su una piattaforma telematica
+							meetingPlace = m.getMeetingRoom();
+						else
+							meetingPlace = m.getMeetingPlatform();
+						
+						meetingsTM.addRow(new Object[] {m.getMeetingDate(),
+								m.getStartTime(),
+								m.getEndTime(),
+								meetingPlace,
+								m.getMeetingNumber()});
 					openMeetingsTM.removeRow(openMeetingsTable.getSelectedRow());
+					}
 				} catch (Exception e) {
 					c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");
 				}

@@ -490,8 +490,8 @@ public class NewProjectFrame extends JFrame {
 						lastProject = c.pickNewestProject(signedInCompany.getVatNumber()); // Prende il codice del nuovo progetto
 						c.insertProjectTopics(lastProject, chosenTopics); // Inserisce gli ambiti per il progetto
 						c.chooseProjectManager(lastProject, managerCf); // Inserisce il project manager del progetto
-						employeesTM.removeRow(employeesTable.getSelectedRow());
-						c.setNewEmployeesTableForCompany(employeesTM);
+						employeesTM.removeRow(employeesTable.getSelectedRow()); // Rimuove l'utente scelto da quelli liberi
+						c.setNewEmployeesTableForCompany(employeesTM); // Aggiorna la table dei dipendenti
 						c.goBack(utility);
 					} catch (Exception projectNotCreated) {
 						c.openPopupDialog(utility, "Recupero delle informazioni necessarie fallito: riprova.");

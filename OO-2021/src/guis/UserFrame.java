@@ -172,7 +172,7 @@ public class UserFrame extends JFrame {
 		
 		signUoToMeetingButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				c.openChooseMeetingFrame(user); // Apre frame con tutti i meeting ai quali è possibile partecipare
+				c.openChooseMeetingFrame(user, meetingsTM); // Apre frame con tutti i meeting ai quali è possibile partecipare
 			}
 		});
 		meetingsPanel.add(signUoToMeetingButton);
@@ -316,5 +316,9 @@ public class UserFrame extends JFrame {
 		
 		pack();
 		setLocationRelativeTo(null);
+	}
+
+	public void updateMeetingsTable(DefaultTableModel meetingsTM2) {
+		meetingsTable.setModel(meetingsTM2);
 	}
 }

@@ -374,6 +374,7 @@ public class NewMeetingFrame extends JFrame {
 						c.addEmployeeToMeeting(manager, newMeeting); // Inserisce il project manager nel meeting appena creato
 						c.openPopupDialog(utility, "Meeting programmato con successo!");
 					} catch (Exception meetingCreationError) {
+						meetingCreationError.printStackTrace();
 						c.openPopupDialog(utility, "Si è verificato un errore: valori selezionati non validi. Riprova.");
 					}
 				}
