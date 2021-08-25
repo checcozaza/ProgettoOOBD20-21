@@ -230,7 +230,7 @@ public class CompanyFrame extends JFrame {
 		
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				c.backToLogin(utility);
+				System.exit(0);
 			}
 		});
 		logoutButton.setForeground(new Color(46, 52, 64));
@@ -278,7 +278,6 @@ public class CompanyFrame extends JFrame {
 		gbc_companyIconLabel.gridy = 0;
 		bottomPanel.add(companyIconLabel, gbc_companyIconLabel);
 		companyIconLabel.setIcon(new ImageIcon(CompanyFrame.class.getResource("/briefcase.png")));
-		
 
 		employeesScrollPane.setViewportView(employeesTable);
 		

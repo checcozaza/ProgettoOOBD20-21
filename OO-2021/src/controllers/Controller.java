@@ -772,9 +772,22 @@ public class Controller {
 		utility.setEnabled(true);
 	}
 	
+	// Metodo che rende visibile ed enabled il frame sottostante dopo il click del tasto ok di una dialog
+	public void backToBackgroundFrame(JDialog utility, JDialog toDispose) {
+		toDispose.dispose();
+		utility.setVisible(true);
+		utility.setEnabled(true);
+	}
+	
 	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
 	public void openPopupDialog(JFrame utility, String toPrintMessage) {
-		infoDl = new PopupDialog(this, utility, toPrintMessage);
+		infoDl = new PopupDialog(this, utility, null, toPrintMessage);
+		infoDl.setVisible(true);
+	}
+	
+	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
+	public void openPopupDialog(JDialog utility, String toPrintMessage) {
+		infoDl = new PopupDialog(this, null, utility, toPrintMessage);
 		infoDl.setVisible(true);
 	}
 	
@@ -918,11 +931,13 @@ public class Controller {
 		}
 	}
 
+	// Metodo che aggiorna la table dei dipendenti dopo averli assegnati ai progetti
 	public void setNewEmployeesTableForCompany(DefaultTableModel employeesTM) {
 		companyFr.updateEmployeesTable(employeesTM);
 		return;
 	}
 
+	// Metodo che aggiorna i meeting ai quali si intende partecipare (progettista)
 	public void updateChosenMeetings(DefaultTableModel meetingsTM) {
 		userFr.updateMeetingsTable(meetingsTM);
 		return;

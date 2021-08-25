@@ -30,7 +30,7 @@ public class PopupDialog extends JDialog {
 	private JButton okButton;
 	
 	// Creazione Dialog
-	public PopupDialog(Controller co, JFrame utility, String popupMessage) {
+	public PopupDialog(Controller co, JFrame utilityFrame, JDialog utilityDialog, String popupMessage) {
 		c = co;
 		JDialog toDispose = this;
 		setResizable(false);
@@ -76,8 +76,11 @@ public class PopupDialog extends JDialog {
 					
 					public void actionPerformed(ActionEvent clickOK) {
 						setVisible(false);
-						c.backToBackgroundFrame(utility, toDispose); /* Al click del tasto ok, viene richiamato un metodo che rende e 
+						if (utilityFrame != null)
+							c.backToBackgroundFrame(utilityFrame, toDispose); /* Al click del tasto ok, viene richiamato un metodo che rende e 
 														  enabled il frame sottostante */
+						else
+							c.backToBackgroundFrame(utilityDialog, toDispose);
 					}
 				});
 				okButton.setActionCommand("OK");

@@ -320,18 +320,22 @@ public class ProjectManagerFrame extends JFrame {
 					ArrayList<Employee> toAdd = new ArrayList<Employee>(); // Dipendenti aggiunti al team
 					for (int i = 0; i < freeEmployeesTable.getRowCount(); i++) {
 						if (freeEmployeesTable.getValueAt(i, 5) != null) { // Se è stato specificato un ruolo per il dipendente
-							toAdd.add(new Employee(freeEmployeesTable.getValueAt(i, 0).toString(),
-									  null, null, null, 
-									  EnumRole.valueOf(freeEmployeesTable.getValueAt(i, 5).toString().replace(' ', '_')), 
-									  0, null, 
-									  manager.getEmployeeProject(), 
-									  null, null));
+							if (!freeEmployeesTable.getValueAt(i, 5).toString().isBlank()) {
+								toAdd.add(new Employee(freeEmployeesTable.getValueAt(i, 0).toString(),
+										  null, null, null, 
+										  EnumRole.valueOf(freeEmployeesTable.getValueAt(i, 5).toString().replace(' ', '_')), 
+										  0, null, 
+										  manager.getEmployeeProject(), 
+										  null, null));
+							}
 						}
 					}
 					c.addToTeam(toAdd); // Aggiunge dipendente al team
 				} catch (IllegalArgumentException invalidRole) {
+					invalidRole.printStackTrace();
 					c.openPopupDialog(utility, "Ruolo non valido, riprova");
 				} catch (Exception addFailed) {
+					addFailed.printStackTrace();
 					c.openPopupDialog(utility, "Aggiunta al team fallita; riprova.");
 				}
 			}

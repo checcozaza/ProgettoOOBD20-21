@@ -49,6 +49,7 @@ public class RatingDialog extends JDialog {
 	// Creazione dialog
 	public RatingDialog(Controller co, int currentProject, ArrayList<Employee> employeesToRate, JFrame utility) {
 		c = co;
+		JDialog utilityDialog = this;
 		setUndecorated(true);
 		setIconImage(Toolkit.getDefaultToolkit().getImage(RatingDialog.class.getResource("/bulb.png")));
 		setBounds(100, 100, 718, 439);
@@ -97,12 +98,16 @@ public class RatingDialog extends JDialog {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (employeesToRateTable.getSelectedRow() != -1) { // Se è stato selezionato un progettista
 					try {
-						c.insertRating(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 0).toString(),
-									   Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()),
-									   currentProject);
+						if (!employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString().equals("Non presente"))
+							c.insertRating(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 0).toString(),
+										   Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()),
+										   currentProject);
+					} catch (NumberFormatException nAn) {
+						nAn.printStackTrace();
+						c.openPopupDialog(utilityDialog, "Il valore inserito non è valido");
 					} catch (Exception ratingFailed) {
 						ratingFailed.printStackTrace(); 
-						c.openPopupDialog(utility, "La valutazione inserita non è valida.");
+						c.openPopupDialog(utilityDialog, "Impossibile inserire la valutazione");
 					}
 				}
 			}
