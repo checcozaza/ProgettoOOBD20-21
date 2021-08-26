@@ -10,7 +10,6 @@ public class Topic {
 	
 	// Costruttore
 	public Topic(String name, ArrayList<Project> topicProjects) {
-		super();
 		this.name = name;
 		this.topicProjects = topicProjects;
 	}

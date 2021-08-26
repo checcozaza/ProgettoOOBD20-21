@@ -75,7 +75,7 @@ public class CompanyFrame extends JFrame {
 		welcomeCompanyPanel = new JPanel();
 		welcomeCompanyPanel.setBackground(Color.decode("#434C5E"));
 		
-		// Label di benvenuto
+		// Label con il titolo del frame
 		JLabel welcomeCompanyLabel = new JLabel("<HTML> <center> Benvenuto, <br>"+ signedInCompany.getName() 
 											  + " (P. IVA " + signedInCompany.getVatNumber() + ") </center> </HTML>");
 		welcomeCompanyLabel.setForeground(Color.decode("#EBCB8B"));
@@ -119,7 +119,7 @@ public class CompanyFrame extends JFrame {
 		
 		// Recupero informazioni sui dipendenti
 		for (Employee em: signedInCompany.getCompanyEmployees()) { // Iterazione su ciascun dipendente dell'azienda
-			int avgRating = c.takeRatingForEmployee(em.getFiscalCode()); // Variabile per conservare l'eventuale valutazione di un dipendente
+			int avgRating = c.takeRatingForEmployee(em.getFiscalCode()); // Variabile per conservare l'eventuale valutazione media di un dipendente
 			String isBusy = "";
 			if (em.getEmployeeProject().getProjectNumber() == 0) // Setta un dipendente a "occupato" o meno a seconda del codice progetto associato
 				isBusy = "No";
@@ -361,6 +361,7 @@ public class CompanyFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	// Metodo che aggiorna la table con i dipendenti
 	public void updateEmployeesTable(DefaultTableModel employeesTM2) {
 		employeesTable.setModel(employeesTM2);
 	}

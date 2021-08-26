@@ -167,8 +167,8 @@ public class ProjectManagerFrame extends JFrame {
 		logoutButton.setIcon(new ImageIcon(ProjectManagerFrame.class.getResource("/logout.png")));
 		
 		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogout) { // Al click del tasto logout, si tornerà alla schermata principale
-				c.backToLogin(utility);
+			public void actionPerformed(ActionEvent clickLogout) {
+				System.exit(0);
 			}
 		});
 		
@@ -332,10 +332,10 @@ public class ProjectManagerFrame extends JFrame {
 					}
 					c.addToTeam(toAdd); // Aggiunge dipendente al team
 				} catch (IllegalArgumentException invalidRole) {
-					invalidRole.printStackTrace();
+
 					c.openPopupDialog(utility, "Ruolo non valido, riprova");
 				} catch (Exception addFailed) {
-					addFailed.printStackTrace();
+
 					c.openPopupDialog(utility, "Aggiunta al team fallita; riprova.");
 				}
 			}

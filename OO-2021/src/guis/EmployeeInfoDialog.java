@@ -32,6 +32,8 @@ import javax.swing.ImageIcon;
 
 public class EmployeeInfoDialog extends JDialog {
 
+	private static final long serialVersionUID = 1L;
+	
 	// Dichiarazioni utili
 	private Controller c;
 	private final JPanel contentPanel = new JPanel();

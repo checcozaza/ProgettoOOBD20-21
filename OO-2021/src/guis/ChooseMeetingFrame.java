@@ -29,6 +29,8 @@ import java.awt.Insets;
 
 public class ChooseMeetingFrame extends JFrame {
 
+	private static final long serialVersionUID = 1L;
+	
 	// Dichiarazioni utili
 	private Controller c;
 	private JPanel contentPane;
@@ -86,7 +88,7 @@ public class ChooseMeetingFrame extends JFrame {
 		goBackButton = new JButton("Indietro");
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
-					c.updateChosenMeetings(meetingsTM);
+					c.updateChosenMeetings(meetingsTM); // Aggiorna i meeting scelti prima di mostrarli
 					c.goBack(utility);
 			}
 		});
@@ -95,7 +97,7 @@ public class ChooseMeetingFrame extends JFrame {
 		logoutButton = new JButton("");
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				c.backToLogin(utility);
+				System.exit(0);
 			}
 		});
 		
@@ -145,16 +147,16 @@ public class ChooseMeetingFrame extends JFrame {
 					String meetingPlace = "";
 					if (!m.isStarted() && !m.isEnded()) { // Impedisce la visualizzazione di meeting in corso o già finiti
 						if (m.getMeetingPlatform() == null) // Controlla se il meeting si tiene in un luogo fisico o su una piattaforma telematica
-							meetingPlace = m.getMeetingRoom();
+							meetingPlace = m.getMeetingRoom(); // Ne conserva il luogo
 						else
-							meetingPlace = m.getMeetingPlatform();
+							meetingPlace = m.getMeetingPlatform(); // Ne conserva la piattaforma
 						
 						meetingsTM.addRow(new Object[] {m.getMeetingDate(),
-								m.getStartTime(),
-								m.getEndTime(),
-								meetingPlace,
-								m.getMeetingNumber()});
-					openMeetingsTM.removeRow(openMeetingsTable.getSelectedRow());
+														m.getStartTime(),
+														m.getEndTime(),
+														meetingPlace,
+														m.getMeetingNumber()});
+					openMeetingsTM.removeRow(openMeetingsTable.getSelectedRow()); // Aggiorna la table
 					}
 				} catch (Exception e) {
 					c.openPopupDialog(utility, "Ops! Qualcosa è andato storto; riprova.");

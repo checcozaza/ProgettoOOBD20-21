@@ -100,7 +100,7 @@ public class SignUpFrame extends JFrame {
 		
 		goBackButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent goBack) {
-				c.backToLogin(utility); // Al click del tasto indietro nella schermata di registrazione, reindirizza al login
+				c.goBack(utility);
 			}
 		});
 		buttonPanel.add(goBackButton);

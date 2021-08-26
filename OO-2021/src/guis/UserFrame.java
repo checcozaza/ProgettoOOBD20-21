@@ -50,7 +50,7 @@ public class UserFrame extends JFrame {
 	private JTable historyTable;
 	private JLabel projectInfoLabel;
 	private JButton logoutButton;
-	private JButton signUoToMeetingButton;
+	private JButton signUpToMeetingButton;
 
 	// Creazione frame
 	public UserFrame(Controller co, Employee user) {
@@ -162,20 +162,20 @@ public class UserFrame extends JFrame {
 		meetingsPanel.add(projectInfoLabel);
 		
 		// Bottone per prenotarsi ad un meeting
-		signUoToMeetingButton = new JButton("Partecipa ad un meeting");
-		signUoToMeetingButton.setForeground(Color.decode("#2E3440"));
-		signUoToMeetingButton.setBackground(Color.decode("#8FBCBB"));
-		signUoToMeetingButton.setFocusPainted(false);
-		signUoToMeetingButton.setBorderPainted(false);
-		signUoToMeetingButton.setBounds(203, 227, 214, 23);
-		signUoToMeetingButton.setFont(new Font("Roboto", Font.PLAIN, 14));
+		signUpToMeetingButton = new JButton("Partecipa ad un meeting");
+		signUpToMeetingButton.setForeground(Color.decode("#2E3440"));
+		signUpToMeetingButton.setBackground(Color.decode("#8FBCBB"));
+		signUpToMeetingButton.setFocusPainted(false);
+		signUpToMeetingButton.setBorderPainted(false);
+		signUpToMeetingButton.setBounds(203, 227, 214, 23);
+		signUpToMeetingButton.setFont(new Font("Roboto", Font.PLAIN, 14));
 		
-		signUoToMeetingButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				c.openChooseMeetingFrame(user, meetingsTM); // Apre frame con tutti i meeting ai quali è possibile partecipare
+		signUpToMeetingButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent chooseMeeting) {
+					c.openChooseMeetingFrame(user, meetingsTM); // Apre frame con tutti i meeting ai quali è possibile partecipare
 			}
 		});
-		meetingsPanel.add(signUoToMeetingButton);
+		meetingsPanel.add(signUpToMeetingButton);
 		
 		// Recupero ambiti di un progetto e formattazione in stringa
 		if (user.getEmployeeProject() != null) { // Se l'utente ha progetti a carico
@@ -191,8 +191,10 @@ public class UserFrame extends JFrame {
 			+ "<br> Ambiti: " + topicToPrint
 			+ "</center> </HTML>");
 		}
-		else
+		else {
+			signUpToMeetingButton.setVisible(false);
 			meetingsScrollPane.setVisible(false);
+		}
 													
 		// Panel che racchiude le informazioni sui progetti precedenti
 		historyPanel = new JPanel();
@@ -284,8 +286,8 @@ public class UserFrame extends JFrame {
 		logoutButton.setIcon(new ImageIcon(UserFrame.class.getResource("/logout.png")));
 		
 		logoutButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickLogin) { // Al click del tasto logout, si tornerà alla schermata principale
-				c.backToLogin(utility);
+			public void actionPerformed(ActionEvent clickLogout) {
+				System.exit(0);
 			}
 		});
 		logoutButton.setFont(new Font("Roboto", Font.PLAIN, 12));
@@ -318,6 +320,7 @@ public class UserFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	// Metodo che aggiorna la table dei meeting
 	public void updateMeetingsTable(DefaultTableModel meetingsTM2) {
 		meetingsTable.setModel(meetingsTM2);
 	}

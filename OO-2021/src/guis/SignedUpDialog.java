@@ -104,6 +104,7 @@ public class SignedUpDialog extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 		}
+		
 		pack();
 		setLocationRelativeTo(null);
 	}

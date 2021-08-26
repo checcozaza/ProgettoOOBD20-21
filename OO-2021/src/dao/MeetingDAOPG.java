@@ -165,8 +165,5 @@ public class MeetingDAOPG {
 		
 		conn.close();
 		return;
-		
-		
-		
 	}
 }

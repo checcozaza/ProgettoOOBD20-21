@@ -1,24 +1,12 @@
 package guis;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
-import javax.swing.JSplitPane;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.CardLayout;
-import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormSpecs;
-import com.jgoodies.forms.layout.RowSpec;
-
 import controllers.Controller;
 
 import java.awt.GridBagLayout;
@@ -35,8 +23,6 @@ import javax.swing.JPasswordField;
 import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Toolkit;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class MainFrame extends JFrame {
 
@@ -133,14 +119,6 @@ public class MainFrame extends JFrame {
 		
 		// Textfield nel quale inserire la password
 		passwordTextField = new JPasswordField();
-//		passwordTextField.addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				if(e.getKeyCode() == KeyEvent.VK_ENTER) {
-//					
-//				}
-//			}
-//		});
 		passwordTextField.setFont(new Font("Roboto", Font.PLAIN, 12));
 		passwordTextField.setForeground(Color.decode("#5E81AC"));
 		GridBagConstraints gbc_passwordTextField = new GridBagConstraints();
@@ -192,23 +170,23 @@ public class MainFrame extends JFrame {
 				usernameTextField.setText("");
 				passwordTextField.setText("");
 				
-				if (username.length() == 16 && !pwd.isBlank()) {
+				if (username.length() == 16 && !pwd.isBlank()) { // Se sta loggando un utente e se la password è stata inserita
 					try {
-						c.checkLoginForEmployee(username, pwd);
+						c.checkLoginForEmployee(username, pwd); // Controlla le credenziali di accesso
 					} catch (Exception loginError) {
-						c.openPopupDialog(utility, "Verifica utente non andata a buon fine");
+						c.openPopupDialog(utility, "Verifica utente non andata a buon fine"); // Messaggio di errore
 					}
 				}
-				else if (username.length() == 11 && !pwd.isBlank()){
+				else if (username.length() == 11 && !pwd.isBlank()){ // Se sta loggando un'azienda e se la password è stata inserita
 					try {
-						c.checkLoginForCompany(username, pwd);
+						c.checkLoginForCompany(username, pwd); // Controlla le credenziali di accesso
 					} catch (Exception loginError) {
-						c.openPopupDialog(utility, "Verifica azienda non andata a buon fine");
+						c.openPopupDialog(utility, "Verifica azienda non andata a buon fine"); // Messaggio di errore
 					}
 				}
 				else {
 					setEnabled(false);
-					c.openPopupDialog(utility, "Username o password non validi");
+					c.openPopupDialog(utility, "Username o password non validi"); // Messaggio di errore
 				}
 			}
 		});

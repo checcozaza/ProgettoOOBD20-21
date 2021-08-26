@@ -138,9 +138,9 @@ public class NewMeetingFrame extends JFrame {
 		// Radiobutton da selezionare nel caso di un meeting online
 		onlineMeetingRadioButton = new JRadioButton("Su piattaforma telematica");
 		onlineMeetingRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickOnlineMeeting) {
-				onlineMeetingTextField.setEnabled(true);
-				meetingPlaceTextField.setEnabled(false);
+			public void actionPerformed(ActionEvent clickOnlineMeeting) { // Se il meeting è online
+				onlineMeetingTextField.setEnabled(true); // Si rende enabled il text field dove inserire la piattaforma
+				meetingPlaceTextField.setEnabled(false); // Si rende non enabled il text field destinato ai meeting fisici
 			}
 		});
 		onlineMeetingRadioButton.setForeground(Color.decode("#ECEFF4"));
@@ -151,9 +151,9 @@ public class NewMeetingFrame extends JFrame {
 		// Radiobutton da selezionare nel caso di un meeting fisico
 		physicalMeetingRadioButton = new JRadioButton("In un luogo fisico");
 		physicalMeetingRadioButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent clickPhysicalMeeting) {
-				meetingPlaceTextField.setEnabled(true);
-				onlineMeetingTextField.setEnabled(false);
+			public void actionPerformed(ActionEvent clickPhysicalMeeting) { // Se il meeting è fisico
+				meetingPlaceTextField.setEnabled(true); // Si rende enabled il text field dove inserire il luogo fisico
+				onlineMeetingTextField.setEnabled(false); // Si rende non enabled il text field destinato ai meeting online
 			}
 		});
 		physicalMeetingRadioButton.setForeground(Color.decode("#ECEFF4"));
@@ -311,7 +311,7 @@ public class NewMeetingFrame extends JFrame {
 		
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				c.backToLogin(utility);
+				System.exit(0);
 			}
 		});
 		
@@ -374,7 +374,7 @@ public class NewMeetingFrame extends JFrame {
 						c.addEmployeeToMeeting(manager, newMeeting); // Inserisce il project manager nel meeting appena creato
 						c.openPopupDialog(utility, "Meeting programmato con successo!");
 					} catch (Exception meetingCreationError) {
-						meetingCreationError.printStackTrace();
+
 						c.openPopupDialog(utility, "Si è verificato un errore: valori selezionati non validi. Riprova.");
 					}
 				}

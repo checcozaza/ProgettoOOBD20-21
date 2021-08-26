@@ -47,12 +47,14 @@ public class Company {
 		this.headquarters = headquarters;
 	}
 	
+	
 	public String getPassw() {
 		return passw;
 	}
 	public void setPassw(String passw) {
 		this.passw = passw;
 	}
+	
 	
 	public ArrayList<Project> getCompanyProjects() {
 		return companyProjects;

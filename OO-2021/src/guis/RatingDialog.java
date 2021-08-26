@@ -98,15 +98,13 @@ public class RatingDialog extends JDialog {
 			public void propertyChange(PropertyChangeEvent evt) {
 				if (employeesToRateTable.getSelectedRow() != -1) { // Se è stato selezionato un progettista
 					try {
-						if (!employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString().equals("Non presente"))
+						if (c.isNumeric(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()))
 							c.insertRating(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 0).toString(),
 										   Integer.valueOf(employeesToRateTable.getValueAt(employeesToRateTable.getSelectedRow(), 1).toString()),
 										   currentProject);
-					} catch (NumberFormatException nAn) {
-						nAn.printStackTrace();
-						c.openPopupDialog(utilityDialog, "Il valore inserito non è valido");
-					} catch (Exception ratingFailed) {
-						ratingFailed.printStackTrace(); 
+						else
+							c.openPopupDialog(utilityDialog, "Il valore inserito non è valido");
+					} catch (Exception ratingFailed) { 
 						c.openPopupDialog(utilityDialog, "Impossibile inserire la valutazione");
 					}
 				}
@@ -180,8 +178,8 @@ public class RatingDialog extends JDialog {
 			
 			closeButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent logout) {
-					c.backToLogin(utility);
 					dispose();
+					System.exit(0);
 				}
 			});
 			buttonPanel.add(closeButton);

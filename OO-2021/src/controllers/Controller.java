@@ -88,10 +88,10 @@ public class Controller {
 			conn = pgc.getConnection();
 			return conn;
 		} catch (SQLException connectionFailed) {
-			connectionFailed.printStackTrace();
+
 			return null;
 		} catch (ClassNotFoundException classNotFound) {
-			classNotFound.printStackTrace();
+
 			return null;
 		}
 	}
@@ -133,7 +133,7 @@ public class Controller {
 		return townDAO.retrieveCodeCat(town);
 	}
 	
-	// Metodo utilizzato per il controllo delle vocali, necessario nel calcolo del codice fiscale
+	// Metodo utilizzato per il controllo delle vocali, utile al calcolo del codice fiscale
 	private boolean isVowel(char c) {
 		return (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U');
 	}
@@ -662,15 +662,15 @@ public class Controller {
 		return signedIn;
 	}
 
-	// Metodo che reindirizza ciascun utente a una homepage personalizzata, dopo aver recuperato le sue informazioni
+	// Metodo che reindirizza ciascun utente a una homepage personalizzata, dopo aver recuperato le rispettive informazioni
 	public void checkLoginForEmployee(String username, String pwd) throws Exception {
 		employeeDAO = new EmployeeDAOPG(this);
 		Employee signedIn = employeeDAO.takeEmployee(username, pwd);
 		if (signedIn != null) { // Se nel DB è presente l'utente, ovvero se si è registrato
-			signedIn = fillEmployeeForLogin(signedIn);
-			if (signedIn.getRole() == EnumRole.Project_Manager)
+			signedIn = fillEmployeeForLogin(signedIn); // Recupera le informazioni dell'utente
+			if (signedIn.getRole() == EnumRole.Project_Manager) // Se l'utente è un project manager
 				openPMFrame(signedIn); // Apre homepage per il project manager (che ha più funzionalità)
-			else
+			else // Per tutti gli altri utenti
 				openUserFrame(signedIn); // Apre homepage per un progettista qualsiasi
 		}
 		else
@@ -692,11 +692,11 @@ public class Controller {
 		companyDAO = new CompanyDAOPG(this);
 		Company signedInCompany = companyDAO.takeCompany(username, pwd);
 		if (signedInCompany != null) {
-			signedInCompany = fillCompanyForLogin(signedInCompany);
-			openCompanyFrame(signedInCompany);
+			signedInCompany = fillCompanyForLogin(signedInCompany); // Recupera le informazioni dell'azienda
+			openCompanyFrame(signedInCompany); // Apre homepage per l'azienda
 		}
 		else
-			openPopupDialog(mainFr, "Username o password non validi");
+			openPopupDialog(mainFr, "Username o password non validi"); // Messaggio di errore
 	}
 	
 	// Metodi finalizzati a regolare la visibilità dei diversi frame ad ogni occorrenza
@@ -715,7 +715,7 @@ public class Controller {
 		userFr.setVisible(true);
 	}
 	
-	// Metodo che reindirizza il project manager adalla sua homepage personalizzata
+	// Metodo che reindirizza il project manager alla sua homepage personalizzata
 	private void openPMFrame(Employee signedIn) throws Exception {
 		mainFr.setVisible(false);
 		projectManagerFr = new ProjectManagerFrame(this, signedIn);
@@ -744,18 +744,11 @@ public class Controller {
 		newProjectFr.setVisible(true);
 	}
 	
-	// Metodo per aprire il frame per scegliere a quale meeting partecipare per un utente
+	// Metodo che apre il frame per scegliere a quale meeting partecipare (progettista)
 	public void openChooseMeetingFrame(Employee user, DefaultTableModel meetingsTM) {
 		userFr.setVisible(false);
 		chooseMeetingFr = new ChooseMeetingFrame(this, user, meetingsTM);
 		chooseMeetingFr.setVisible(true);
-	}
-	
-	// Metodo che fa ritornare alla schermata di login
-	public void backToLogin(JFrame utility) {
-		utility.dispose();
-		mainFr.setVisible(true);
-		mainFr.setEnabled(true);
 	}
 	
 	// Metodo che fa ritornare alla schermata di login dopo la registrazione
@@ -772,20 +765,20 @@ public class Controller {
 		utility.setEnabled(true);
 	}
 	
-	// Metodo che rende visibile ed enabled il frame sottostante dopo il click del tasto ok di una dialog
+	// Metodo che rende visibile ed enabled la dialog sottostante dopo il click del tasto ok di una dialog
 	public void backToBackgroundFrame(JDialog utility, JDialog toDispose) {
 		toDispose.dispose();
 		utility.setVisible(true);
 		utility.setEnabled(true);
 	}
 	
-	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
+	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato (ritorna al frame sottostante)
 	public void openPopupDialog(JFrame utility, String toPrintMessage) {
 		infoDl = new PopupDialog(this, utility, null, toPrintMessage);
 		infoDl.setVisible(true);
 	}
 	
-	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato
+	// Metodo per aprire una dialog al quale viene passato il messaggio stesso che sarà visualizzato (ritorna alla dialog sottostante)
 	public void openPopupDialog(JDialog utility, String toPrintMessage) {
 		infoDl = new PopupDialog(this, null, utility, toPrintMessage);
 		infoDl.setVisible(true);
@@ -805,7 +798,7 @@ public class Controller {
 		ratingForEmployeesDl.setVisible(true);
 	}
 	
-	// Metodo per aprire la dialog con le informazioni sui progetti passati di un dipendente
+	// Metodo che apre la dialog con le informazioni sui progetti passati di un dipendente
 	public void openEmployeeInfoDialog(String cf, JFrame utility) throws Exception {
 		employeeInfoDl = new EmployeeInfoDialog(this, cf, utility);
 		employeeInfoDl.setVisible(true);
@@ -868,7 +861,7 @@ public class Controller {
 		return;
 	}
 	
-	// Metodo per aggiungere un dipendente al team
+	// Metodo per aggiungere un dipendente al team di lavoro
 	public void addToTeam(ArrayList<Employee> toAdd) throws Exception {
 		employeeDAO = new EmployeeDAOPG(this);
 		employeeDAO.addToProject(toAdd);
@@ -889,7 +882,7 @@ public class Controller {
 		return;
 	}
 
-	// Metodo per aggiornare lo stato di un meeting
+	// Metodo per aggiornare lo stato di un meeting (iniziato o finito)
 	public void insertMeetingUpdates(ArrayList<Meeting> meetings) throws Exception {
 		meetingDAO = new MeetingDAOPG(this);
 		meetingDAO.updateMeetings(meetings);
@@ -929,6 +922,10 @@ public class Controller {
 			utility.setVisible(false);
 			projectManagerFr.setVisible(true);
 		}
+		else if (signUpFr != null) {
+			utility.setVisible(false);
+			mainFr.setVisible(true);
+		}
 	}
 
 	// Metodo che aggiorna la table dei dipendenti dopo averli assegnati ai progetti
@@ -941,5 +938,18 @@ public class Controller {
 	public void updateChosenMeetings(DefaultTableModel meetingsTM) {
 		userFr.updateMeetingsTable(meetingsTM);
 		return;
+	}
+	
+	// Metodo utile agli inserimenti delle valutazioni
+	public boolean isNumeric(String strNum) {
+	    if (strNum == null) {
+	        return false;
+	    }
+	    try {
+	        double d = Double.parseDouble(strNum);
+	    } catch (NumberFormatException nfe) {
+	        return false;
+	    }
+	    return true;
 	}
 }

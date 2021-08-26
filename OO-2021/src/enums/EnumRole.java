@@ -2,6 +2,7 @@ package enums;
 
 public enum EnumRole {
 
+	// Valori enumerazione
 	Responsabile_Della_Comunicazione, 
 	Coordinatore_Di_Attività, 
 	Responsabile_Amministrazione,

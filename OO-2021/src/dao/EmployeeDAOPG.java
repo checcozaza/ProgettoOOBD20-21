@@ -4,15 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Company;
 import entities.Employee;
-import entities.Meeting;
 import entities.Project;
 import enums.EnumRole;
 
@@ -81,7 +77,7 @@ public class EmployeeDAOPG {
 		return found;
 	}
 
-	// Metodo che permette il recupero dei dipendenti di un'azienda dal DB
+	// Metodo che permette il recupero dei dipendenti dell'azienda loggata dal DB
 	public ArrayList<Employee> takeEmployeesForCompany(Company signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

@@ -89,7 +89,7 @@ public class NewProjectFrame extends JFrame {
 		typologyComboBox.setFocusable(false);
 		typologyComboBox.setFont(new Font("Roboto", Font.PLAIN, 14));
 		typologyComboBox.setForeground(Color.decode("#5E81AC"));
-		typologyComboBox.setModel(new DefaultComboBoxModel(new String[] {"Ricerca Di Base", "Ricerca Industriale", "Ricerca Sperimentale", "Sviluppo Sperimentale"}));
+		typologyComboBox.setModel(new DefaultComboBoxModel<Object>(new String[] {"Ricerca Di Base", "Ricerca Industriale", "Ricerca Sperimentale", "Sviluppo Sperimentale"}));
 		
 		// JSpinner per inserire un budget per il nuovo progetto
 		budgetSpinner = new JSpinner();
@@ -109,9 +109,9 @@ public class NewProjectFrame extends JFrame {
 		customerRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent chooseCustomer) {
 				try {
-					commissionedByComboBox.setModel(new DefaultComboBoxModel<> (c.pickCustomers()));
+					commissionedByComboBox.setModel(new DefaultComboBoxModel<> (c.pickCustomers())); // Recupera i privati commissionanti
 				} catch (Exception customerNotFound) {
-					c.openPopupDialog(utility, "Nessun cliente trovato tra i privati.");
+					c.openPopupDialog(utility, "Nessun cliente trovato tra i privati."); // Messaggio di errore
 				}
 			}
 		});
@@ -126,9 +126,9 @@ public class NewProjectFrame extends JFrame {
 		societyRadioButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent chooseCustomer) {
 				try {
-					commissionedByComboBox.setModel(new DefaultComboBoxModel<> (c.pickSocieties()));
+					commissionedByComboBox.setModel(new DefaultComboBoxModel<> (c.pickSocieties())); // Recupera le società commissionanti
 				} catch (Exception societyNotFound) {
-					c.openPopupDialog(utility, "Nessun cliente trovato tra le società.");
+					c.openPopupDialog(utility, "Nessun cliente trovato tra le società."); // Messaggio di errore
 				}
 			}
 		});
@@ -434,7 +434,7 @@ public class NewProjectFrame extends JFrame {
 		
 		logoutButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent clickLogout) {
-				c.backToLogin(utility);
+				System.exit(0);
 			}
 		});
 		

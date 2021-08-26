@@ -4,16 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
 
 import controllers.Controller;
 import entities.Employee;
 import entities.EmployeeRating;
-import entities.Meeting;
-import entities.Project;
 import entities.ProjectHistory;
 import enums.EnumTypology;
 
@@ -25,11 +20,12 @@ public class RatingsDAOPG {
 	private ResultSet result = null;
 	private PreparedStatement query;
 
+	// Costruttore
 	public RatingsDAOPG(Controller co) {
 		c = co;
 	}
 
-	// Metodo che permette il recupero delle valutazioni del dipendente loggato dal DB
+	// Metodo che permette il recupero delle valutazioni del dipendente loggato
 	public ArrayList<EmployeeRating> takeRatings(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
