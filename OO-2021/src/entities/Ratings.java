@@ -1,6 +1,6 @@
 package entities;
 
-public class EmployeeRating {
+public class Ratings {
 	
 	// Attributi
 	private int rating;
@@ -8,7 +8,7 @@ public class EmployeeRating {
 	private ProjectHistory pastProject; // Codifica associazione
 	
 	// Costruttore
-	public EmployeeRating(int rating, Employee pastEmployee, ProjectHistory pastProject) {
+	public Ratings(int rating, Employee pastEmployee, ProjectHistory pastProject) {
 		this.rating = rating;
 		this.pastEmployee = pastEmployee;
 		this.pastProject = pastProject;

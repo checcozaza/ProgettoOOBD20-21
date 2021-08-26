@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.TownDAO;
 
-public class TownDAOPG {
+public class TownDAOPG implements TownDAO {
 	
 	// Dichiarazioni utili
 	private Controller c;
@@ -22,6 +23,7 @@ public class TownDAOPG {
 	}
 
 	// Metodo che permette il recupero delle regioni dal DB
+	@Override
 	public Object[] retrieveRegions() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -39,6 +41,7 @@ public class TownDAOPG {
 	}
 
 	// Metodo che permette il recupero delle province della regione selezionata dal DB
+	@Override
 	public Object[] retrieveProvinces(String selectedRegion) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -59,6 +62,7 @@ public class TownDAOPG {
 	}
 
 	// Metodo che permette il recupero delle città della provincia selezionata dal DB
+	@Override
 	public Object[] retrieveCity(String selectedProvince) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -79,6 +83,7 @@ public class TownDAOPG {
 	}
 
 	// Metodo che permette il recupero del codice catastale del comune selezionato dal DB
+	@Override
 	public String retrieveCodeCat(String comune) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.CompanyDAO;
 import entities.Company;
 
-public class CompanyDAOPG {
+public class CompanyDAOPG implements CompanyDAO {
 	
 	// Dichiarazioni utili
 	private Controller c;
@@ -23,6 +24,7 @@ public class CompanyDAOPG {
 	}
 
 	// Metodo che permette il recupero delle aziende dal DB
+	@Override
 	public Object[] retrieveCompanies() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -41,6 +43,7 @@ public class CompanyDAOPG {
 	}
 
 	// Metodo che permette il recupero dell'azienda dell'utente loggato dal DB
+	@Override
 	public Company takeCompany(String username, String pwd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

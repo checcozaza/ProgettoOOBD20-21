@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.RatingsDAO;
 import entities.Employee;
-import entities.EmployeeRating;
+import entities.Ratings;
 import entities.ProjectHistory;
 import enums.EnumTypology;
 
-public class RatingsDAOPG {
+public class RatingsDAOPG implements RatingsDAO {
 
 	// Dichiarazioni utili
 	private Controller c;
@@ -26,7 +27,8 @@ public class RatingsDAOPG {
 	}
 
 	// Metodo che permette il recupero delle valutazioni del dipendente loggato
-	public ArrayList<EmployeeRating> takeRatings(Employee signedIn) throws SQLException {
+	@Override
+	public ArrayList<Ratings> takeRatings(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
 		
@@ -39,9 +41,9 @@ public class RatingsDAOPG {
 		query.setString(1, signedIn.getFiscalCode());
 		result = query.executeQuery();
 		
-		ArrayList<EmployeeRating> ratings = new ArrayList<EmployeeRating>();
+		ArrayList<Ratings> ratings = new ArrayList<Ratings>();
 		while (result.next())
-			ratings.add(new EmployeeRating(result.getInt("valutazione"),
+			ratings.add(new Ratings(result.getInt("valutazione"),
 										   signedIn,
 										   new ProjectHistory(result.getInt("CodProg"), 
 										   EnumTypology.valueOf(result.getString("Tipologia").replace(' ', '_')) , null)));
@@ -52,6 +54,7 @@ public class RatingsDAOPG {
 	}
 
 	// Metodo che permette l'inserimento di una valutazione per i progettisti alla chiusura di un progetto
+	@Override
 	public void insertRatingsForEmployees(String cf, int rating, int currentProject) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -74,7 +77,8 @@ public class RatingsDAOPG {
 	}
 
 	// Metodo che recupera le valutazioni dei dipendenti
-	public ArrayList<EmployeeRating> takeRatingsFromFiscalCode(String cf) throws SQLException {
+	@Override
+	public ArrayList<Ratings> takeRatingsFromFiscalCode(String cf) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
 		
@@ -87,9 +91,9 @@ public class RatingsDAOPG {
 		query.setString(1, cf);
 		result = query.executeQuery();
 		
-		ArrayList<EmployeeRating> ratings = new ArrayList<EmployeeRating>();
+		ArrayList<Ratings> ratings = new ArrayList<Ratings>();
 		while (result.next())
-			ratings.add(new EmployeeRating(result.getInt("valutazione"),
+			ratings.add(new Ratings(result.getInt("valutazione"),
 										   null,
 										   new ProjectHistory(result.getInt("CodProg"), 
 										   EnumTypology.valueOf(result.getString("Tipologia").replace(' ', '_')) , null)));

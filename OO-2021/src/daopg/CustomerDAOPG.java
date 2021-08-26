@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.CustomerDAO;
 
-public class CustomerDAOPG {
+public class CustomerDAOPG implements CustomerDAO {
 
 	// Dichiarazioni utili
 	private Controller c;
@@ -22,6 +23,7 @@ public class CustomerDAOPG {
 	}
 
 	// Metodo che permette il recupero dei privati che commissionano progetti
+	@Override
 	public Object[] retrieveCustomers() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

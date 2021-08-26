@@ -8,7 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import controllers.Controller;
 import entities.Employee;
-import entities.EmployeeRating;
+import entities.Ratings;
 import entities.Meeting;
 import entities.Topic;
 
@@ -221,7 +221,7 @@ public class UserFrame extends JFrame {
 		);
 		
 		// Riempimento della tabella con le informazioni utili
-		for (EmployeeRating er: user.getEmployeeRatings()) {
+		for (Ratings er: user.getEmployeeRatings()) {
 			historyTM.addRow(new Object[] {er.getPastProject().getProjectNumber(),
 										   er.getPastProject().getTypology().toString().replace('_', ' '),
 										   er.getRating() == 0 ? "Non presente" : er.getRating()});

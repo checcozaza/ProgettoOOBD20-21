@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.ProjectDAO;
 import entities.Company;
 import entities.Customer;
 import entities.Employee;
@@ -15,7 +16,7 @@ import entities.Project;
 import entities.Society;
 import enums.EnumTypology;
 
-public class ProjectDAOPG {
+public class ProjectDAOPG implements ProjectDAO {
 	
 	// Dichiarazioni utili
 	private Controller c;
@@ -29,6 +30,7 @@ public class ProjectDAOPG {
 	}
 
 	// Metodo che permette il recupero del progetto attuale di un utente dal DB
+	@Override
 	public Project takeProject(Employee signedIn) throws SQLException {
 
 		conn = c.connect();
@@ -57,6 +59,7 @@ public class ProjectDAOPG {
 	}
 
 	// Metodo che permette il recupero dei progetti dell'azienda loggata dal DB
+	@Override
 	public ArrayList<Project> takeProjectsForCompany(Company signedInCompany) throws SQLException {
 
 		conn = c.connect();
@@ -86,6 +89,7 @@ public class ProjectDAOPG {
 	}
 
 	// Metodo che permette la creazione di un nuovo progetto
+	@Override
 	public void newProject(String vatNumber, String typology, Float budget, String commissionedBy) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -111,6 +115,7 @@ public class ProjectDAOPG {
 	}
 
 	// Metodo per recuperare il codice dell'ultimo progetto creato
+	@Override
 	public int retrieveNewestProject(String vatNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
@@ -131,6 +136,7 @@ public class ProjectDAOPG {
 	}
 
 	// Metodo per chiudere un progetto
+	@Override
 	public void endProject(int projectNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;

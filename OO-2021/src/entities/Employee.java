@@ -16,13 +16,13 @@ public class Employee {
 	private Company hiredBy; // Codifica associazione
 	private Project employeeProject; // Codifica associazione
 	private ArrayList<Meeting> employeeMeetings; // Codifica associazione
-	private ArrayList<EmployeeRating> employeeRatings; // Codifica associazione
+	private ArrayList<Ratings> employeeRatings; // Codifica associazione
 	
 	
 	// Costruttore
 	public Employee(String fiscalCode, String name, String surname, String passwd, EnumRole role, float avgWage, Company hiredBy,
 					Project employeeProject, ArrayList<Meeting> employeeMeetings,
-					ArrayList<EmployeeRating> employeeRatings) {
+					ArrayList<Ratings> employeeRatings) {
 		this.fiscalCode = fiscalCode;
 		this.name = name;
 		this.surname = surname;
@@ -109,10 +109,10 @@ public class Employee {
 	}
 	
 	
-	public ArrayList<EmployeeRating> getEmployeeRatings() {
+	public ArrayList<Ratings> getEmployeeRatings() {
 		return employeeRatings;
 	}
-	public void setEmployeeRatings(ArrayList<EmployeeRating> employeeRatings) {
+	public void setEmployeeRatings(ArrayList<Ratings> employeeRatings) {
 		this.employeeRatings = employeeRatings;
 	}
 }

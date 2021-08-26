@@ -9,10 +9,10 @@ public class ProjectHistory {
 	// Attributi
 	private int projectNumber;
 	private EnumTypology typology; // Codifica associazione
-	private ArrayList<EmployeeRating> projectInfo; // Codifica associazione
+	private ArrayList<Ratings> projectInfo; // Codifica associazione
 	
 	// Costruttore
-	public ProjectHistory(int projectNumber, EnumTypology typology, ArrayList<EmployeeRating> projectInfo) {
+	public ProjectHistory(int projectNumber, EnumTypology typology, ArrayList<Ratings> projectInfo) {
 		this.projectNumber = projectNumber;
 		this.typology = typology;
 		this.projectInfo = projectInfo;
@@ -35,10 +35,10 @@ public class ProjectHistory {
 	}
 	
 	
-	public ArrayList<EmployeeRating> getProjectInfo() {
+	public ArrayList<Ratings> getProjectInfo() {
 		return projectInfo;
 	}
-	public void setProjectInfo(ArrayList<EmployeeRating> projectInfo) {
+	public void setProjectInfo(ArrayList<Ratings> projectInfo) {
 		this.projectInfo = projectInfo;
 	}
 }

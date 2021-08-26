@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controllers.Controller;
-import entities.EmployeeRating;
+import entities.Ratings;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -75,7 +75,7 @@ public class EmployeeInfoDialog extends JDialog {
 		
 
 		// Riempimento della tabella con le informazioni utili
-		for (EmployeeRating er: c.findUserHistory(cf)) {
+		for (Ratings er: c.findUserHistory(cf)) {
 			employeeTM.addRow(new Object[] {er.getPastProject().getProjectNumber(),
 										   er.getPastProject().getTypology().toString().replace('_', ' '),
 										   er.getRating() == 0 ? "Non presente" : er.getRating()});

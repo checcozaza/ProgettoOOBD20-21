@@ -13,18 +13,27 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import connections.PgConnection;
-import dao.CompanyDAOPG;
-import dao.CustomerDAOPG;
-import dao.EmployeeDAOPG;
-import dao.MeetingDAOPG;
-import dao.ProjectDAOPG;
-import dao.RatingsDAOPG;
-import dao.SocietyDAOPG;
-import dao.TopicDAOPG;
-import dao.TownDAOPG;
+import dao.CompanyDAO;
+import dao.CustomerDAO;
+import dao.EmployeeDAO;
+import dao.MeetingDAO;
+import dao.ProjectDAO;
+import dao.RatingsDAO;
+import dao.SocietyDAO;
+import dao.TopicDAO;
+import dao.TownDAO;
+import daopg.CompanyDAOPG;
+import daopg.CustomerDAOPG;
+import daopg.EmployeeDAOPG;
+import daopg.MeetingDAOPG;
+import daopg.ProjectDAOPG;
+import daopg.RatingsDAOPG;
+import daopg.SocietyDAOPG;
+import daopg.TopicDAOPG;
+import daopg.TownDAOPG;
 import entities.Company;
 import entities.Employee;
-import entities.EmployeeRating;
+import entities.Ratings;
 import entities.Meeting;
 import enums.EnumRole;
 import guis.ChooseMeetingFrame;
@@ -46,15 +55,15 @@ public class Controller {
 	private static Controller c;
 	private Connection conn = null;
 	private PgConnection pgc = null;
-	private ProjectDAOPG projectDAO;
-	private MeetingDAOPG meetingDAO;
-	private RatingsDAOPG ratingsDAO;
-	private TownDAOPG townDAO;
-	private EmployeeDAOPG employeeDAO;
-	private CompanyDAOPG companyDAO;
-	private TopicDAOPG topicDAO;
-	private CustomerDAOPG customerDAO;
-	private SocietyDAOPG societyDAO;
+	private ProjectDAO projectDAO;
+	private MeetingDAO meetingDAO;
+	private RatingsDAO ratingsDAO;
+	private TownDAO townDAO;
+	private EmployeeDAO employeeDAO;
+	private CompanyDAO companyDAO;
+	private TopicDAO topicDAO;
+	private CustomerDAO customerDAO;
+	private SocietyDAO societyDAO;
 	private MainFrame mainFr;
 	private SignUpFrame signUpFr;
 	private NewProjectFrame newProjectFr;
@@ -903,7 +912,7 @@ public class Controller {
 	}
 
 	// Metodo che restituisce le valutazioni di un dipendente
-	public ArrayList<EmployeeRating> findUserHistory(String cf) throws Exception {
+	public ArrayList<Ratings> findUserHistory(String cf) throws Exception {
 		ratingsDAO = new RatingsDAOPG(this);
 		return ratingsDAO.takeRatingsFromFiscalCode(cf);
 	}

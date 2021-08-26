@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -10,10 +10,11 @@ import java.sql.Types;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.MeetingDAO;
 import entities.Employee;
 import entities.Meeting;
 
-public class MeetingDAOPG {
+public class MeetingDAOPG implements MeetingDAO {
 
 	// Dichiarazioni utili
 	private Controller c;
@@ -27,6 +28,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo che permette il recupero dei meeting dell'utente loggato dal DB
+	@Override
 	public ArrayList<Meeting> takeMeetings(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -58,6 +60,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo che permette la crezione di un nuovo meeting
+	@Override
 	public int insertNewMeeting(int projectNumber, Date meetingDate, Time startTime, Time endTime, boolean online, String place) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
@@ -90,6 +93,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo per iscrivere un dipendente ad un meeting
+	@Override
 	public void addEmployeeToMeeting(String cf, int newMeeting) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -104,6 +108,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo per recuperare tutti i meeting programmati per un determinato progetto
+	@Override
 	public ArrayList<Meeting> takeMeetingsForProject(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -136,6 +141,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo per aggiornare lo stato di un meeting
+	@Override
 	public void updateMeetings(ArrayList<Meeting> meetings) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -156,6 +162,7 @@ public class MeetingDAOPG {
 	}
 
 	// Metodo per assicurare la consistenza dei meeting
+	@Override
 	public void cronMeeting() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;

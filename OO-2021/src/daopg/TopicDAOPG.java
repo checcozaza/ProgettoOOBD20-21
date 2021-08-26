@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.TopicDAO;
 import entities.Topic;
 
-public class TopicDAOPG {
+public class TopicDAOPG implements TopicDAO {
 
 	// Dichiarazioni utili
 	private Controller c;
@@ -23,6 +24,7 @@ public class TopicDAOPG {
 	}
 
 	// Metodo che recupera gli ambiti di un progetto
+	@Override
 	public ArrayList<Topic> takeProjectTopics(int projectNumber) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -43,6 +45,7 @@ public class TopicDAOPG {
 	}
 
 	// Metodo che recupera tutti gli ambiti possibili per i progetti
+	@Override
 	public ArrayList<Topic> takeTopics() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -62,6 +65,7 @@ public class TopicDAOPG {
 	}
 
 	// Metodo per assegnare uno o più ambiti a un progetto
+	@Override
 	public void insertTopics(int lastProject, ArrayList<String> chosenTopics) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;

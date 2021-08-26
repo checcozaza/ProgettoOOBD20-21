@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,12 +7,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.EmployeeDAO;
 import entities.Company;
 import entities.Employee;
 import entities.Project;
 import enums.EnumRole;
 
-public class EmployeeDAOPG {
+public class EmployeeDAOPG implements EmployeeDAO {
 	
 	// Dichiarazioni utili
 	private Controller c;
@@ -26,6 +27,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che permette l'inserimento di un utente nel DB
+	@Override
 	public void insertEmployeeProfile(Employee employee) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -47,6 +49,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che permette il recupero di un utente dal DB
+	@Override
 	public Employee takeEmployee(String username, String pwd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -78,6 +81,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che permette il recupero dei dipendenti dell'azienda loggata dal DB
+	@Override
 	public ArrayList<Employee> takeEmployeesForCompany(Company signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
@@ -106,6 +110,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che permette il recupero della valutazione media di ciascun dipendente
+	@Override
 	public int retrieveAvgRating(String fiscalCode) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return 0;
@@ -126,6 +131,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo per aggiornare il ruolo di un project manager appena assegnato
+	@Override
 	public void pickProjectManager(int lastProject, String cf) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -144,6 +150,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che associa un progetto a un dipendente scelto
+	@Override
 	public void addToProject(ArrayList<Employee> toAdd) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -165,6 +172,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che aggiorna il salario medio di un dipendente in seguito ad un'eventuale modifica da parte dell'azienda
+	@Override
 	public void modifiedWage(String cf, Float newWage) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return;
@@ -184,6 +192,7 @@ public class EmployeeDAOPG {
 	}
 
 	// Metodo che recupera i dipendenti per un progetto
+	@Override
 	public ArrayList<Employee> takeEmployeesForProject(Employee signedIn) throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;

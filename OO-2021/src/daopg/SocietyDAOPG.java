@@ -1,4 +1,4 @@
-package dao;
+package daopg;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import controllers.Controller;
+import dao.SocietyDAO;
 
-public class SocietyDAOPG {
+public class SocietyDAOPG implements SocietyDAO {
 	
 	// Dichiarazioni utili
 	private Controller c;
@@ -22,6 +23,7 @@ public class SocietyDAOPG {
 	}
 
 	// Metodo che recupera le informazioni sulle società che commissionano progetti
+	@Override
 	public Object[] retrieveSocieties() throws SQLException {
 		conn = c.connect();
 		if (conn == null) return null;
