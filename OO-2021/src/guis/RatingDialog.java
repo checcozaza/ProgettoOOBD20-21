@@ -134,7 +134,7 @@ public class RatingDialog extends JDialog {
 		titleLabel.setFont(new Font("Roboto", Font.PLAIN, 28));
 		
 		// Label informativa
-		JLabel infoLabel = new JLabel("Cliccando su \"Termina ed esci\" sarai reindirizzato alla schermata di login.");
+		JLabel infoLabel = new JLabel("Cliccando su \"Termina ed esci\" sar\u00E0 effettuato il logout.");
 		infoLabel.setForeground(Color.decode("#EBCB8B"));
 		infoLabel.setFont(new Font("Roboto", Font.PLAIN, 14));
 		infoLabel.setHorizontalAlignment(SwingConstants.CENTER);
